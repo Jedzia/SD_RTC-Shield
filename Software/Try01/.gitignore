@@ -1,2 +1,6 @@
 /build
 /cmake-build-*
+bin/
+*.elf
+*.bin
+generated.*.ld
