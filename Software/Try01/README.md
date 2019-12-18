@@ -1,3 +1,6 @@
+
+make -C my-project clean all
+
 Easy "clone and go" repository for a libopencm3 based project.
 
 # Instructions

@@ -48,6 +48,7 @@ CC	= $(PREFIX)gcc
 LD	= $(PREFIX)gcc
 OBJCOPY	= $(PREFIX)objcopy
 OBJDUMP	= $(PREFIX)objdump
+SIZE = $(PREFIX)size
 OOCD	?= openocd
 
 OPENCM3_INC = $(OPENCM3_DIR)/include
@@ -143,6 +144,7 @@ $(BUILD_DIR)/%.o: %.S
 $(PROJECT).elf: $(OBJS) $(LDSCRIPT) $(LIBDEPS)
 	@printf "  LD\t$@\n"
 	$(Q)$(LD) $(TGT_LDFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
+	$(Q)$(SIZE) $@
 
 %.bin: %.elf
 	@printf "  OBJCOPY\t$@\n"

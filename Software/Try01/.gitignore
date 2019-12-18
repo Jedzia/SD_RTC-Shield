@@ -3,4 +3,6 @@
 bin/
 *.elf
 *.bin
+*.hex
+*.srec
 generated.*.ld
