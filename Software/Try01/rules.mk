@@ -109,6 +109,9 @@ LDLIBS += -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
 
 all: $(PROJECT).elf $(PROJECT).bin
 flash: $(PROJECT).flash
+hex: $(PROJECT).hex
+srec: $(PROJECT).srec
+list: $(PROJECT).list
 
 # error if not using linker script generator
 ifeq (,$(DEVICE))
