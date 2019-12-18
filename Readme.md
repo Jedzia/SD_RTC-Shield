@@ -23,7 +23,13 @@ https://www.st.com/en/evaluation-tools/nucleo-f401re.html
 
 ## Links ##
 
-    bluepill sd card usb reader
+* Serial Port
+    - Usage of the ST Link v2.1 virtual serial port for debugging/messaging: https://www.carminenoviello.com/2015/03/02/how-to-use-stm32-nucleo-serial-port/.
+    - An Nucleo-F411RE example: https://github.com/libopencm3/libopencm3-examples/tree/master/examples/stm32/f4/nucleo-f411re/usart
+
+
+* bluepill sd card usb reader
+
     https://www.google.de/search?sxsrf=ACYBGNTLJj9mWIX3zwWYcXrK_Iy6NIsnlg%3A1575778123510&source=hp&ei=S3fsXdS7HILDwAKx4YeICA&q=bluepill+sd+card+usb+reader&oq=bluepill+sd+card+usb+reader&gs_l=psy-ab.3...1060.8708..9252...1.0..0.131.2218.24j3......0....1..gws-wiz.......35i39j0j0i67j0i10j0i13j0i22i30j0i8i13i30j0i22i10i30j33i160.wuLUOMVQBsU&ved=0ahUKEwiUja36lqXmAhWCIVAKHbHwAYEQ4dUDCAc&uact=5
     https://github.com/Ralim/STM32F1-USB-SD
     https://github.com/Ralim/STM32F1-USB-SD/blob/master/Code/workspace/OLEDGPS/src/main.cpp
