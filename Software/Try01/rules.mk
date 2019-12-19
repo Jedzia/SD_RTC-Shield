@@ -162,12 +162,12 @@ ifeq (,$(OOCD_FILE))
 	$(Q)(echo "halt; program $(realpath $(*).elf) verify reset" | nc -4 localhost 4444 2>/dev/null) || \
 		$(OOCD) -f interface/$(OOCD_INTERFACE).cfg \
 		-f target/$(OOCD_TARGET).cfg \
-		-c "program $(realpath $(*).elf) verify reset exit" \
+		-c "program $(*).elf verify reset exit" \
 		$(NULL)
 else
 	$(Q)(echo "halt; program $(realpath $(*).elf) verify reset" | nc -4 localhost 4444 2>/dev/null) || \
 		$(OOCD) -f $(OOCD_FILE) \
-		-c "program $(realpath $(*).elf) verify reset exit" \
+		-c "program $(*).elf verify reset exit" \
 		$(NULL)
 endif
 
