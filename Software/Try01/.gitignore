@@ -5,4 +5,5 @@ bin/
 *.bin
 *.hex
 *.srec
+*.list
 generated.*.ld

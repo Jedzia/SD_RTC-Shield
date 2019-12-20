@@ -2,23 +2,54 @@
 
 https://www.st.com/en/evaluation-tools/nucleo-f401re.html
 
+## Build ##
+
+    make V=1 -C my-project
+    make V=1 -C my-project hex
+    make V=1 -C my-project srec
+
+Flash 
+
+    make V=1 -C my-project flash
+
+Program listing
+
+    make V=1 -C my-project list
+
+Cleanup
+
+    make V=1 -C my-project clean
+
+
 # Notes #
 Various hints, information, notes and other points that came up during R&D.
 
-Display size of the segments in hexadecimal sysv-style
+* Display size of the segments in hexadecimal sysv-style
+        cd E:\Projects\Elektronik\ARM\STM32F401\SD_RTC-Shield\Software\Try01
+        arm-none-eabi-size my-project\awesomesauce.elf -Ax
+    
+        The options are:
+        -A|-B|-G  --format={sysv|berkeley|gnu}  Select output style (default is berkeley)
+        -o|-d|-x  --radix={8|10|16}         Display numbers in octal, decimal or hex
+        -t        --totals                  Display the total sizes (Berkeley only)
+                --common                  Display total size for *COM* syms
+                --target=<bfdname>        Set the binary file format
+                @<file>                   Read options from <file>
+        -h        --help                    Display this information
+        -v        --version                 Display the program's version
 
-    cd E:\Projects\Elektronik\ARM\STM32F401\SD_RTC-Shield\Software\Try01
-    arm-none-eabi-size my-project\awesomesauce.elf -Ax
 
-    The options are:
-    -A|-B|-G  --format={sysv|berkeley|gnu}  Select output style (default is berkeley)
-    -o|-d|-x  --radix={8|10|16}         Display numbers in octal, decimal or hex
-    -t        --totals                  Display the total sizes (Berkeley only)
-            --common                  Display total size for *COM* syms
-            --target=<bfdname>        Set the binary file format
-            @<file>                   Read options from <file>
-    -h        --help                    Display this information
-    -v        --version                 Display the program's version
+* Com-Port shennanigans via https://superuser.com/questions/835848/how-to-view-serial-com-ports-but-not-through-device-manager
+        wmic path CIM_LogicalDevice where "Description like 'STMicroelectronics STLink Virtual COM Port%'" get /value > port.txt
+        wmic path Win32_SerialPort > serial.txt
+    
+        python -c "import serial.tools.list_ports as ls;print list(ls.comports())"
+    
+        chgport
+    Connect to serial via screen: 
+        Use pyserial
+        picocom
+
 
 ## ToDo ##
 
