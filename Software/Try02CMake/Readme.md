@@ -11,6 +11,8 @@ ARM build (with MinGW CMake)
     make clean VERBOSE=1 all
     
 
+why VS? better use CLion
+
 Visual studio setup (for editing, with Windows CMake)
 
     cd blinky

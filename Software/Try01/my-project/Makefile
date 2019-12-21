@@ -2,7 +2,7 @@ PROJECT = awesomesauce
 BUILD_DIR = bin
 
 SHARED_DIR = ../my-common-code
-CFILES = my-project.c
+CFILES = my-project.c ds1307.c ds_common.c common_lib/utils.c common_lib/i2c.c common_lib/usart.c
 CFILES += api.c
 AFILES += api-asm.S
 
