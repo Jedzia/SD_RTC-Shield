@@ -1,6 +1,7 @@
 /build
 /cmake-build-*
 bin/
+/tmp
 *.elf
 *.bin
 *.hex
