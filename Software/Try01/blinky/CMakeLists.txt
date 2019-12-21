@@ -5,19 +5,6 @@ message(STATUS "Configuring project ${PROJECT_NAME}")
 project(${PROJECT_NAME} C ASM)
 cmake_minimum_required(VERSION 3.1)
 
-set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_SYSTEM_PROCESSOR arm)
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
-
-set(OBJCOPY arm-none-eabi-objcopy)
-set(CMAKE_C_COMPILER arm-none-eabi-gcc)
-
-set(CMAKE_EXE_LINKER_FLAGS_INIT "--specs=rdimon.specs")
-
-
 set(LIBOPENCM3_DIR ${CMAKE_SOURCE_DIR}/../libopencm3)
 
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
