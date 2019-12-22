@@ -6,6 +6,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 set(OBJCOPY arm-none-eabi-objcopy)
+set(SIZE arm-none-eabi-size)
 set(CMAKE_C_COMPILER arm-none-eabi-gcc)
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--specs=rdimon.specs")
