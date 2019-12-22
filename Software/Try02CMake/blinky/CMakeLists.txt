@@ -13,7 +13,7 @@ set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 
 #set(STM32F4_FLAGS "-mcpu=cortex-m3 -mthumb -msoft-float")
 set(STM32F4_FLAGS "-mcpu=cortex-m4 -mthumb -mfloat-abi=hard")
-set(EXTRA_C_FLAGS "-std=c11 \
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c11 \
 -Os \
 -Wall \
 -Wextra \
@@ -28,6 +28,8 @@ set(EXTRA_C_FLAGS "-std=c11 \
 -fdata-sections \
 -Wno-packed-bitfield-compat \
 ${STM32F4_FLAGS}")
+
+SET(CMAKE_ASM_FLAGS ${CMAKE_ASM_FLAGS} "${CMAKE_C_FLAGS} -x assembler-with-cpp")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_C_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
@@ -46,12 +48,17 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 set(SOURCES
     main.c
     common_lib/utils.c
+	../my-common-code/api.c
+	../my-common-code/api-asm.S
     )
+#set_source_files_properties(../my-common-code/api-asm.S PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
+
 
 add_definitions(-DSTM32F4)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}../my-common-code
     ${LIBOPENCM3_DIR}/include
 )
 
