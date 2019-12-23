@@ -24,7 +24,7 @@ REM set MAKEFLAGS=-j8
 REM call C:\D\ldc2vars64.bat
 rem cd E:\Projects\D
 
-start "" "C:\Program Files\JetBrains\CLion 2019.2.3\bin\clion64.exe"
+start "" "C:\Program Files\JetBrains\CLion\bin\clion64.exe"
 
 @REM sleep 8 seconds
 @PING localhost -n 9 >NUL

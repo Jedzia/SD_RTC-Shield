@@ -105,6 +105,7 @@ int main(void) {
 			__asm__("nop");
 		}
 }
+#pragma clang diagnostic pop
 
 	return 0;
 	
