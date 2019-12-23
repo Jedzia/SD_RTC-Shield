@@ -8,17 +8,22 @@ https://www.st.com/en/evaluation-tools/nucleo-f401re.html
     make V=1 -C my-project hex
     make V=1 -C my-project srec
 
-Flash 
+* Upload to Flash 
+        make V=1 -C my-project flash
+    OpenOCD is required.
 
-    make V=1 -C my-project flash
+* Serial Monitor
+    
+    The python module **pyserial** is required. You can install it with `python -m pip install pyserial`.
+        make monitor
+    upload to flash before starting the monitor: 
+        make fmonitor
+    
+* Program listing
+        make V=1 -C my-project list
 
-Program listing
-
-    make V=1 -C my-project list
-
-Cleanup
-
-    make V=1 -C my-project clean
+* Cleanup
+        make V=1 -C my-project clean
 
 
 # Notes #
@@ -44,6 +49,8 @@ Various hints, information, notes and other points that came up during R&D.
         wmic path Win32_SerialPort > serial.txt
     
         python -c "import serial.tools.list_ports as ls;print list(ls.comports())"
+        "C:\Python\Python37\python" -m serial.tools.miniterm --raw --eol CRLF --encoding ascii COM17 115200
+            exit: CTRL+] => CTRL++, right beneath ü on german keyboard
     
         chgport
     Connect to serial via screen: 

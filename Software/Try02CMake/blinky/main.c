@@ -81,6 +81,7 @@ int main(void) {
 		/* Using API function gpio_toggle(): */
 		gpio_toggle(GPIOA, GPIO5);	/* LED on/off */
 
+		usart_send_blocking(USART2, 'X');
 		usart_send_blocking(USART2, c + '0'); /* USART2: Send byte. */
 		c = (c == 9) ? 0 : c + 1;	/* Increment c. */
 		if ((j++ % 80) == 0) {		/* Newline after line full. */

@@ -106,6 +106,18 @@ add_custom_target(flash
     DEPENDS ${CMAKE_PROJECT_NAME}.elf
 	COMMENT "Invoking: OpenOCD flash with ${CMAKE_PROJECT_NAME}.elf")
 
+set(PYTHON "C:/Python/Python37/python")
+set(PORT COM17)
+set(BAUDRATE 115200)
+add_custom_target(monitor
+    ${PYTHON} -m serial.tools.miniterm --raw --eol CRLF --encoding ascii ${PORT} ${BAUDRATE}
+	COMMENT "Invoking: miniterm on port ${PORT}. Exit with CTRL+'+'")
+add_custom_target(fmonitor
+    ${PYTHON} -m serial.tools.miniterm --raw --eol CRLF --encoding ascii ${PORT} ${BAUDRATE}
+    DEPENDS flash
+	COMMENT "Invoking: miniterm on port ${PORT}. Exit with CTRL+'+'")
+
+	
 		
 add_custom_target(upload
     stat -c %s ${CMAKE_PROJECT_NAME}.bin &&
