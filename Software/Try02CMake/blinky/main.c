@@ -88,17 +88,19 @@ int main(void) {
 			usart_send_blocking(USART2, '\n');
 		}
 
-		for (i = 0; i < 1500000; i++) {	/* Wait a bit. */
+  		const int DELAY_TIME = 120000;
+
+		for (i = 0; i < 30 * DELAY_TIME; i++) {	/* Wait a bit. */
 			__asm__("nop");
 		}
 
 		gpio_toggle(GPIOB, GPIO3);	/* LED on/off */
-		for (i = 0; i < 250000; i++) {	/* Wait a bit. */
+		for (i = 0; i < 5 * DELAY_TIME; i++) {	/* Wait a bit. */
 			__asm__("nop");
 		}
 		
 		gpio_toggle(GPIOB, GPIO5);	/* LED on/off */
-		for (i = 0; i < 50000; i++) {	/* Wait a bit. */
+		for (i = 0; i < DELAY_TIME; i++) {	/* Wait a bit. */
 			__asm__("nop");
 		}
 }

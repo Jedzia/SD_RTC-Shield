@@ -91,12 +91,20 @@ include_directories(
 
 add_custom_target(libopencm3 make WORKING_DIRECTORY ${LIBOPENCM3_DIR})
 link_directories(${LIBOPENCM3_DIR}/lib)
+
 add_executable(${CMAKE_PROJECT_NAME}.elf ${SOURCES})
 target_link_libraries(${CMAKE_PROJECT_NAME}.elf opencm3_stm32f4)
 do_objcopy(${CMAKE_PROJECT_NAME} bin)
 do_objcopy(${CMAKE_PROJECT_NAME} srec)
 do_objcopy(${CMAKE_PROJECT_NAME} hex)
 do_size(${CMAKE_PROJECT_NAME})
+
+set(OOCD openocd)
+set(OOCD_FILE board/st_nucleo_f4.cfg)
+add_custom_target(flash
+    ${OOCD} -f ${OOCD_FILE} -c "program ${CMAKE_PROJECT_NAME}.elf verify reset exit"
+    DEPENDS ${CMAKE_PROJECT_NAME}.elf
+	COMMENT "Invoking: OpenOCD flash with ${CMAKE_PROJECT_NAME}.elf")
 
 		
 add_custom_target(upload
