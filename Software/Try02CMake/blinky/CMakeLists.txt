@@ -85,7 +85,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 -Wl,--gc-sections")
 ]]
 
-message( "CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
+#message( "CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 -T ${CMAKE_CURRENT_SOURCE_DIR}/generated.stm32f401ret6.ld \
 -nostartfiles -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
@@ -94,6 +94,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 -lc -lgcc \
 -lnosys \
 -specs=nosys.specs \
+-specs=nano.specs \
 -Wl,--end-group")
 #
 #-lnosys \
