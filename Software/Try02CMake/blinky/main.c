@@ -8,6 +8,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
+#include "../my-common-code/DS1307.h"
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
@@ -70,8 +71,8 @@ int main(void) {
     usart_setup();
 
     wait();
-
     printf("Hello, we're running\n");
+    i2c_setup();
 
     /* Blink the LED (PC8) on the board. */
     while(1) {

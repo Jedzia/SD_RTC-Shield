@@ -106,10 +106,12 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 # Source files for main target.
 set(SOURCES
         main.c
-        common_lib/utils.c
+#        common_lib/utils.c
         ../my-common-code/api.c
         ../my-common-code/api-asm.S
-        ../my-common-code/uartprint.c)
+        ../my-common-code/uartprint.c
+        ../my-common-code/clock.c
+        ../my-common-code/DS1307.c)
 #set_source_files_properties(../my-common-code/api-asm.S PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 
 
