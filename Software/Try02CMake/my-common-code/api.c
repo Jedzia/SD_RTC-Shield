@@ -1,7 +1,6 @@
 
 #include "api.h"
 
-int my_func(int a)
-{
-	return a * 3;
+int my_func(int a) {
+    return a * 3;
 }

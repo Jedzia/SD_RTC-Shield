@@ -1,9 +1,80 @@
 //#include "api.h"
 //#include "api-asm.h"
 
+#include <errno.h>
+#include <stdio.h>
+#include <sys/stat.h>
+
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
+
+//int _write(int file, char *ptr, int len);
+
+volatile int xxx = 2;
+
+/*int __io_putchar(int ch) {
+    xxx += 41;
+    return 0;
+}
+
+int fputc(int ch, FILE *f) {
+    xxx += 42;
+    return 0;
+}
+
+signed int __fastcall _sfvwrite_r(char *a1, int a2, int a3){
+xxx += 43;
+return 0;
+}*/
+
+int _read (int fd, const void *buf, size_t count)
+{
+    xxx += 11;
+    return 0;
+}
+
+/*int _write (int fd, const void *buf, size_t count)
+{
+    xxx += 44;
+    return 0;
+
+}*/
+
+__attribute__((weak)) int __io_putchar(int ch)
+{
+    //HAL_StatusTypeDef status = HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+    //return (status == HAL_OK ? ch : 0);
+    xxx += 44;
+    usart_send_blocking(USART2, ch);
+    return 0;
+}
+
+// Don't forget to allow external linkage if this is C++ code
+extern ssize_t _write(int file, const char *ptr, ssize_t len);
+
+ssize_t _write(int file, const char *data, ssize_t len)
+//__attribute__ ((used))  int _write (int fd, char *ptr, int len)
+//int _write(int fd, char *ptr, int len)
+{
+    //xxx += 43;
+    //return 43;
+
+    usart_send_blocking(USART2, '*');
+    int i;
+
+    if (file == 1) {
+        for (i = 0; i < len; i++) {
+            if (data[i] == '\n') {
+                usart_send_blocking(USART2, '\r');
+            }
+            usart_send_blocking(USART2, data[i]);
+        }
+        return i;
+    }
+    errno = EIO;
+    return -1;
+}
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
@@ -49,6 +120,12 @@ static void gpio_setup(void) {
     gpio_set_af(GPIOA, GPIO_AF7, GPIO2);
 }
 
+void waitx() {
+    for(int i = 0; i < 2 * 120000; i++) {    /* Wait a bit. */
+        __asm__("nop");
+    }
+}
+
 int main(void) {
 
     int i, j = 0, c = 0;
@@ -56,6 +133,30 @@ int main(void) {
     clock_setup();
     gpio_setup();
     usart_setup();
+
+    waitx();
+
+    usart_send_blocking(USART2, '0');
+    __io_putchar(';');
+    waitx();
+
+    /*for(i = 0; i < 30 * 120000; i++) {
+        __asm__("nop");
+    }*/
+
+    usart_send_blocking(USART2, '1');
+    waitx();
+
+    _write(1, "fuck you\n", 9);
+    waitx();
+
+    usart_send_blocking(USART2, '2');
+    waitx();
+
+    //printf("GRRR%dGRR\n", 42);
+    char test[]="whatsup guys\n";
+    printf(test);
+    printf("Hello, we're running\n");
 
     /* Blink the LED (PC8) on the board. */
     while(1) {
@@ -79,14 +180,14 @@ int main(void) {
         gpio_toggle(GPIOA, GPIO5);    /* LED on/off */
 
         usart_send_blocking(USART2, 'X');
-        usart_send_blocking(USART2, c + '0'); /* USART2: Send byte. */
+        usart_send_blocking(USART2, (uint16_t) (c + '0')); /* USART2: Send byte. */
         c = (c == 9) ? 0 : c + 1;    /* Increment c. */
         if((j++ % 80) == 0) {        /* Newline after line full. */
             usart_send_blocking(USART2, '\r');
             usart_send_blocking(USART2, '\n');
         }
 
-        const int DELAY_TIME = 120000;
+        const int DELAY_TIME = 20000;
 
         for(i = 0; i < 30 * DELAY_TIME; i++) {    /* Wait a bit. */
             __asm__("nop");
@@ -103,7 +204,7 @@ int main(void) {
         }
     }
 
-    return 0;
+    //return 0;
 
     /* add your own code */
     /*uint32_t rev = 0xaabbccdd;
