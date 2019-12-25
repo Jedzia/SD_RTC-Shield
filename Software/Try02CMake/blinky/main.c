@@ -67,13 +67,13 @@ int main(void) {
 
     int i, j = 0, c = 0;
 
-    clock_setup();
     sys_clock_setup();
+    clock_setup();
     gpio_setup();
     usart_setup();
 
     //wait();
-    msleep(100);
+    msleep(2000);
     printf("Hello, we're running\n");
     i2c_setup();
 
@@ -108,12 +108,12 @@ int main(void) {
 //        }
 
 
-        const int DELAY_TIME = 10;
+        const int DELAY_TIME = 500;
 
-        msleep(3 * DELAY_TIME);
+        //msleep(3 * DELAY_TIME);
 
         gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
-        msleep(5 * DELAY_TIME);
+        //msleep(5 * DELAY_TIME);
 
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);

@@ -25,6 +25,10 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/cm3/systick.h>
+//#include <libopencm3/cm3/assert.h>
+//#include <libopencm3/stm32/rcc.h>
+//#include <libopencm3/stm32/pwr.h>
+#include <libopencm3/stm32/flash.h>
 
 /* Common function descriptions */
 #include "clock.h"
@@ -51,6 +55,7 @@ uint32_t mtime(void)
 	return system_millis;
 }
 
+
 /*
  * clock_setup(void)
  *
@@ -62,9 +67,47 @@ void sys_clock_setup(void)
 {
 	/* Base board frequency, set to 168Mhz */
     //rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_168MHZ]);
+    //rcc_clock_setup_pll(&rcc_ahb_frequency);
+    //rcc_clock_setup_hse_3v3(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
+    //rcc_clock_setup_in_hsi_out_48mhz();
 
-	/* clock rate / 168000 to get 1mS interrupt rate */
-	systick_set_reload(168000);
+    //RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    //RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    //struct rcc_clock_scale rcc_hse_8mhz_external = {0};
+    //rcc_hse_8mhz_external.ahb_frequency =
+
+    const struct rcc_clock_scale rcc_hse_8mhz_external =
+            { /* 84MHz */
+                    .pllm = 8,
+                    .plln = 336,
+                    .pllp = 4,
+                    .pllq = 7,
+                    .pllr = 0,
+                    .pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
+                    .hpre = RCC_CFGR_HPRE_DIV_NONE,
+                    .ppre1 = RCC_CFGR_PPRE_DIV_2,
+                    .ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+                    .voltage_scale = PWR_SCALE1,
+                    .flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
+                                    FLASH_ACR_LATENCY_2WS,
+                    .ahb_frequency  = 84000000,
+                    .apb1_frequency = 42000000,
+                    .apb2_frequency = 84000000,
+            };
+
+            //rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
+
+    rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_3V3_84MHZ]);
+
+    //rcc_osc_bypass_enable(RCC_HSE);
+    //rcc_osc_on(RCC_HSE);
+    //rcc_wait_for_osc_ready(RCC_HSE);
+
+
+    /* clock rate / 168000 to get 1mS interrupt rate */
+    //systick_set_reload(168000);
+    //systick_set_reload(16000);
+    systick_set_reload(84000);
 	systick_set_clocksource(STK_CSR_CLKSOURCE_AHB);
 	systick_counter_enable();
 
