@@ -8,8 +8,8 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
-#include "../my-common-code/DS1307.h"
-#include "../my-common-code/clock.h"
+#include "../common-code/DS1307.h"
+#include "../common-code/clock.h"
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
