@@ -125,6 +125,8 @@ int main(void) {
 
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
+
+        //DS1307_DoSomething();
     }
 
     //return 0;

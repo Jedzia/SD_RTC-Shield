@@ -4,18 +4,27 @@
 
 #include "DS1307.h"
 #include "clock.h"
+#include <stdio.h>
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/i2c.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/cm3/assert.h>
 
+#define DS1307_ADDRESS        0x68  ///< I2C address for DS1307
+#define DS1307_CONTROL        0x07  ///< Control register
+#define DS1307_NVRAM          0x08  ///< Start of RAM registers - 56 bytes, 0x08 to 0x3f
+
+void DS1307_DoSomething() {
+    uint8_t val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
+    printf("I2C Value: %d\n", val);
+}
 
 void i2c_setup(void)
 {
     rcc_periph_clock_enable(RCC_GPIOA);
     rcc_periph_clock_enable(RCC_GPIOC);
-    rcc_periph_clock_enable(RCC_I2C3);
+    rcc_periph_clock_enable(RCC_I2C1);
 
     gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8);
     gpio_set_output_options(GPIOA, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ,
@@ -27,26 +36,26 @@ void i2c_setup(void)
             GPIO9);
     gpio_set_af(GPIOC, GPIO_AF4, GPIO9);
 
-    i2c_peripheral_disable(I2C3); /* disable i2c during setup */
-    i2c_reset(I2C3);
+    i2c_peripheral_disable(I2C1); /* disable i2c during setup */
+    i2c_reset(I2C1);
 
-    i2c_set_fast_mode(I2C3);
-    i2c_set_clock_frequency(I2C3, I2C_CR2_FREQ_42MHZ);
-    i2c_set_ccr(I2C3, 35);
-    i2c_set_trise(I2C3, 43);
-    //i2c_set_speed(I2C3, 0);
+    i2c_set_fast_mode(I2C1);
+    i2c_set_clock_frequency(I2C1, I2C_CR2_FREQ_42MHZ);
+    i2c_set_ccr(I2C1, 35);
+    i2c_set_trise(I2C1, 43);
+    //i2c_set_speed(I2C1, 0);
 
-    i2c_peripheral_enable(I2C3); /* finally enable i2c */
+    i2c_peripheral_enable(I2C1); /* finally enable i2c */
 
-    i2c_set_own_7bit_slave_address(I2C3, 0x00);
+    i2c_set_own_7bit_slave_address(I2C1, 0x00);
 }
 
 
 void i2c_deinit(void) {
-    i2c_send_stop(I2C3);
+    i2c_send_stop(I2C1);
 
-    i2c_reset(I2C3);
-    i2c_peripheral_disable(I2C3); /* disable i2c during setup */
+    i2c_reset(I2C1);
+    i2c_peripheral_disable(I2C1); /* disable i2c during setup */
 
 }
 
