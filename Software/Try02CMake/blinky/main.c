@@ -12,10 +12,23 @@
 #include "../common-code/DS1307.h"
 #include "../common-code/clock.h"
 
+
 static void sys_clock_setup2(void) {
-    systick_set_reload(2000);
+    rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_3V3_84MHZ]);
+    systick_set_frequency(84000, 84000);
+    systick_set_reload(84000);
     systick_counter_enable();
     systick_interrupt_enable();
+}
+
+static void sys_clock_setup3(void) {
+    rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_3V3_84MHZ]);
+    systick_set_reload(16000);
+    systick_counter_enable();
+    systick_interrupt_enable();
+    rcc_osc_bypass_enable(RCC_HSE);
+    rcc_osc_off(RCC_HSE);
+    //rcc_osc_on(RCC_HSE);
 }
 
 static void clock_setup(void) {
@@ -74,8 +87,9 @@ int main(void) {
 
     int i, j = 0, c = 0;
 
-    sys_clock_setup();
-    //sys_clock_setup2();
+    //sys_clock_setup();
+    sys_clock_setup2();
+    //sys_clock_setup3();
     clock_setup();
     gpio_setup();
     usart_setup();
@@ -115,6 +129,13 @@ int main(void) {
 //            usart_send_blocking(USART2, '\n');
 //        }
 
+
+        /*uint32_t tickstart = mtime();
+        for(int k = 0; k < 1000000; ++k) {
+            __asm__("nop");
+        }
+        uint32_t currticks = mtime();
+        printf("mtime (%lu - %lu) = %lu\n",  currticks, tickstart, currticks - tickstart);*/
 
         const int DELAY_TIME = 500;
 
