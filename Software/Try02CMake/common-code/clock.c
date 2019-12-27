@@ -61,6 +61,20 @@ uint32_t mtime(void) {
  * a standard feature of the Cortex-M series.
  */
 void sys_clock_setup(void) {
+    rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_3V3_84MHZ]);
+    systick_set_frequency(84000, 84000);
+    systick_set_reload(84000);
+    systick_counter_enable();
+    systick_interrupt_enable();
+}
+
+
+
+
+
+/* ToDo: Remove this */
+__attribute__((deprecated("ToDo: Remove me")))
+void sys_clock_setup_old(void) {
 
     /* clock rate / 168000 to get 1mS interrupt rate */
     //systick_set_reload(168000);
