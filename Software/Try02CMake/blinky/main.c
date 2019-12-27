@@ -8,8 +8,15 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
+#include <libopencm3/cm3/systick.h>
 #include "../common-code/DS1307.h"
 #include "../common-code/clock.h"
+
+static void sys_clock_setup2(void) {
+    systick_set_reload(2000);
+    systick_counter_enable();
+    systick_interrupt_enable();
+}
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
@@ -68,12 +75,13 @@ int main(void) {
     int i, j = 0, c = 0;
 
     sys_clock_setup();
+    //sys_clock_setup2();
     clock_setup();
     gpio_setup();
     usart_setup();
 
     //wait();
-    msleep(2000);
+    //msleep(4000);
     printf("Hello, we're running\n");
     i2c_setup();
 

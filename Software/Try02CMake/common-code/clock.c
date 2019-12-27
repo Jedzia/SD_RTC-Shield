@@ -109,6 +109,7 @@ void sys_clock_setup(void) {
 #else
 //
     const struct rcc_clock_scale *clock = &rcc_hse_8mhz_external;
+    rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_3V3_84MHZ]);
 //
 //    //rcc_osc_off(RCC_HSI);
 //    rcc_osc_bypass_enable(RCC_HSE);
@@ -367,8 +368,62 @@ void sys_clock_setup(void) {
 //    {
 //        Error_Handler();
 //    }
+
+    /* Configure flash settings. */
+    if (clock->flash_config & FLASH_ACR_DCEN) {
+        flash_dcache_enable();
+    } else {
+        flash_dcache_disable();
+    }
+    if (clock->flash_config & FLASH_ACR_ICEN) {
+        flash_icache_enable();
+    } else {
+        flash_icache_disable();
+    }
+    flash_set_ws(clock->flash_config);
+
+    /* Select PLL as SYSCLK source. */
+    rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
+
+    /* Wait for PLL clock to be selected. */
+    //rcc_wait_for_sysclk_status(RCC_PLL);
+
+    /* Set the peripheral clock frequencies used. */
+    //rcc_ahb_frequency  = clock->ahb_frequency;
+    //rcc_apb1_frequency = clock->apb1_frequency;
+    //rcc_apb2_frequency = clock->apb2_frequency;
+
+    const uint8_t div = 1;
+    rcc_ahb_frequency  = 84000000 / div;
+    rcc_apb1_frequency = 42000000 / div;
+    rcc_apb2_frequency = 84000000 / div;
+
+    /* Disable internal high-speed oscillator. */
+    if (clock->pll_source == RCC_CFGR_PLLSRC_HSE_CLK) {
+        rcc_osc_off(RCC_HSI);
+    }
+
 #endif
 
+    //rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_3V3_84MHZ]);
+    //rcc_clock_setup_pll(&rcc_hse_8mhz_external);
+
+    systick_interrupt_disable();
+    systick_counter_disable();
+
+    systick_set_frequency(84000, 84000);
+
+    systick_set_reload(84000);
+    systick_set_clocksource(STK_CSR_CLKSOURCE_AHB);
+    //systick_set_clocksource(STK_CSR_CLKSOURCE_AHB_DIV8);
+    //systick_set_clocksource(STK_CSR_CLKSOURCE);
+    //systick_set_clocksource(0);
+    //systick_set_clocksource(STK_CSR_CLKSOURCE | STK_CSR_CLKSOURCE_AHB);
+
+    systick_counter_enable();
+
+    /* this done last */
+    systick_interrupt_enable();
 
 }
 
