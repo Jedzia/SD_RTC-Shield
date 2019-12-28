@@ -36,3 +36,10 @@ How to build PlatformIO based project
 
     # Clean build files
     > platformio run --target clean
+
+Notes	
+=====================================
+	
+	> pio run
+	> pio init --ide clion
+	
