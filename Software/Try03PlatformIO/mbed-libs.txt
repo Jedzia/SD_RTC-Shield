@@ -1,0 +1,290 @@
+Found 3073 libraries:
+
+Blynk
+=====
+#ID: 415
+Build a smartphone app for your project in minutes. Blynk allows creating IoT solutions easily. It supports  WiFi, BLE, Bluetooth, Ethernet, GSM, USB, Serial. Works with many boards like ESP8266, ESP32, Arduino UNO, Nano, Due, Mega, Zero, MKR100, Yun,...
+
+Keywords: sensors, control, device, smartphone, mobile, app, web, cloud, communication, protocol, iot, m2m, wifi, ble, bluetooth, ethernet, usb, serial, gsm, gprs, 3g, data, esp8266, http
+Compatible frameworks: Arduino, ARTIK SDK, CMSIS, Energia, ESP8266 Non-OS SDK, ESP8266 RTOS SDK, ESP-IDF, Freedom E SDK, libOpenCM3, mbed, PULP OS, Pumbaa, Simba, SPL, STM32Cube, Tizen RT, WiringPi
+Compatible platforms: Atmel AVR, Atmel SAM, Espressif 32, Espressif 8266, Freescale Kinetis, Intel ARC32, Linux ARM, Maxim Integrated MAX32, Microchip PIC32, Nordic nRF51, Nordic nRF52, NXP LPC, Samsung ARTIK, Silicon Labs EFM32, ST STM32, ST STM8, Teensy, TI MSP430, TI TIVA, WIZNet W7500
+Authors: Volodymyr Shymanskyy
+
+Adafruit_GFX
+============
+#ID: 188
+A derived version of the BSD licensed Adafrut GFX library for the SSD1306 controller for an OLED 128x32 or 128x64 display using SPI or I2C.
+
+Keywords: display, i2c, oled, spi, ssd1306
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Neal Horman
+
+SoftwareSerial
+==============
+#ID: 2728
+ALPHA WORK IN PROGRESS. DO NOT USE IN PRODUCTION CODE. based on:\\ IAR Application Note G - 001 Generic Software UART\\ mbed/trunk/Serial.h\\ the venerable Andy Kirkham's MAX3100\\
+
+Keywords: serial, softwareserial, uart
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: chag
+
+eeprom
+======
+#ID: 2284
+I2C EEPROM library from 24C01 to 24C1025
+
+Keywords: eeprom
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: bernard borredon
+
+U8glib-HAL
+==========
+#ID: 1932
+Unofficial repository for combined U8G and U8Glib-ARM with HAL extensions
+
+Keywords: u8g, u8glib, arm, hal
+Compatible frameworks: Arduino, ARTIK SDK, CMSIS, Energia, ESP8266 Non-OS SDK, ESP8266 RTOS SDK, ESP-IDF, Freedom E SDK, libOpenCM3, mbed, PULP OS, Pumbaa, Simba, SPL, STM32Cube, Tizen RT, WiringPi
+Compatible platforms: Atmel AVR, Atmel SAM, Espressif 32, Espressif 8266, Freescale Kinetis, Intel ARC32, Linux ARM, Maxim Integrated MAX32, Microchip PIC32, Nordic nRF51, Nordic nRF52, NXP LPC, Samsung ARTIK, Silicon Labs EFM32, ST STM32, Teensy, TI MSP430, TI TIVA, WIZNet W7500
+Authors: Oliver Kraus
+
+arduino
+=======
+#ID: 2171
+arduino library for mbed
+
+Keywords: arduino
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: SE HUI PARK
+
+mbed-drivers
+============
+#ID: 962
+mbed OS C++ drivers, with classes supporting SPI, I2C, UART, GPIO and ADC peripherals. This module is the core of mbed OS, on which most applications depend, and the successor to the classic mbed SDK.
+
+Keywords: mbed, mbed-official, drivers, spi, i2c, uart, gpio, adc, hardware, abstraction
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Bogdan Marinescu
+
+OneWire
+=======
+#ID: 2604
+OneWire Library lets you access 1-wire devices made by Maxim/Dallas, such as temperature sensors
+
+Keywords: 1-wire, ds18b20, one, one wire, onewire
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Ivan Kravets
+
+cmsis-core
+==========
+#ID: 1237
+CMSIS-Core
+
+Keywords: cmsis, mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Bogdan Marinescu
+
+mbed-hal
+========
+#ID: 1004
+mbed low-level Hardware Abstraction Layer
+
+Keywords: mbed, hal, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Martin Kojtal
+
+Show next libraries? [y/N]: dlmalloc
+========
+#ID: 1235
+Doug Lea's malloc
+
+Keywords: dlmalloc, mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Brendan Moran
+
+ualloc
+======
+#ID: 1234
+mbed allocator api
+
+Keywords: ualloc, alloc, malloc, mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Brendan Moran
+
+core-util
+=========
+#ID: 1236
+mbed utilities library
+
+Keywords: mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Bogdan Marinescu
+
+UIPEthernet
+===========
+#ID: 1484
+Ethernet library for ENC28J60 (Compatible with Wiznet W5100 Ethernet library API.)
+
+Keywords: enc28j60, ethernet, uip, tcp/ip, network
+Compatible frameworks: Arduino, mbed
+Compatible platforms: Atmel AVR, Atmel SAM, Espressif 8266, Intel ARC32, Nordic nRF51, NXP LPC, ST STM32, Teensy
+Authors: CassyArduino
+
+minar-platform
+==============
+#ID: 1240
+Platform API for MINAR.
+
+Keywords: mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: James Crosby
+
+compiler-polyfill
+=================
+#ID: 1239
+Smooth over some of the differences between compilers.
+
+Keywords: polyfill, mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: James Crosby
+
+greentea-client
+===============
+#ID: 963
+greentea client for mbed devices.
+
+Keywords: greentea, greentea-client, mbedgt
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Przemyslaw.Wirkus
+
+minar
+=====
+#ID: 1238
+The mbed OS scheduler.
+
+Keywords: mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: James Crosby
+
+MPU6050
+=======
+#ID: 221
+Ported from Arduino Library : https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050
+
+Keywords: accelerometer, gyroscope, i2c, mpu-6050, mpu6050, mpu60x0
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Simon Garfieldsg
+
+Nanopb
+======
+#ID: 431
+Nanopb is a plain-C implementation of Google's Protocol Buffers data format. It is targeted at 32 bit microcontrollers, but is also fit for other embedded systems with tight (<10 kB ROM, <1 kB RAM) memory constraints.
+
+Keywords: google, protocol buffers, protobuf
+Compatible frameworks: Arduino, CMSIS, DELETED, ESP8266 Non-OS SDK, ESP8266 RTOS SDK, ESP-IDF, Freedom E SDK, GigaDevice GD32V SDK, Kendryte FreeRTOS SDK, Kendryte Standalone SDK, libOpenCM3, Mbed, PULP OS, Pumbaa, Shakti SDK, Simba, SPL, STM32Cube, Tizen RT, WiringPi, Zephyr
+Compatible platforms: Atmel AVR, Atmel megaAVR, Atmel SAM, Espressif 32, Espressif 8266, Freescale Kinetis, GigaDevice GD32V, Infineon XMC, Intel ARC32, Kendryte K210, Linux ARM, Maxim Integrated MAX32, Microchip PIC32, Nordic nRF51, Nordic nRF52, NXP LPC, RISC-V GAP, Shakti, SiFive, Silicon Labs EFM32, ST STM32, ST STM8, Teensy, TI MSP430, TI Tiva, WIZNet W7500
+Authors: Petteri Aimonen
+
+Show next libraries? [y/N]: jsmn
+====
+#ID: 568
+Minimalistic JSON parser/tokenizer in C. It can be easily integrated into resource-limited or embedded projects
+
+Keywords: json
+Compatible frameworks: Arduino, ARTIK SDK, CMSIS, Energia, ESP8266 Non-OS SDK, ESP8266 RTOS SDK, ESP-IDF, Freedom E SDK, Kendryte FreeRTOS SDK, Kendryte Standalone SDK, libOpenCM3, mbed, PULP OS, Pumbaa, Simba, SPL, STM32Cube, Tizen RT, WiringPi
+Compatible platforms: Atmel AVR, Atmel SAM, Espressif 32, Espressif 8266, Freescale Kinetis, Infineon XMC, Intel ARC32, Kendryte K210, Linux ARM, Maxim Integrated MAX32, Microchip PIC32, Nordic nRF51, Nordic nRF52, NXP LPC, RISC-V GAP, Samsung ARTIK, SiFive, Silicon Labs EFM32, ST STM32, ST STM8, Teensy, TI MSP430, TI TIVA, WIZNet W7500
+Authors: Serge Zaitsev
+
+RCSwitch
+========
+#ID: 4508
+Library to switch 433MHz remote controlled sockets.
+
+Keywords: 433mhz
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Chris Dick
+
+FreeRTOS
+========
+#ID: 2319
+www.freertos.org
+
+Keywords: freertos, rtos
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Rohit Grover
+
+ESP8266
+=======
+#ID: 2291
+Library for using the Wifi module ESP8266, first version with basic commands, soon new commands will be added
+
+Keywords: esp8266
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Antonio Quevedo
+
+C12832
+======
+#ID: 2217
+lcd for LPC1768
+
+Keywords: c12832
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Kevin Anderson
+
+ble
+===
+#ID: 296
+The BLE module offers a high level abstraction for using Bluetooth Low Energy on multiple platforms.
+
+Keywords: bluetooth, ble, mbed, mbed-official
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: Rohit Grover
+
+mbed-os
+=======
+#ID: 2499
+mbed os with nrf51 internal bandgap enabled to read battery level
+
+Keywords: mbed-os
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: erkin yucel
+
+esp8266-driver
+==============
+#ID: 2293
+The driver for the ESP8266 WiFi module
+
+Keywords: esp8266-driver
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
+Authors: ESP8266
+
+NeoPixel
+========
+#ID: 4280
+Simple neopixel (WS2812) library, tuned for stm32 (L432) at 80 MHz Should be compatible with any stm32, different clock speed may require timing adjustments in neopixel.c
+
+Keywords: neopixel, stm32, ws2812b
+Compatible frameworks: mbed
+Compatible platforms: Atmel SAM, Freescale Kinetis, Maxim Integrated MAX32, Nordic nRF51, Nordic nRF52, NXP LPC, Silicon Labs EFM32, ST STM32, Teensy, WIZNet W7500
