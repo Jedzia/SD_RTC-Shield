@@ -20,21 +20,45 @@ void DS1307_DoSomething() {
     printf("I2C Value: %d\n", val);
 }
 
-void i2c_setup(void)
-{
+void i2c_setup(void) {
+
+//      *** from HAL ***
+//    /* USER CODE END I2C1_MspInit 0 */
+//
+//    __HAL_RCC_GPIOB_CLK_ENABLE();
+//    /**I2C1 GPIO Configuration
+//    PB8     ------> I2C1_SCL
+//    PB9     ------> I2C1_SDA
+//    */
+//    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+//    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+//    GPIO_InitStruct.Pull = GPIO_PULLUP;
+//    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+//    GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+//    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//
+//    /* Peripheral clock enable */
+//    __HAL_RCC_I2C1_CLK_ENABLE();
+//    /* USER CODE BEGIN I2C1_MspInit 1 */
+//
+
     rcc_periph_clock_enable(RCC_GPIOA);
+    rcc_periph_clock_enable(RCC_GPIOB);
     rcc_periph_clock_enable(RCC_GPIOC);
+    rcc_periph_clock_enable(RCC_GPIOH);
     rcc_periph_clock_enable(RCC_I2C1);
 
-    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8);
-    gpio_set_output_options(GPIOA, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ,
-            GPIO8);
-    gpio_set_af(GPIOA, GPIO_AF4, GPIO8);
+    // was PA8 - I2C3_SCL
+    gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8);
+    // HAL sets #define  GPIO_MODE_AF_OD  0x00000012U   /*!< Alternate Function Open Drain Mode    */
+    gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ, GPIO8);
+    // HAL sets #define GPIO_AF4_I2C1 ((uint8_t)0x04)  /* I2C1 Alternate Function mapping */
+    gpio_set_af(GPIOB, GPIO_AF4, GPIO8);
 
-    gpio_mode_setup(GPIOC, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
-    gpio_set_output_options(GPIOC, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ,
-            GPIO9);
-    gpio_set_af(GPIOC, GPIO_AF4, GPIO9);
+    // was PC9 - I2C3_SDA
+    gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
+    gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ, GPIO9);
+    gpio_set_af(GPIOB, GPIO_AF4, GPIO9);
 
     i2c_peripheral_disable(I2C1); /* disable i2c during setup */
     i2c_reset(I2C1);
@@ -64,15 +88,15 @@ uint8_t i2c_start(uint32_t i2c, uint8_t address, uint8_t mode) {
     i2c_send_start(i2c);
 
     /* Wait for master mode selected */
-    while (!((I2C_SR1(i2c) & I2C_SR1_SB)
-             & (I2C_SR2(i2c) & (I2C_SR2_MSL | I2C_SR2_BUSY))));
+    while(!((I2C_SR1(i2c) & I2C_SR1_SB)
+            & (I2C_SR2(i2c) & (I2C_SR2_MSL | I2C_SR2_BUSY))));
 
     i2c_send_7bit_address(i2c, address, mode);
 
     int timeout = 20000;
     /* Waiting for address is transferred. */
-    while (!(I2C_SR1(i2c) & I2C_SR1_ADDR)) {
-        if (timeout > 0) {
+    while(!(I2C_SR1(i2c) & I2C_SR1_ADDR)) {
+        if(timeout > 0) {
             timeout--;
         } else {
             return 1;
@@ -93,10 +117,10 @@ uint8_t i2c_write(uint32_t i2c, uint8_t address, uint8_t reg, uint8_t data) {
 
     i2c_send_data(i2c, reg);
 
-    while (!(I2C_SR1(i2c) & (I2C_SR1_BTF)));
+    while(!(I2C_SR1(i2c) & (I2C_SR1_BTF)));
     i2c_send_data(i2c, data);
 
-    while (!(I2C_SR1(i2c) & (I2C_SR1_BTF)));
+    while(!(I2C_SR1(i2c) & (I2C_SR1_BTF)));
 
     i2c_send_stop(i2c);
 
@@ -105,7 +129,7 @@ uint8_t i2c_write(uint32_t i2c, uint8_t address, uint8_t reg, uint8_t data) {
 
 int i2c_read(uint32_t i2c, uint8_t address, uint8_t reg) {
     uint32_t timeout = 20000;
-    while ((I2C_SR2(i2c) & I2C_SR2_BUSY)); // {
+    while((I2C_SR2(i2c) & I2C_SR2_BUSY)); // {
 //		if (timeout > 0) {
 //			timeout--;
 //		} else {
@@ -113,14 +137,14 @@ int i2c_read(uint32_t i2c, uint8_t address, uint8_t reg) {
 //		}
 //	}
 
-    if (i2c_start(i2c, address, I2C_WRITE)) {
+    if(i2c_start(i2c, address, I2C_WRITE)) {
         return 0;
     }
     i2c_send_data(i2c, reg);
 
     timeout = 20000;
-    while (!(I2C_SR1(i2c) & (I2C_SR1_BTF))) {
-        if (timeout > 0) {
+    while(!(I2C_SR1(i2c) & (I2C_SR1_BTF))) {
+        if(timeout > 0) {
             timeout--;
         } else {
             return -1;
@@ -131,9 +155,9 @@ int i2c_read(uint32_t i2c, uint8_t address, uint8_t reg) {
 
     i2c_send_stop(i2c);
 
-    while (!(I2C_SR1(i2c) & I2C_SR1_RxNE));
+    while(!(I2C_SR1(i2c) & I2C_SR1_RxNE));
 
-    int result = (int)i2c_get_data(i2c);
+    int result = (int) i2c_get_data(i2c);
 
     I2C_SR1(i2c) &= ~I2C_SR1_AF;
     msleep(50);
