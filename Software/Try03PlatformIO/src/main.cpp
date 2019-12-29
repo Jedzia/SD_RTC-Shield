@@ -9,17 +9,23 @@ DigitalOut myled(LED1);
 
 RtcDs1307 *rtc;
 
+Serial uart(PA_2, PA_3);
+
 int main() {
+
+	//printf("Fuck you\n");
 	
 	/*init RTC, get time and date for filename*/
-    I2C i2c1(I2C1_SDA, I2C1_SCL);
-    i2c1.frequency(100000);
-    rtc = new RtcDs1307(i2c1);
+    //I2C i2c1(I2C1_SDA, I2C1_SCL);
+    //i2c1.frequency(100000);
+    //rtc = new RtcDs1307(i2c1);
+	
+	
 	
     while(1) {
         myled = 1;
-        wait(1);
+        wait_us(500 * 1000);
         myled = 0;
-        wait(1);
+        wait_us(500 * 1000);
     }
 }
