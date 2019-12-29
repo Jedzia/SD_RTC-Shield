@@ -15,9 +15,115 @@
 #define DS1307_CONTROL        0x07  ///< Control register
 #define DS1307_NVRAM          0x08  ///< Start of RAM registers - 56 bytes, 0x08 to 0x3f
 
+/* Registers location */
+#define DS1307_SECONDS                0x00
+#define DS1307_MINUTES                0x01
+#define DS1307_HOURS                0x02
+#define DS1307_DAY                    0x03
+#define DS1307_DATE                    0x04
+#define DS1307_MONTH                0x05
+#define DS1307_YEAR                    0x06
+#define DS1307_CONTROL                0x07
+
+/* Bits in control register */
+#define DS1307_CONTROL_OUT            7
+#define DS1307_CONTROL_SQWE            4
+#define DS1307_CONTROL_RS1            1
+#define DS1307_CONTROL_RS0            0
+
+/**************************************************************************/
+/*!
+    @brief  Is the DS1307 running? Check the Clock Halt bit in register 0
+    @return 1 if the RTC is running, 0 if not
+*/
+/**************************************************************************/
+
+uint8_t DS1307_Init(void) {
+    //i2c_write(I2C1, DS1307_ADDRESS, DS1307_CONTROL, 1);
+
+    if(i2c_start(I2C1, DS1307_ADDRESS, I2C_WRITE) != 0)
+    {
+        printf("i2c_start: Timeout\n");
+        return -1;
+    }
+
+    i2c_send_data(I2C1, DS1307_CONTROL);
+
+    while(!(I2C_SR1(I2C1) & (I2C_SR1_BTF)));
+    i2c_send_data(I2C1, 0);
+
+    while(!(I2C_SR1(I2C1) & (I2C_SR1_BTF)));
+
+    i2c_send_stop(I2C1);
+
+    return 0;
+
+    return 0;
+    uint32_t reg32 __attribute__((unused));
+
+    /* Send START condition. */
+    printf("i2c_send_start \n");
+    i2c_send_start(I2C1);
+
+    /* Waiting for START is send and switched to master mode. */
+    while (!((I2C_SR1(I2C1) & I2C_SR1_SB)
+             & (I2C_SR2(I2C1) & (I2C_SR2_MSL | I2C_SR2_BUSY))));
+
+    /* Send destination address. */
+    printf("Send destination address \n");
+    i2c_send_7bit_address(I2C1, DS1307_ADDRESS << 1, I2C_WRITE);
+
+    /* Waiting for address is transferred. */
+    while (!(I2C_SR1(I2C1) & I2C_SR1_ADDR));
+
+    /* Cleaning ADDR condition sequence. */
+    reg32 = I2C_SR2(I2C1);
+
+    /* Sending the data. */
+    printf("Sending the data \n");
+    i2c_send_data(I2C1, DS1307_SECONDS); /* OvertemperatureShutdown register */
+    while (!(I2C_SR1(I2C1) & I2C_SR1_BTF));
+    i2c_send_data(I2C1, 42); /* MSB */
+    //while (!(I2C_SR1(i2c) & I2C_SR1_BTF));
+    //i2c_send_data(I2C1, (uint8_t)(temp_os & 0xff00)); /* LSB */
+    /* After the last byte we have to wait for TxE too. */
+    while (!(I2C_SR1(I2C1) & (I2C_SR1_BTF | I2C_SR1_TxE)));
+
+    /* Send STOP condition. */
+    //printf("Send STOP condition \n");
+    i2c_send_stop(I2C1);
+
+    return 0;
+}
+
+uint8_t DS1307_IsRunning(void) {
+    uint8_t ss = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);;
+    return !(ss >> 7);
+}
+
 void DS1307_DoSomething() {
-    uint8_t val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
-    printf("I2C Value: %d\n", val);
+    //i2c_write(I2C1, DS1307_ADDRESS, 0, 0);
+
+    int val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
+    //printf("S: %d ", val);
+    if(val == -1) printf("S: Timeout "); else printf("S: %d ", val);
+    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MINUTES);
+    if(val == -1) printf("M: Timeout "); else printf("M: %d ", val);
+    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_HOURS);
+    if(val == -1) printf("H: Timeout "); else printf("H: %d ", val);
+    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DAY);
+    if(val == -1) printf("D: Timeout "); else printf("D: %d ", val);
+    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DATE);
+    if(val == -1) printf("DT: Timeout "); else printf("DT: %d ", val);
+    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MONTH);
+    if(val == -1) printf("MO: Timeout "); else printf("MO: %d ", val);
+    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_YEAR);
+    if(val == -1) printf("Y: Timeout "); else printf("Y: %d ", val);
+    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
+    if(val == -1) printf("CRTL: Timeout \n"); else printf("CTRL: %d \n", val);
+
+    //val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
+    //printf("CTRL: %d\n", val);
 }
 
 void i2c_setup(void) {
@@ -65,9 +171,10 @@ void i2c_setup(void) {
 
     i2c_set_fast_mode(I2C1);
     i2c_set_clock_frequency(I2C1, I2C_CR2_FREQ_42MHZ);
-    i2c_set_ccr(I2C1, 35);
-    i2c_set_trise(I2C1, 43);
-    //i2c_set_speed(I2C1, 0);
+    i2c_set_speed(I2C1, i2c_speed_sm_100k, 84);
+    //i2c_set_ccr(I2C1, 35);
+    //i2c_set_trise(I2C1, 43);
+
 
     i2c_peripheral_enable(I2C1); /* finally enable i2c */
 
@@ -160,9 +267,10 @@ int i2c_read(uint32_t i2c, uint8_t address, uint8_t reg) {
     int result = (int) i2c_get_data(i2c);
 
     I2C_SR1(i2c) &= ~I2C_SR1_AF;
-    msleep(50);
+    msleep(1);
     i2c_send_stop(i2c);
 
     return result;
 }
+
 

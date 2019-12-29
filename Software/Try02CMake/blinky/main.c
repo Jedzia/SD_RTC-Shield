@@ -76,9 +76,20 @@ int main(void) {
     usart_setup();
 
     //wait();
-    //msleep(4000);
-    printf("Hello, we're running\n");
+    msleep(2000);
+    printf("\n\nHello, we're running\n");
+    //msleep(100);
     i2c_setup();
+    msleep(100);
+
+    if(!DS1307_IsRunning()) {
+        printf("RTC is NOT running!\n");
+        printf("Running DS1307_Init\n");
+        msleep(500);
+        DS1307_Init();
+    }
+
+
 
     /* Blink the LED (PC8) on the board. */
     while(1) {
@@ -126,7 +137,7 @@ int main(void) {
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
 
-        //DS1307_DoSomething();
+        DS1307_DoSomething();
     }
 
     //return 0;
