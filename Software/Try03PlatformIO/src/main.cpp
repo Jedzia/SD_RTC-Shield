@@ -54,7 +54,7 @@ int main() {
         // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
     }
 
-    while(1) {
+    while(true) {
         myled = 1;
         wait_us(500 * 1000);
         myled = 0;
@@ -63,8 +63,7 @@ int main() {
         usart2.printf("Round %d\n", count);
         count++;
 
-        DateTime dt = rtc.now();
-
+        dt = rtc.now();
         usart2.printf("%u.%u.%02u_%02u.%02u.%02u", dt.month(), dt.day(), dt.year(), dt.hour(), dt.minute(),
                 dt.second());
     }

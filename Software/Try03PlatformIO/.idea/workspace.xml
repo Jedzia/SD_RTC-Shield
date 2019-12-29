@@ -27,16 +27,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Try02CMake/blinky/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/blinky/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/platformio.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/platformio.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeListsPrivate.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeListsPrivate.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp.bak" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +96,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="CMake Application.PLATFORMIO_UPLOAD">
+  <component name="RunManager" selected="CMake Application.PLATFORMIO_BUILD">
     <configuration name="PLATFORMIO_BUILD" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -206,7 +202,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1577619518505" duration="804000" />
+      <workItem from="1577619518505" duration="1905000" />
     </task>
     <servers />
   </component>
