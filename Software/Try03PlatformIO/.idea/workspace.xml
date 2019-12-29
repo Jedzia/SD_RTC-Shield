@@ -30,8 +30,8 @@
       <change beforePath="$PROJECT_DIR$/../Try02CMake/blinky/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/blinky/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.clang_complete" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gcc-flags.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,6 +166,12 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="release" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$USER_HOME$/.platformio/packages/framework-mbed/features/nanostack/sal-stack-nanostack/Makefile" target="release" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -189,7 +195,15 @@
       <item itemvalue="CMake Application.PLATFORMIO_UPLOAD" />
       <item itemvalue="CMake Application.PLATFORMIO_UPLOADFS" />
       <item itemvalue="CMake Application.Z_DUMMY_TARGET" />
+      <item itemvalue="Makefile.release" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile.release" />
+        <item itemvalue="Makefile.release" />
+        <item itemvalue="Makefile.release" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -201,7 +215,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1577619518505" duration="6046000" />
+      <workItem from="1577619518505" duration="6665000" />
     </task>
     <servers />
   </component>

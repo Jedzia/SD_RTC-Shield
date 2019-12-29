@@ -43,3 +43,8 @@ Notes
 	> pio run
 	> pio init --ide clion
 	
+CMake
+
+    Try03PlatformIO\cmake-build-nucleo_f401re
+    > "D:\Program Files (x86)\CMake\bin\cmake" --build . --target PLATFORMIO_BUILD	
+	
