@@ -20,19 +20,17 @@
 #define I2C1_SDA PB_9
 #define I2C1_SCL PB_8
 
-DigitalOut myled(LED1);
-
-Serial usart2(PA_2, PA_3);
-
 /** Entry function
  *  The application starts here.
  *  @return This function never returns.
  */
 int main() {
+    DigitalOut myLed(LED1);
+    Serial usart2(PA_2, PA_3);
     int count = 42;
 
     usart2.baud(115200);
-    printf("Fuck you\n");
+    printf("Up and running.\n");
 
     /*init RTC, get time and date for filename*/
     //I2C i2c1(I2C1_SDA, I2C1_SCL);
@@ -72,9 +70,9 @@ int main() {
     }
 
     while(true) {
-        myled = 1;
+        myLed = 1;
         wait_us(500 * 1000);
-        myled = 0;
+        myLed = 0;
         wait_us(500 * 1000);
 
         usart2.printf("Round %d\n", count);
