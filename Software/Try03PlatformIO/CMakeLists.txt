@@ -6,7 +6,10 @@
 # The `CMakeListsUser.txt` will not be overwritten by PlatformIO.
 
 cmake_minimum_required(VERSION 3.2)
+set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
 project("Try03PlatformIO")
+
 
 include(CMakeListsPrivate.txt)
 

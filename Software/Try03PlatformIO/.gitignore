@@ -1,3 +1,4 @@
 .pio
 .pioenvs
 .piolibdeps
+/cmake-build-nucleo_f401re
