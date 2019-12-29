@@ -1,5 +1,20 @@
-#include "mbed.h"
+/*---------------------------------------------------------*/
+/*!
+ * This file is part of the SD_RTC Datalogger Shield example repository.
+ * License details can be found in the file COPYING.
+ * Copyright (c) 2020, EvePanix. All rights reserved.
+ *
+ * \brief      This file contains the startup code
+ *             of the application.
+ * \file       main.cpp
+ * \date       2020-01-01
+ * \author     Jedzia.
+ *
+ * modified    2020-01-01, Jedzia
+ */
+/*---------------------------------------------------------*/
 #include "DS1307.h"
+#include "mbed.h"
 
 /*RTC*/
 #define I2C1_SDA PB_9
@@ -7,11 +22,13 @@
 
 DigitalOut myled(LED1);
 
-
 Serial usart2(PA_2, PA_3);
 
+/** Entry function
+ *  The application starts here.
+ *  @return This function never returns.
+ */
 int main() {
-
     int count = 42;
 
     usart2.baud(115200);
@@ -34,7 +51,6 @@ int main() {
         // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
     }
 
-
     DateTime dt = rtc.now();                     // check clock value
     if(dt.year() > 2090 || dt.year() < 2014) {
         printf("Setting up time\n");
@@ -43,6 +59,7 @@ int main() {
         rtc.adjust(compiled);
         //DateTime dt = rtc.now();                // check again
     }
+
     //set_time(0);                        // set active clock
 
     if(!rtc.isRunning()) {
@@ -67,4 +84,4 @@ int main() {
         usart2.printf("%u.%u.%02u_%02u.%02u.%02u", dt.month(), dt.day(), dt.year(), dt.hour(), dt.minute(),
                 dt.second());
     }
-}
+} // main
