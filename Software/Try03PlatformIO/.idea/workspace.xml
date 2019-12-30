@@ -2,22 +2,22 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPDATE_ALL" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD" />
-      <config projectName="Try03PlatformIO" targetName="Z_DUMMY_TARGET" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
-      <config projectName="Try03PlatformIO" targetName="Try03PlatformIO" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_MONITOR" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_TEST" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOAD" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_CLEAN" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_VERBOSE" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_DEBUG" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOADFS" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOAD" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD" />
+      <config projectName="Try03PlatformIO" targetName="Z_DUMMY_TARGET" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_MONITOR" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO" />
       <config projectName="Try03PlatformIO" targetName="DEBUG" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
+      <config projectName="Try03PlatformIO" targetName="Try03PlatformIO" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_CLEAN" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOADFS" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_TEST" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPDATE_ALL" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -27,11 +27,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../Try02CMake/blinky/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/blinky/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Try02CMake/common-code/DS1307.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/clion.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/clion.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Jedzia.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Jedzia.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,8 +79,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -215,7 +213,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1577619518505" duration="6665000" />
+      <workItem from="1577619518505" duration="7443000" />
+      <workItem from="1577682626575" duration="1085000" />
     </task>
     <servers />
   </component>
@@ -227,7 +226,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

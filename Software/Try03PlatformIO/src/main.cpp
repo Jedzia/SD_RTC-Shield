@@ -20,6 +20,8 @@
 #define I2C1_SDA PB_9
 #define I2C1_SCL PB_8
 
+void wait_msec(unsigned int ms);
+
 /** Entry function
  *  The application starts here.
  *  @return This function never returns.
@@ -33,12 +35,10 @@ int main() {
     printf("Up and running.\n");
 
     /*init RTC, get time and date for filename*/
-    //I2C i2c1(I2C1_SDA, I2C1_SCL);
-    I2C i2c1(PB_9, PB_8);
+    I2C i2c1(I2C1_SDA, I2C1_SCL);
     i2c1.frequency(100000);
 
     RtcDs1307 rtc(i2c1);
-    //rtc.startClock();
 
     if(!rtc.isRunning()) {
         printf("RTC 1 is NOT running!");
@@ -71,9 +71,9 @@ int main() {
 
     while(true) {
         myLed = 1;
-        wait_us(500 * 1000);
+        wait_msec(500);
         myLed = 0;
-        wait_us(500 * 1000);
+        wait_msec(500);
 
         usart2.printf("Round %d\n", count);
         count++;
@@ -82,4 +82,10 @@ int main() {
         usart2.printf("%u.%u.%02u_%02u.%02u.%02u", dt.month(), dt.day(), dt.year(), dt.hour(), dt.minute(),
                 dt.second());
     }
-} // main
+}
+
+void wait_msec(unsigned int ms)
+{
+    wait_us(ms * 1000);
+}
+// main
