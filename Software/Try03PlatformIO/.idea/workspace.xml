@@ -2,22 +2,22 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOAD" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_VERBOSE" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_DEBUG" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPDATE_ALL" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD" />
       <config projectName="Try03PlatformIO" targetName="Z_DUMMY_TARGET" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_MONITOR" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO" />
-      <config projectName="Try03PlatformIO" targetName="DEBUG" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
       <config projectName="Try03PlatformIO" targetName="Try03PlatformIO" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_CLEAN" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOADFS" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_MONITOR" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_TEST" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPDATE_ALL" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_CLEAN" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_VERBOSE" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_DEBUG" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOADFS" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOAD" />
+      <config projectName="Try03PlatformIO" targetName="DEBUG" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -27,9 +27,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/clion.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/clion.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeListsPrivate.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeListsPrivate.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mbed_app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mbed_app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,9 +38,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ClangdSettings">
-    <option name="formatViaClangd" value="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -54,7 +52,12 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nzvtYkyD" />
   </component>
-  <component name="ProjectId" id="1Vi1oBIVACeQ5IYHn9MVe6IrZQq" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="252" />
+    <option name="y" value="21" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -72,13 +75,12 @@
     </entry>
   </component>
   <component name="PropertiesComponent">
-    <property name="FullScreen" value="false" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/platformio.ini" />
     <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="true" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/platformio.ini" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -199,23 +201,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1577721275107" duration="1695000" />
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -224,6 +211,17 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.cpp</url>
+          <line>17</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>

@@ -13,46 +13,11 @@
  * modified    2020-01-01, Jedzia
  */
 /*---------------------------------------------------------*/
-#include "DS1307.h"
 #include "mbed.h"
-//#include    "FATFileSystem.h"
-//#include    "SDBlockDevice.h"
-//#include "FATFileSystem.h"
-//FileSystemHandle fs;
-
-//#include <features/storage/filesystem/fat/FATFileSystem.h>
-//#include "filesystem/mbed_filesystem.h"
-
-//#include "filesystem/fat/FATFileSystem.h"
-
-//#include "BlockDevice.h"
-// Maximum number of elements in buffer
-#define BUFFER_MAX_LEN 10
-
-// This will take the system's default block device
-//BlockDevice *bd = BlockDevice::get_default_instance();
-
-//#include "FATFileSystem.h"
-//FATFileSystem fs("fs");
-
-//SDFileSystem sd(PA_7, PA_6, PA_5, PB_6, "sd"); // the pinout on the mbed Cool Components workshop
-// board
-
-#include "SDBlockDevice.h"
-
-// Instantiate the SDBlockDevice by specifying the SPI pins connected to the SDCard
-// socket. The PINS are:
-//     MOSI (Master Out Slave In)
-//     MISO (Master In Slave Out)
-//     SCLK (Serial Clock)
-//     CS (Chip Select)
-//SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK,
-// MBED_CONF_SD_SPI_CS);
-SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
-
+//
+#include "DS1307.h"
 #include "FATFileSystem.h"
-
-FATFileSystem fs("fs");
+#include "SDBlockDevice.h"
 
 /*RTC*/
 #define I2C1_SDA PB_9
@@ -107,6 +72,16 @@ int main() {
         // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
     }
 
+    // Instantiate the SDBlockDevice by specifying the SPI pins connected to the SDCard
+    // socket. The PINS are:
+    //     MOSI (Master Out Slave In)
+    //     MISO (Master In Slave Out)
+    //     SCLK (Serial Clock)
+    //     CS (Chip Select)
+    //SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
+    SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
+    FATFileSystem fs("fs");
+
     if(0 != sd.init()) {
         printf("SD Init failed \n");
         //return -1;
@@ -125,7 +100,7 @@ int main() {
 
     int err = fs.mount(&sd);
     if(err) {
-        printf("%s\n", (err ? "Fail :(" : "OK"));
+            printf("%s\n", "Fail :(");
     }
     else {
         // Display the root directory
@@ -156,28 +131,8 @@ int main() {
         }
     }
 
-//    dp = opendir("/sd");
-//    if(dp == nullptr) {
-//        usart2.printf("Failed to open SD Card.");
-//    } else {
-//        auto xxx = dp->size();
-//        usart2.printf("dp size:%d\n", 5);
-//
-//        //int err = fs.mount(bd);
-//        //printf("%s\n", (err ? "Fail :(" : "OK"));
-//
-//        /*mkdir("/sd/mydir", 0777);
-//
-//        FILE *fp = fopen("/sd/mydir/sdtest.txt", "w");
-//        if(fp == nullptr) {
-//            error("Could not open file for write\n");
-//        }
-//        fprintf(fp, "Hello fun SD Card World!");
-//        fclose(fp);
-//
-//        printf("Goodbye World!\n");*/
-//    }
 
+    // endless processing loop
     while(true) {
         myLed = 1;
         wait_msec(500);
@@ -193,9 +148,9 @@ int main() {
     }
 } // main
 
-/** Brief description of $(fclass), wait_msec
- *  Detailed description.
- *  @param ms TODO
+/** Wait for milli-seconds
+ *  The MCU waits for the specified amount of milliseconds.
+ *  @param ms time in thousandth second to wait.
  */
 inline void wait_msec(const unsigned int ms) {
     wait_us(ms * 1000);
