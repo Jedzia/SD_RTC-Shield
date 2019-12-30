@@ -31,10 +31,21 @@
 
 // This will take the system's default block device
 //BlockDevice *bd = BlockDevice::get_default_instance();
-#include "SDFileSystem.h"
 
 //#include "FATFileSystem.h"
 //FATFileSystem fs("fs");
+
+//SDFileSystem sd(PA_7, PA_6, PA_5, PB_6, "sd"); // the pinout on the mbed Cool Components workshop board
+
+#include "SDBlockDevice.h"
+
+// Instantiate the SDBlockDevice by specifying the SPI pins connected to the SDCard
+// socket. The PINS are:
+//     MOSI (Master Out Slave In)
+//     MISO (Master In Slave Out)
+//     SCLK (Serial Clock)
+//     CS (Chip Select)
+SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
 
 /*RTC*/
 #define I2C1_SDA PB_9
@@ -89,45 +100,30 @@ int main() {
         // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
     }
 
-    SDFileSystem sd(PA_7, PA_6, PA_5, PB_6, "sd"); // the pinout on the mbed Cool Components workshop board
 
-    DIR *dp;
-    struct dirent *dirp;
-    auto sectors = sd.disk_sectors();
-    usart2.printf("sd.disk_sectors:%lu\n", sectors);
-    auto status = sd.disk_status();
-    usart2.printf("sd.status:%d\n", status);
 
-    auto init = sd.disk_initialize();
-    usart2.printf("sd.init:%d\n", init);
 
-    sectors = sd.disk_sectors();
-    usart2.printf("sd.disk_sectors:%lu\n", sectors);
-    status = sd.disk_status();
-    usart2.printf("sd.status:%d\n", status);
-
-    
-    dp = opendir("/sd");
-    if(dp == nullptr) {
-        usart2.printf("Failed to open SD Card.");
-    } else {
-        auto xxx = dp->size();
-        usart2.printf("dp size:%d\n", 5);
-
-        //int err = fs.mount(bd);
-        //printf("%s\n", (err ? "Fail :(" : "OK"));
-
-        /*mkdir("/sd/mydir", 0777);
-
-        FILE *fp = fopen("/sd/mydir/sdtest.txt", "w");
-        if(fp == nullptr) {
-            error("Could not open file for write\n");
-        }
-        fprintf(fp, "Hello fun SD Card World!");
-        fclose(fp);
-
-        printf("Goodbye World!\n");*/
-    }
+//    dp = opendir("/sd");
+//    if(dp == nullptr) {
+//        usart2.printf("Failed to open SD Card.");
+//    } else {
+//        auto xxx = dp->size();
+//        usart2.printf("dp size:%d\n", 5);
+//
+//        //int err = fs.mount(bd);
+//        //printf("%s\n", (err ? "Fail :(" : "OK"));
+//
+//        /*mkdir("/sd/mydir", 0777);
+//
+//        FILE *fp = fopen("/sd/mydir/sdtest.txt", "w");
+//        if(fp == nullptr) {
+//            error("Could not open file for write\n");
+//        }
+//        fprintf(fp, "Hello fun SD Card World!");
+//        fclose(fp);
+//
+//        printf("Goodbye World!\n");*/
+//    }
 
 
     while(true) {
