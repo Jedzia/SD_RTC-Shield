@@ -13,8 +13,8 @@
  * modified    2020-01-01, Jedzia
  */
 /*---------------------------------------------------------*/
-#include "mbed.h"
 #include "DS1307.h"
+#include "mbed.h"
 //#include    "FATFileSystem.h"
 //#include    "SDBlockDevice.h"
 //#include "FATFileSystem.h"
@@ -35,7 +35,8 @@
 //#include "FATFileSystem.h"
 //FATFileSystem fs("fs");
 
-//SDFileSystem sd(PA_7, PA_6, PA_5, PB_6, "sd"); // the pinout on the mbed Cool Components workshop board
+//SDFileSystem sd(PA_7, PA_6, PA_5, PB_6, "sd"); // the pinout on the mbed Cool Components workshop
+// board
 
 #include "SDBlockDevice.h"
 
@@ -45,7 +46,13 @@
 //     MISO (Master In Slave Out)
 //     SCLK (Serial Clock)
 //     CS (Chip Select)
-SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
+//SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK,
+// MBED_CONF_SD_SPI_CS);
+SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
+
+#include "FATFileSystem.h"
+
+FATFileSystem fs("fs");
 
 /*RTC*/
 #define I2C1_SDA PB_9
@@ -100,8 +107,54 @@ int main() {
         // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
     }
 
+    if(0 != sd.init()) {
+        printf("SD Init failed \n");
+        //return -1;
+    }
+    else {
+        printf("sd size: %llu\n", sd.size());
+        printf("sd read size: %llu\n", sd.get_read_size());
+        printf("sd program size: %llu\n", sd.get_program_size());
+        printf("sd erase size: %llu\n", sd.get_erase_size());
+    }
 
+    // Set the frequency
+    if(0 != sd.frequency(5000000)) {
+        printf("Error setting frequency \n");
+    }
 
+    int err = fs.mount(&sd);
+    if(err) {
+        printf("%s\n", (err ? "Fail :(" : "OK"));
+    }
+    else {
+        // Display the root directory
+        printf("Opening the root directory... ");
+        fflush(stdout);
+        DIR* d = opendir("/fs/");
+        printf("%s\n", (!d ? "Fail :(" : "OK"));
+        if(!d) {
+            error("error: %s (%d)\n", strerror(errno), -errno);
+        }
+
+        printf("root directory:\n");
+
+        while(true) {
+            struct dirent* e = readdir(d);
+            if(!e) {
+                break;
+            }
+
+            printf("    %s\n", e->d_name);
+        }
+        printf("Closing the root directory... ");
+        fflush(stdout);
+        err = closedir(d);
+        printf("%s\n", (err < 0 ? "Fail :(" : "OK"));
+        if(err < 0) {
+            error("error: %s (%d)\n", strerror(errno), -errno);
+        }
+    }
 
 //    dp = opendir("/sd");
 //    if(dp == nullptr) {
@@ -124,7 +177,6 @@ int main() {
 //
 //        printf("Goodbye World!\n");*/
 //    }
-
 
     while(true) {
         myLed = 1;
