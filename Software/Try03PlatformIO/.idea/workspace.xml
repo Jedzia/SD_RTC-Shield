@@ -4,20 +4,20 @@
     <generated>
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOAD" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_VERBOSE" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_TEST" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_DEBUG" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD" />
       <config projectName="Try03PlatformIO" targetName="Z_DUMMY_TARGET" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_MONITOR" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO" />
-      <config projectName="Try03PlatformIO" targetName="DEBUG" />
       <config projectName="Try03PlatformIO" targetName="Try03PlatformIO" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_CLEAN" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOADFS" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_TEST" />
+      <config projectName="Try03PlatformIO" targetName="DEBUG" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPDATE_ALL" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -27,9 +27,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/clion.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/clion.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Jedzia.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Jedzia.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeListsPrivate.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeListsPrivate.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,7 +55,7 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nzvtYkyD" />
   </component>
-  <component name="ProjectId" id="1VehYdmuE8jAnJLvJLu5bhg8sDJ" />
+  <component name="ProjectId" id="1VhYo7fLOvjNCUYX9rM4fs2HLtW" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -71,15 +72,13 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="FullScreen" value="false" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.pio/build/nucleo_f401re/firmware.elf" />
     <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -93,7 +92,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="CMake Application.PLATFORMIO_BUILD">
+  <component name="RunManager" selected="OpenOCD Download &amp; Run.OpenOCD PLATFORMIO_BUILD">
     <configuration name="PLATFORMIO_BUILD" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -164,12 +163,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="release" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$USER_HOME$/.platformio/packages/framework-mbed/features/nanostack/sal-stack-nanostack/Makefile" target="release" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -193,15 +186,8 @@
       <item itemvalue="CMake Application.PLATFORMIO_UPLOAD" />
       <item itemvalue="CMake Application.PLATFORMIO_UPLOADFS" />
       <item itemvalue="CMake Application.Z_DUMMY_TARGET" />
-      <item itemvalue="Makefile.release" />
+      <item itemvalue="OpenOCD Download &amp; Run.OpenOCD PLATFORMIO_BUILD" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Makefile.release" />
-        <item itemvalue="Makefile.release" />
-        <item itemvalue="Makefile.release" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -213,8 +199,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1577619518505" duration="7443000" />
-      <workItem from="1577682626575" duration="1085000" />
+      <workItem from="1577706976258" duration="237000" />
+      <workItem from="1577707217361" duration="2242000" />
     </task>
     <servers />
   </component>
@@ -241,6 +227,17 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.cpp</url>
+          <line>95</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>

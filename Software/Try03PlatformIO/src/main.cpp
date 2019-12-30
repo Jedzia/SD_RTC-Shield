@@ -13,14 +13,35 @@
  * modified    2020-01-01, Jedzia
  */
 /*---------------------------------------------------------*/
-#include "DS1307.h"
 #include "mbed.h"
+#include "DS1307.h"
+//#include    "FATFileSystem.h"
+//#include    "SDBlockDevice.h"
+//#include "FATFileSystem.h"
+//FileSystemHandle fs;
+
+//#include <features/storage/filesystem/fat/FATFileSystem.h>
+//#include "filesystem/mbed_filesystem.h"
+
+//#include "filesystem/fat/FATFileSystem.h"
+
+#include "BlockDevice.h"
+// Maximum number of elements in buffer
+#define BUFFER_MAX_LEN 10
+
+// This will take the system's default block device
+BlockDevice *bd = BlockDevice::get_default_instance();
+#include "SDFileSystem.h"
+SDFileSystem sd(PA_7, PA_6, PA_5, PB_6, "sd"); // the pinout on the mbed Cool Components workshop board
+
+//#include "FATFileSystem.h"
+//FATFileSystem fs("fs");
 
 /*RTC*/
 #define I2C1_SDA PB_9
 #define I2C1_SCL PB_8
 
-void wait_msec(unsigned int ms);
+inline void wait_msec(unsigned int ms);
 
 /** Entry function
  *  The application starts here.
@@ -69,6 +90,29 @@ int main() {
         // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
     }
 
+
+
+    DIR *dp;
+    struct dirent *dirp;
+    dp = opendir("/sd");
+    auto xxx = dp->size();
+    printf("dp size:%d\n", 5);
+
+    //int err = fs.mount(bd);
+    //printf("%s\n", (err ? "Fail :(" : "OK"));
+
+    /*mkdir("/sd/mydir", 0777);
+
+    FILE *fp = fopen("/sd/mydir/sdtest.txt", "w");
+    if(fp == nullptr) {
+        error("Could not open file for write\n");
+    }
+    fprintf(fp, "Hello fun SD Card World!");
+    fclose(fp);
+
+    printf("Goodbye World!\n");*/
+
+
     while(true) {
         myLed = 1;
         wait_msec(500);
@@ -82,10 +126,14 @@ int main() {
         usart2.printf("%u.%u.%02u_%02u.%02u.%02u", dt.month(), dt.day(), dt.year(), dt.hour(), dt.minute(),
                 dt.second());
     }
-}
+} // main
 
-void wait_msec(unsigned int ms)
-{
+/** Brief description of $(fclass), wait_msec
+ *  Detailed description.
+ *  @param ms TODO
+ */
+inline void wait_msec(const unsigned int ms) {
     wait_us(ms * 1000);
 }
+
 // main
