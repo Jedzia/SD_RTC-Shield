@@ -10,16 +10,31 @@ meine sicht der dinge, ich erhebe keinen anspruch auf vollständigkeit
 | https://www.st.com/en/evaluation-tools/nucleo-f401re.html  | https://learn.adafruit.com/adafruit-data-logger-shield  |
 
 
-# Makefile based libopencm3-template #
-**SD_RTC-Shield/Software/Try01**
+## Overview: ## 
+
+|           Projects                 |          Folder           |
+| ---------------------------------- | ------------------------- |
+| Makefile based libopencm3-template | Software/Try01            |
+| CMake based libopencm3-template    | Software/Try02CMake       | 
+| STM32CubeMX HAL                    | Software/Try02Hal         | 
+| mbed os                            | Software/>TODO<           | 
+| Makefile based mbed os             | Software/>TODO<           | 
+| PlatformIO with mbed               | Software/Try03PlatformIO  | 
+
+
+## Makefile based libopencm3-template ##
+**Software/Try01**
 
 via github libopencm3/libopencm3-template at https://github.com/libopencm3/libopencm3-template.git
 > Simple empty template to base your poject on
 > 
 > Easy "clone and go" repository for a libopencm3 based project. 
 
+### Prerequisites ###
+toolchain, make, msys, openocd
 
-## Build ##
+
+### Build ###
 
     make V=1 -C my-project
     make V=1 -C my-project hex
@@ -42,24 +57,24 @@ via github libopencm3/libopencm3-template at https://github.com/libopencm3/libop
 * Cleanup
         make V=1 -C my-project clean
 
-# CMake based libopencm3-template #
-**SD_RTC-Shield/Software/Try02CMake**
+## CMake based libopencm3-template ##
+**Software/Try02CMake**
 
-# STM32CubeMX HAL #
-**SD_RTC-Shield/Software/Try02Hal**
+## STM32CubeMX HAL ##
+**Software/Try02Hal**
 
-# mbed os #
-**SD_RTC-Shield/Software/>TODO<**
+## mbed os ##
+**Software/>TODO<**
 -> E:\Projects\Elektronik\ARM\mbed\tmp\test01\Readme.md
 
-# Makefile based mbed os #
-**SD_RTC-Shield/Software/>TODO<**
+## Makefile based mbed os ##
+**Software/>TODO<**
 -> E:\Projects\Elektronik\ARM\mbed\tmp\test01\Readme.md
 
-# PlatformIO with mbed #
-**SD_RTC-Shield/Software/Try03PlatformIO**
+## PlatformIO with mbed ##
+**Software/Try03PlatformIO**
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 # Analysis #
 Table: Usability, Code Size, Binary Size, Learning Curve, Time to Market/Release, etc.
@@ -84,6 +99,8 @@ Annoyances:
 ## libopencm3 ##
 * Functions are not well documented in the header files. This prevents modern IDE's from showing inline documentation.   
 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 # Notes #
 Various hints, information, notes and other points that came up during R&D.
