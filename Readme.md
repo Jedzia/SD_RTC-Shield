@@ -1,6 +1,23 @@
-# NUCLEO-F401RE and SD-Card shield #
+# NUCLEO-F401RE and Data Logger Shield (SD-Card + RTC) #
 
-https://www.st.com/en/evaluation-tools/nucleo-f401re.html
+ToDo: So'n disclaimer, empfehle trotzdem alle schritte und fehler/pitfalls nachzumachen .. man lernt viel dabei und findet vielleicht besser
+seine optimale arbeitsumgebung,
+meine sicht der dinge, ich erhebe keinen anspruch auf vollständigkeit 
+
+|                     NUCLEO-F401RE                          |                      Data Logger Shield                 |
+| ---------------------------------------------------------- | ------------------------------------------------------- |
+| ![](doc/images/nucleo-F401-RE.png)                         | ![](doc/images/shield.jpg)                              |
+| https://www.st.com/en/evaluation-tools/nucleo-f401re.html  | https://learn.adafruit.com/adafruit-data-logger-shield  |
+
+
+# Makefile based libopencm3-template #
+**SD_RTC-Shield/Software/Try01**
+
+via github libopencm3/libopencm3-template at https://github.com/libopencm3/libopencm3-template.git
+> Simple empty template to base your poject on
+> 
+> Easy "clone and go" repository for a libopencm3 based project. 
+
 
 ## Build ##
 
@@ -24,6 +41,48 @@ https://www.st.com/en/evaluation-tools/nucleo-f401re.html
 
 * Cleanup
         make V=1 -C my-project clean
+
+# CMake based libopencm3-template #
+**SD_RTC-Shield/Software/Try02CMake**
+
+# STM32CubeMX HAL #
+**SD_RTC-Shield/Software/Try02Hal**
+
+# mbed os #
+**SD_RTC-Shield/Software/>TODO<**
+-> E:\Projects\Elektronik\ARM\mbed\tmp\test01\Readme.md
+
+# Makefile based mbed os #
+**SD_RTC-Shield/Software/>TODO<**
+-> E:\Projects\Elektronik\ARM\mbed\tmp\test01\Readme.md
+
+# PlatformIO with mbed #
+**SD_RTC-Shield/Software/Try03PlatformIO**
+
+
+
+# Analysis #
+Table: Usability, Code Size, Binary Size, Learning Curve, Time to Market/Release, etc.
+
+## PlatformIO ##
+Annoyances:
+* PlatformIO **with** Mbed Framework: You find good examples, but it is very time consuming that mbed v5 examples and v2 
+  are not easy distinguishable and if you are on the wrong path you loose time. For example, you can choose v2 libraries, when
+  dealing with the v5 framework. No warning, no hint.
+* PlatformIO **and** Mbed Framework: This can differ in the configuration approach. Not all mbed_app.json specific settings seems to be 
+  implemented well or clean. Some settings are not intuitive, for instance choosing Mbed OS is done via platformio.ini, while other related 
+  switches refer to the json file. Some is implemented, some is documented and it is not always clear what refers to a specific version.
+  But who knows... 
+* Dependency management is fragile. See the [bugs](https://github.com/platformio/platformio-core/issues?utf8=%E2%9C%93&q=is%3Aissue+depend+) and [quirks](https://github.com/platformio/platform-ststm32/issues?utf8=%E2%9C%93&q=is%3Aissue+depend+).  
+* Build Times: mbed project, full library took +450 seconds. Recompile, the only main.obj took 55 seconds, while a raw gcc compile of these steps
+  would take 13 seconds. That ranges from annoying to useless, especially for small projects and home users.
+* Documentation is a mess. You will find something! And on the interweb always the wrong stuff for an older version or an example that worked 
+  for the creator, but not for you. 
+  The next steps are familiar: Go shopping with the error messages on google and eventually fix it. If you *facepalm* you possibly 
+  hit the wrong person.
+
+## libopencm3 ##
+* Functions are not well documented in the header files. This prevents modern IDE's from showing inline documentation.   
 
 
 # Notes #
@@ -56,7 +115,6 @@ Various hints, information, notes and other points that came up during R&D.
     Connect to serial via screen: 
         Use pyserial
         picocom
-
 
 ## ToDo ##
 
