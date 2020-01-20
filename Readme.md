@@ -99,6 +99,10 @@ Annoyances:
 ## libopencm3 ##
 * Functions are not well documented in the header files. This prevents modern IDE's from showing inline documentation.   
 
+## Conclusion ##
+If you want a first touch with MCU's then xxx is a vielversprechend ...
+But if you want to master the device ... geht nichts dran vorbei sein datenblätter zu kennen, usw. etc.
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 

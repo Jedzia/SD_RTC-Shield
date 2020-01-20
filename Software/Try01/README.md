@@ -17,3 +17,8 @@ Easy "clone and go" repository for a libopencm3 based project.
 # As a template
 You should replace this with your _own_ README if you are using this
 as a template.
+
+# Notes #
+
+    E:\Projects\Elektronik\ARM\STM32F401\SD_RTC-Shield\Software\Try03PlatformIO\.pio\libdeps\nucleo_f401re\Adafruit_RTCLib_ID3122\DS1307.h
+    E:\Projects\Elektronik\ARM\mbed\tmp\test01
