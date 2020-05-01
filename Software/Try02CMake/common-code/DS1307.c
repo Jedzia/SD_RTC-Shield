@@ -272,29 +272,33 @@ void DS1307_i2c_init(void)
 {
     // ToDo: only as reference from https://github.com/libopencm3/libopencm3-examples/blob/d076cb5549a5425201df50770fa4b96bd73c4568/examples/stm32/f4/stm32f429i-discovery/lcd-serial-touch/touch_i2c.c, delete after R&D
     /* Enable clocks for I2C2 and GPIO. */
-    rcc_periph_clock_enable(RCC_I2C3);
-    rcc_periph_clock_enable(RCC_GPIOA);
-    rcc_periph_clock_enable(RCC_GPIOC);
+    //rcc_periph_clock_enable(RCC_GPIOA);
+    rcc_periph_clock_enable(RCC_GPIOB);
+    //rcc_periph_clock_enable(RCC_GPIOC);
+    //rcc_periph_clock_enable(RCC_GPIOH);
+    rcc_periph_clock_enable(RCC_I2C1);
 
     /* Set gpio and alternate functions for the SCL and SDA pins of I2C3. */
-    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8);
-    gpio_mode_setup(GPIOC, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
-    gpio_set_af(GPIOA, GPIO_AF4, GPIO8);
-    gpio_set_af(GPIOC, GPIO_AF4, GPIO9);
+    gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8);
+    gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
+    gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ, GPIO8);
+    gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ, GPIO9);
+    gpio_set_af(GPIOB, GPIO_AF4, GPIO8);
+    gpio_set_af(GPIOB, GPIO_AF4, GPIO9);
 
     /* Disable the I2C before changing any configuration. */
-    i2c_peripheral_disable(I2C3);
+    i2c_peripheral_disable(I2C1);
 
-    i2c_set_speed(I2C3, i2c_speed_sm_100k, I2C_CR2_FREQ_36MHZ);
+    i2c_set_speed(I2C1, i2c_speed_sm_100k, I2C_CR2_FREQ_42MHZ);
 
     /*
      * This is our slave address - needed only if we want to receive from
      * other masters.
      */
-    i2c_set_own_7bit_slave_address(I2C3, 0x32);
+    i2c_set_own_7bit_slave_address(I2C1, 0x32);
 
     /* If everything is configured -> enable the peripheral. */
-    i2c_peripheral_enable(I2C3);
+    i2c_peripheral_enable(I2C1);
 }
 
 void i2c_setup(void) {
@@ -319,10 +323,10 @@ void i2c_setup(void) {
 //    /* USER CODE BEGIN I2C1_MspInit 1 */
 //
 
-    rcc_periph_clock_enable(RCC_GPIOA);
+    //rcc_periph_clock_enable(RCC_GPIOA);
     rcc_periph_clock_enable(RCC_GPIOB);
-    rcc_periph_clock_enable(RCC_GPIOC);
-    rcc_periph_clock_enable(RCC_GPIOH);
+    //rcc_periph_clock_enable(RCC_GPIOC);
+    //rcc_periph_clock_enable(RCC_GPIOH);
     rcc_periph_clock_enable(RCC_I2C1);
 
     // was PA8 - I2C3_SCL
