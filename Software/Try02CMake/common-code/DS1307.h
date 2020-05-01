@@ -7,6 +7,18 @@
 
 #include <stdint.h>
 
+#if defined(__GNUC__) || defined(__clang__)
+#define DEPRECATED __attribute__((deprecated))
+#elif defined(_MSC_VER)
+#define DEPRECATED __declspec(deprecated)
+#else
+#pragma message("WARNING: You need to implement DEPRECATED for this compiler")
+#define DEPRECATED
+#endif
+
+//[[deprecated("Replaced by bar, which has an improved interface")]]
+DEPRECATED void DS1307_i2c_init(void);
+
 void i2c_setup(void);
 
 void i2c_deinit(void);

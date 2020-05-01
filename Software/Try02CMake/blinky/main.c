@@ -80,14 +80,15 @@ int main(void) {
     printf("\n\nHello, we're running\n");
     //msleep(100);
     i2c_setup();
+    //DS1307_i2c_init();
     msleep(100);
 
-    if(!DS1307_IsRunning()) {
+    /*if(!DS1307_IsRunning()) {
         printf("RTC is NOT running!\n");
         printf("Running DS1307_Init\n");
         msleep(500);
         DS1307_Init();
-    }
+    }*/
 
 
 
