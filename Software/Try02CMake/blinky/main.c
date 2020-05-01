@@ -10,7 +10,7 @@
 #include "../common-code/DS1307.h"
 #include "../common-code/clock.h"
 
-const int DELAY_TIME = 100;
+const int DELAY_TIME = 700;
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
