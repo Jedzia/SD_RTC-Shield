@@ -3,16 +3,14 @@
 
 #include <errno.h>
 #include <stdio.h>
-#include <sys/unistd.h>
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
-#include <libopencm3/cm3/systick.h>
 #include "../common-code/DS1307.h"
 #include "../common-code/clock.h"
 
-const int DELAY_TIME = 500;
+const int DELAY_TIME = 100;
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
@@ -58,17 +56,17 @@ static void gpio_setup(void) {
     gpio_set_af(GPIOA, GPIO_AF7, GPIO2);
 }
 
-void wait(void);
+/*void wait(void);
 
 void wait() {
     for(int i = 0; i < 20 * 120000; i++) {    // Wait a bit.
         __asm__("nop");
     }
-}
+}*/
 
 int main(void) {
 
-    int i, j = 0, c = 0;
+   // int i, j = 0, c = 0;
 
     sys_clock_setup();
     clock_setup();
@@ -116,7 +114,7 @@ int main(void) {
     //    printf("Blink %d\n", c);
 //        usart_send_blocking(USART2, 'X');
 //        usart_send_blocking(USART2, (uint16_t) (c + '0')); /* USART2: Send byte. */
-        c = (c == 9) ? 0 : c + 1;    /* Increment c. */
+//        c = (c == 9) ? 0 : c + 1;    /* Increment c. */
 //        if((j++ % 80) == 0) {        /* Newline after line full. */
 //            usart_send_blocking(USART2, '\r');
 //            usart_send_blocking(USART2, '\n');
@@ -135,10 +133,11 @@ int main(void) {
         gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
         //msleep(5 * DELAY_TIME);
 
+        DS1307_DoSomething();
+
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
 
-        DS1307_DoSomething();
     }
 
     //return 0;
