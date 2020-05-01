@@ -26,7 +26,6 @@
 #define DS1307_DATE                    0x04
 #define DS1307_MONTH                0x05
 #define DS1307_YEAR                    0x06
-#define DS1307_CONTROL                0x07
 
 /* Bits in control register */
 #define DS1307_CONTROL_OUT            7
@@ -54,75 +53,14 @@ uint8_t translate_bcd_for_print(uint8_t data) {
 }
 
 void DS1307_DoSomething() {
-    //i2c_write(I2C1, DS1307_ADDRESS, 0, 0);
-
-    uint8_t val1 = 41, val2 = 42, val3 = 43, val4 = 44, val5 = 45, val6 = 46, val7 = 47, val8 = 48, val9 = 49;
-
-    /*if(i2c_start(I2C1, DS1307_ADDRESS, I2C_WRITE) != 0)
-    {
-        printf("i2c_start: Timeout -1\n");
-        return;
-    }
-
-    i2c_send_data(I2C1, DS1307_CONTROL);
-
-    while(!(I2C_SR1(I2C1) & (I2C_SR1_BTF)));
-    i2c_send_data(I2C1, 0);
-
-    while(!(I2C_SR1(I2C1) & (I2C_SR1_BTF)));
-
-    i2c_send_stop(I2C1);
-
-    printf("i2c_start: return -1\n");
-    return;*/
-
-
-
-   /* uint8_t cmd = ACC_CTRL_REG1_A;
-    uint8_t data;
-    i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-    cmd = ACC_CTRL_REG4_A;
-    i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-    int16_t acc_x;
-
-    while (1) {
-
-        cmd = ACC_STATUS;
-        i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-        cmd = ACC_OUT_X_L_A;
-        i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-        acc_x = data;
-        cmd = ACC_OUT_X_H_A;
-        i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-        acc_x |= ((uint16_t)data << 8);
-        printf("data was %d\n", acc_x);
-    }*/
-#define TOUCH_CHIP_ID 0x00
-
-    /*uint8_t time_buf[8] = {};
-    uint8_t cmd = 0x55;
-    cmd = DS1307_SECONDS;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val1, 1);
-    cmd = DS1307_MINUTES;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val2, 1);
-    cmd = DS1307_HOURS;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val3, 1);
-    cmd = DS1307_DAY;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val4, 1);
-    cmd = DS1307_DATE;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val5, 1);
-    cmd = DS1307_MONTH;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val6, 1);
-    cmd = DS1307_YEAR;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val7, 1);*/
-
+    //uint8_t val1 = 41, val2 = 42, val3 = 43, val4 = 44, val5 = 45, val6 = 46, val7 = 47, val8 = 48, val9 = 49;
 
     uint8_t cmd = 0x55;
     uint8_t time_buf[8] = {};
     cmd = DS1307_SECONDS;
     i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, time_buf, sizeof(time_buf));
 
-    printf("val1: %d, val2: %d , val3: %d , val4: %d , val5: %d , val6: %d , val7: %d\n",
+    printf("sec: %d, min: %d , hrs: %d , dow: %d , date: %d , month: %d , year: %d\n",
             translate_bcd_for_print(time_buf[0]),
             translate_bcd_for_print(time_buf[1]),
             translate_bcd_for_print(time_buf[2]),
@@ -131,107 +69,6 @@ void DS1307_DoSomething() {
             translate_bcd_for_print(time_buf[5]),
             translate_bcd_for_print(time_buf[6])
             );
-
-
-
-
-
-    return;
-
-    // val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
-    uint32_t i2c = I2C1; uint8_t address = DS1307_ADDRESS; uint8_t reg = DS1307_SECONDS;
-
-    uint32_t timeout = 20000;
-    while((I2C_SR2(i2c) & I2C_SR2_BUSY)) {
-		if (timeout > 0) {
-			timeout--;
-		} else {
-            printf("I2C_SR2_BUSY ret -1  \n");
-            break;
-			//return -1;
-		}
-	}
-
-    if(i2c_start(i2c, address, I2C_WRITE)) {
-        printf("ret zero  \n");
-        //return 0;
-    }
-    i2c_send_data(i2c, reg);
-
-    timeout = 20000;
-    while(!(I2C_SR1(i2c) & (I2C_SR1_BTF))) {
-        if(timeout > 0) {
-            timeout--;
-        } else {
-            printf("I2C_SR1_BTF ret -1  \n");
-            break;
-            //return -1;
-        }
-    }
-
-    i2c_start(i2c, address, I2C_READ);
-
-    i2c_send_stop(i2c);
-
-    while(!(I2C_SR1(i2c) & I2C_SR1_RxNE));
-
-    int result = (int) i2c_get_data(i2c);
-
-    I2C_SR1(i2c) &= ~I2C_SR1_AF;
-    msleep(1);
-    i2c_send_stop(i2c);
-
-    val1 = result;
-
-    /*val2 = (int) i2c_get_data(I2C1);
-    val3 = (int) i2c_get_data(I2C1);
-    val4 = (int) i2c_get_data(I2C1);
-    val5 = (int) i2c_get_data(I2C1);
-    val6 = (int) i2c_get_data(I2C1);
-    val7 = (int) i2c_get_data(I2C1);*/
-
-//    val2 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
-//    val3 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MINUTES);
-//    val4 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MINUTES);
-    //int result = (int) i2c_get_data(I2C1);
-    /*result = (int) i2c_get_data(I2C1);
-    result = (int) i2c_get_data(I2C1);
-    result = (int) i2c_get_data(I2C1);
-    result = (int) i2c_get_data(I2C1);
-    result = (int) i2c_get_data(I2C1);
-    result = (int) i2c_get_data(I2C1);*/
-
-
-    //while(!(I2C_SR1(I2C1) & (I2C_SR1_BTF)));
-
-    i2c_send_stop(I2C1);
-
-
-
-
-    printf("val1: %d, val2: %d , val3: %d , val4: %d , val5: %d , val6: %d , val7: %d, val8: %d , val9: %d  \n", val1, val2, val3, val4, val5, val6, val7, val8, val9);
-
-
-
-/*    return;
-    if(val1 == -1) printf("S: Timeout "); else printf("S: %d ", val1);
-    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MINUTES);
-    if(val1 == -1) printf("M: Timeout "); else printf("M: %d ", val1);
-    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_HOURS);
-    if(val1 == -1) printf("H: Timeout "); else printf("H: %d ", val1);
-    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DAY);
-    if(val1 == -1) printf("D: Timeout "); else printf("D: %d ", val1);
-    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DATE);
-    if(val1 == -1) printf("DT: Timeout "); else printf("DT: %d ", val1);
-    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MONTH);
-    if(val1 == -1) printf("MO: Timeout "); else printf("MO: %d ", val1);
-    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_YEAR);
-    if(val1 == -1) printf("Y: Timeout "); else printf("Y: %d ", val1);
-    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
-    if(val1 == -1) printf("CRTL: Timeout \n"); else printf("CTRL: %d \n", val1);
-
-    //val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
-    //printf("CTRL: %d\n", val);*/
 }
 
 uint8_t DS1307_Init(void) {

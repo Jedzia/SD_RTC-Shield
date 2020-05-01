@@ -19,6 +19,18 @@
 //[[deprecated("Replaced by bar, which has an improved interface")]]
 DEPRECATED void DS1307_i2c_init(void);
 
+enum DS1307 {
+DS1307_SECONDS =                0x00,
+DS1307_MINUTES =               0x01,
+DS1307_HOURS   =             0x02,
+DS1307_DAY     =               0x03,
+DS1307_DATE    =                0x04,
+DS1307_MONTH   =             0x05,
+DS1307_YEAR    =                0x06,
+
+};
+
+
 uint8_t translate_bcd_for_print(uint8_t data);
 
 void i2c_setup(void);
