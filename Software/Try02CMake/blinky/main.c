@@ -79,8 +79,8 @@ int main(void) {
     msleep(2000);
     printf("\n\nHello, we're running\n");
     //msleep(100);
-    //i2c_setup();
-    DS1307_i2c_init();
+    i2c_setup();
+    //DS1307_i2c_init();
     msleep(100);
 
     /*if(!DS1307_IsRunning()) {

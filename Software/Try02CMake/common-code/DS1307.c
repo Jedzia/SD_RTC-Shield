@@ -281,6 +281,7 @@ void DS1307_i2c_init(void)
     /* Set gpio and alternate functions for the SCL and SDA pins of I2C3. */
     gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8);
     gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
+    // ToDo: Added gpio_set_output_options, because GPIO_OTYPE_OD is needed for operation. Give feedback to libopencm3?
     gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ, GPIO8);
     gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ, GPIO9);
     gpio_set_af(GPIOB, GPIO_AF4, GPIO8);
@@ -331,7 +332,7 @@ void i2c_setup(void) {
 
     // was PA8 - I2C3_SCL
     gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8);
-    // HAL sets #define  GPIO_MODE_AF_OD  0x00000012U   /*!< Alternate Function Open Drain Mode    */
+    // HAL sets #define  GPIO_MODE_AF_OD  0x00000012U   /*!< Alternate Function Open Drain Mode    */ Is needed!
     gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ, GPIO8);
     // HAL sets #define GPIO_AF4_I2C1 ((uint8_t)0x04)  /* I2C1 Alternate Function mapping */
     gpio_set_af(GPIOB, GPIO_AF4, GPIO8);
