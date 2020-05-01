@@ -1,3 +1,4 @@
+#include <sched.h>
 /*
  * This file is part of the libopencm3 project.
  *
@@ -69,11 +70,10 @@ void sys_clock_setup(void) {
 }
 
 
-
-
-
-/* ToDo: Remove this */
+__unused /* ToDo: Remove this */
 __attribute__((deprecated("ToDo: Remove me")))
+void sys_clock_setup_old(void);
+
 void sys_clock_setup_old(void) {
 
     /* clock rate / 168000 to get 1mS interrupt rate */

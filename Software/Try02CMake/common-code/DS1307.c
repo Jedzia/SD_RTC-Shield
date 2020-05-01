@@ -104,23 +104,33 @@ uint8_t DS1307_IsRunning(void) {
 void DS1307_DoSomething() {
     //i2c_write(I2C1, DS1307_ADDRESS, 0, 0);
 
-    int val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
-    //printf("S: %d ", val);
-    if(val == -1) printf("S: Timeout "); else printf("S: %d ", val);
-    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MINUTES);
-    if(val == -1) printf("M: Timeout "); else printf("M: %d ", val);
-    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_HOURS);
-    if(val == -1) printf("H: Timeout "); else printf("H: %d ", val);
-    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DAY);
-    if(val == -1) printf("D: Timeout "); else printf("D: %d ", val);
-    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DATE);
-    if(val == -1) printf("DT: Timeout "); else printf("DT: %d ", val);
-    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MONTH);
-    if(val == -1) printf("MO: Timeout "); else printf("MO: %d ", val);
-    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_YEAR);
-    if(val == -1) printf("Y: Timeout "); else printf("Y: %d ", val);
-    val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
-    if(val == -1) printf("CRTL: Timeout \n"); else printf("CTRL: %d \n", val);
+    int val1 = 41, val2 = 42, val3 = 43, val4 = 44, val5 = 45, val6 = 46, val7 = 47, val8 = 48, val9 = 49;
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
+    val2 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
+    //int result = (int) i2c_get_data(I2C1);
+    /*result = (int) i2c_get_data(I2C1);
+    result = (int) i2c_get_data(I2C1);
+    result = (int) i2c_get_data(I2C1);
+    result = (int) i2c_get_data(I2C1);
+    result = (int) i2c_get_data(I2C1);
+    result = (int) i2c_get_data(I2C1);*/
+    printf("val1: %d, val2: %d , val3: %d , val4: %d , val5: %d , val6: %d , val7: %d, val8: %d , val9: %d  \n", val1, val2, val3, val4, val5, val6, val7, val8, val9);
+    return;
+    if(val1 == -1) printf("S: Timeout "); else printf("S: %d ", val1);
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MINUTES);
+    if(val1 == -1) printf("M: Timeout "); else printf("M: %d ", val1);
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_HOURS);
+    if(val1 == -1) printf("H: Timeout "); else printf("H: %d ", val1);
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DAY);
+    if(val1 == -1) printf("D: Timeout "); else printf("D: %d ", val1);
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_DATE);
+    if(val1 == -1) printf("DT: Timeout "); else printf("DT: %d ", val1);
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_MONTH);
+    if(val1 == -1) printf("MO: Timeout "); else printf("MO: %d ", val1);
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_YEAR);
+    if(val1 == -1) printf("Y: Timeout "); else printf("Y: %d ", val1);
+    val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
+    if(val1 == -1) printf("CRTL: Timeout \n"); else printf("CTRL: %d \n", val1);
 
     //val = i2c_read(I2C1, DS1307_ADDRESS, DS1307_CONTROL);
     //printf("CTRL: %d\n", val);
