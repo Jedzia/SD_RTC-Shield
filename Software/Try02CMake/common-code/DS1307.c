@@ -99,7 +99,7 @@ void DS1307_DoSomething() {
     }*/
 #define TOUCH_CHIP_ID 0x00
 
-    uint8_t time_buf[8] = {};
+    /*uint8_t time_buf[8] = {};
     uint8_t cmd = 0x55;
     cmd = DS1307_SECONDS;
     i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val1, 1);
@@ -114,19 +114,28 @@ void DS1307_DoSomething() {
     cmd = DS1307_MONTH;
     i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val6, 1);
     cmd = DS1307_YEAR;
-    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val7, 1);
+    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val7, 1);*/
 
-    printf("val1: %d, val2: %d , val3: %d , val4: %d , val5: %d , val6: %d , val7: %d, val8: %d , val9: %d  \n",
-            translate_bcd_for_print(val1),
-            translate_bcd_for_print(val2),
-            translate_bcd_for_print(val3),
-            translate_bcd_for_print(val4),
-            translate_bcd_for_print(val5),
-            translate_bcd_for_print(val6),
-            translate_bcd_for_print(val7),
-            translate_bcd_for_print(val8),
-            translate_bcd_for_print(val9)
+
+    uint8_t cmd = 0x55;
+    uint8_t time_buf[8] = {};
+    cmd = DS1307_SECONDS;
+    i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, time_buf, sizeof(time_buf));
+
+    printf("val1: %d, val2: %d , val3: %d , val4: %d , val5: %d , val6: %d , val7: %d\n",
+            translate_bcd_for_print(time_buf[0]),
+            translate_bcd_for_print(time_buf[1]),
+            translate_bcd_for_print(time_buf[2]),
+            translate_bcd_for_print(time_buf[3]),
+            translate_bcd_for_print(time_buf[4]),
+            translate_bcd_for_print(time_buf[5]),
+            translate_bcd_for_print(time_buf[6])
             );
+
+
+
+
+
     return;
 
     // val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
