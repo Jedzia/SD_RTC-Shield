@@ -19,6 +19,8 @@
 //[[deprecated("Replaced by bar, which has an improved interface")]]
 DEPRECATED void DS1307_i2c_init(void);
 
+uint8_t translate_bcd_for_print(uint8_t data);
+
 void i2c_setup(void);
 
 void i2c_deinit(void);

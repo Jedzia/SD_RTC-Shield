@@ -5,7 +5,7 @@
 #include "DS1307.h"
 #include "clock.h"
 #include <stdio.h>
-
+#include <assert.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/i2c.h>
 #include <libopencm3/stm32/gpio.h>
@@ -46,7 +46,12 @@ uint8_t DS1307_IsRunning(void) {
     return !(ss >> 7);
 }
 
-
+uint8_t translate_bcd_for_print(uint8_t data) {
+    assert(((data & 0xF0) >> 4) < 10);  // More significant nybble is valid
+    assert((data & 0x0F) < 10);         // Less significant nybble is valid
+    uint8_t dec = ((data & 0xF0) >> 4) * 10 + (data & 0x0F);
+    return dec;
+}
 
 void DS1307_DoSomething() {
     //i2c_write(I2C1, DS1307_ADDRESS, 0, 0);
@@ -111,7 +116,17 @@ void DS1307_DoSomething() {
     cmd = DS1307_YEAR;
     i2c_transfer7(I2C1, DS1307_ADDRESS, &cmd, 1, &val7, 1);
 
-    printf("val1: %d, val2: %d , val3: %d , val4: %d , val5: %d , val6: %d , val7: %d, val8: %d , val9: %d  \n", val1, val2, val3, val4, val5, val6, val7, val8, val9);
+    printf("val1: %d, val2: %d , val3: %d , val4: %d , val5: %d , val6: %d , val7: %d, val8: %d , val9: %d  \n",
+            translate_bcd_for_print(val1),
+            translate_bcd_for_print(val2),
+            translate_bcd_for_print(val3),
+            translate_bcd_for_print(val4),
+            translate_bcd_for_print(val5),
+            translate_bcd_for_print(val6),
+            translate_bcd_for_print(val7),
+            translate_bcd_for_print(val8),
+            translate_bcd_for_print(val9)
+            );
     return;
 
     // val1 = i2c_read(I2C1, DS1307_ADDRESS, DS1307_SECONDS);
