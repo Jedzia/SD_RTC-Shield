@@ -127,6 +127,7 @@ set(SOURCES
         ../common-code/clock.c
         ../common-code/DS1307.c
 
+        # ChaN's FatFs - Generic FAT Filesystem Module http://elm-chan.org/fsw/ff/00index_e.html
         ../common-code/fatfs/diskio.h
         # these are the library and example implementations of raw disk access functions
         # ../common-code/fatfs/diskio.c
@@ -142,7 +143,7 @@ set(SOURCES
 #set_source_files_properties(../common-code/api-asm.S PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 
 
-add_definitions(-DSTM32F4 -DSTM32F401RET6)
+add_definitions(-DSTM32F4 -DSTM32F401RET6 -D_LF_CRLF=1)
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}../my-common-code

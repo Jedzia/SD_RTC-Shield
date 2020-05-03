@@ -1,23 +1,46 @@
 # How to build
 
-## ARM build (with MinGW CMake) ##
+## Build for ARM (with MinGW CMake) ##
 
-    $ git submodule update --init --recursive
+Under Windows you may have to specify the generator with `-G"MinGW Makefiles"` and use 
+**mingw32-make**. This depends on the method you use and your development setup.
+
+- Fetch or update libopencm3: 
     
-    $ mkdir build/
-    $ cd build/
-    
-    $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake ..
-    
-    $ make libopencm3
-    
-    $ make 
-    
-    $ make flash
-    $ make upload
-    
-    $ make monitor
-    $ make fmonitor
+        $ git submodule update --init --recursive
+
+- Create a build directory 
+
+        $ mkdir build/
+        $ cd build/
+
+- Configure the CMake build system 
+
+        $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake ..
+        
+- Build the platform libopencm3 library
+
+        $ make libopencm3
+        
+- Build your project with
+
+        $ make 
+        
+- Then upload it via OpenOCD (flash) or st-flash (upload) 
+
+        $ make flash
+        $ make upload
+        
+- View serial output of the target via monitor program or flash the target before
+  monitor invocation in one go (fmonitor).
+
+        $ make monitor
+        $ make fmonitor
+
+For MSys or Cygwin you may have to specify the Generator: 
+
+    cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"MSYS Makefiles"
+    cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"Unix Makefiles"
 
 
 ### Example Toolchain File, `arm-none-eabi.cmake` ###
@@ -39,6 +62,7 @@
     
     #Enable semi hosting
     #set(CMAKE_EXE_LINKER_FLAGS_INIT "--specs=rdimon.specs")
+
 
 ### Example Project Configuration File, `local.cmake` ###
 Here you can easily tweak the settings used during development such as communication
@@ -71,5 +95,5 @@ Visual studio setup (for editing, with Windows CMake)
     cd blinky
     mkdir buildVS
     cd buildVS
-    "C:\Program Files\CMake\bin\cmake" -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. 
+    "C:\Program Files\CMake\bin\cmake" -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"Visual Studio 16 2019"
     
