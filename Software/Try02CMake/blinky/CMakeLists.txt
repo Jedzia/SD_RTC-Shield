@@ -128,6 +128,9 @@ set(SOURCES
         ../common-code/DS1307.c
 
         ../common-code/fatfs/diskio.h
+        # these are the library and example implementations of raw disk access functions
+        # ../common-code/fatfs/diskio.c
+        # ../common-code/fatfs/mmc_stm32f1_spi.c
         ../common-code/fatfs/ff.c
         ../common-code/fatfs/ff.h
         ../common-code/fatfs/ffconf.h
