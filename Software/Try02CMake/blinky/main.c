@@ -1,3 +1,4 @@
+#include <sched.h>
 //#include "api.h"
 //#include "api-asm.h"
 
@@ -10,7 +11,15 @@
 #include "../common-code/DS1307.h"
 #include "../common-code/clock.h"
 
+#include "../common-code/fatfs/xprintf.h"
+#include "../common-code/fatfs/ff.h"
+#include "../common-code/fatfs/diskio.h"
+
 const int DELAY_TIME = 700;
+
+FATFS FatFs;				/* File system object for each logical drive */
+FIL File[2];				/* File objects */
+DIR Dir;					/* Directory object */
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
@@ -64,6 +73,57 @@ void wait() {
     }
 }*/
 
+// Stubs that need implementation for FatFS to work.
+/*-----------------------------------------------------------------------*/
+/* Initialize disk drive                                                 */
+/*-----------------------------------------------------------------------*/
+DSTATUS disk_initialize (
+        __unused BYTE drv		/* Physical drive number (0) */
+)
+{
+    return STA_NOINIT;
+}
+
+
+/*-----------------------------------------------------------------------*/
+/* Get disk status                                                       */
+/*-----------------------------------------------------------------------*/
+DSTATUS disk_status (
+        __unused BYTE drv		/* Physical drive number (0) */
+)
+{
+    //if (drv) return STA_NOINIT;		/* Supports only drive 0 */
+
+    //return Stat;	/* Return disk status */
+    return STA_NOINIT;
+}
+
+/*-----------------------------------------------------------------------*/
+/* Read sector(s)                                                        */
+/*-----------------------------------------------------------------------*/
+DRESULT disk_read (
+        __unused BYTE drv,		/* Physical drive number (0) */
+        __unused BYTE *buff,		/* Pointer to the data buffer to store read data */
+        __unused LBA_t sector,	/* Start sector number (LBA) */
+        __unused UINT count		/* Number of sectors to read (1..128) */
+)
+{
+    return RES_NOTRDY;
+}
+
+/*-----------------------------------------------------------------------*/
+/* Write sector(s)                                                       */
+/*-----------------------------------------------------------------------*/
+DRESULT disk_write (
+        __unused BYTE drv,			/* Physical drive number (0) */
+        __unused const BYTE *buff,	/* Ponter to the data to write */
+        __unused LBA_t sector,		/* Start sector number (LBA) */
+        __unused UINT count			/* Number of sectors to write (1..128) */
+)
+{
+    return RES_NOTRDY;
+}
+
 int main(void) {
 
    // int i, j = 0, c = 0;
@@ -81,6 +141,7 @@ int main(void) {
     //DS1307_i2c_init();
     msleep(100);
 
+    printf("Initializing RTC ...\n");
     if(!DS1307_IsRunning()) {
         printf("RTC is NOT running!\n");
         printf("Running DS1307_Init\n");
@@ -88,7 +149,9 @@ int main(void) {
         DS1307_Init();
     }
 
-
+    printf("Initializing Fat File System ...\n");
+    // mount immediately
+    f_mount(&FatFs, "", 1);
 
     /* Blink the LED (PC8) on the board. */
     while(1) {

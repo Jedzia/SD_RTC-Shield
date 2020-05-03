@@ -125,7 +125,17 @@ set(SOURCES
         ../common-code/api-asm.S
         ../common-code/uartprint.c
         ../common-code/clock.c
-        ../common-code/DS1307.c)
+        ../common-code/DS1307.c
+
+        ../common-code/fatfs/diskio.h
+        ../common-code/fatfs/ff.c
+        ../common-code/fatfs/ff.h
+        ../common-code/fatfs/ffconf.h
+        ../common-code/fatfs/ffsystem.c
+        ../common-code/fatfs/ffunicode.c
+        ../common-code/fatfs/xprintf.c
+        ../common-code/fatfs/xprintf.h
+        )
 #set_source_files_properties(../common-code/api-asm.S PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 
 

@@ -6,6 +6,7 @@
       <w>csson</w>
       <w>dcache</w>
       <w>dcen</w>
+      <w>fatfs</w>
       <w>gpio</w>
       <w>hpre</w>
       <w>hsebyp</w>
