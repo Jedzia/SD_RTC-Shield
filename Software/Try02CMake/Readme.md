@@ -1,22 +1,14 @@
-ARM build (with MinGW CMake)
 
-    cd blinky
-    mkdir build
-    cd build
-    cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake ..
+# RTC-Shield test setup with NUCLEO STM32F401RET6. #
 
-    make libopencm3
+|                     NUCLEO-F401RE                          |                      Data Logger Shield                 |
+| ---------------------------------------------------------- | ------------------------------------------------------- |
+| ![](../../doc/images/nucleo-F401-RE.png)                         | ![](../../doc/images/shield.jpg)                  |
+| https://www.st.com/en/evaluation-tools/nucleo-f401re.html  | https://learn.adafruit.com/adafruit-data-logger-shield  |
 
-    make
-    make clean VERBOSE=1 all
-    
+|                                   Development Setup                                   |
+| ------------------------------------------------------------------------------------- |
+| ![NUCLEO-Board with shield](../../doc/images/nucleo_with_shield-DSC06056.jpg)         |
+| [blinky](blinky/README.md)                                                            |
 
-why VS? better use CLion
-
-Visual studio setup (for editing, with Windows CMake)
-
-    cd blinky
-    mkdir buildVS2015
-    cd buildVS2015
-    "D:\Program Files (x86)\CMake\bin\cmake" -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. 
-    
+Go to [blinky](blinky/README.md) for a simple I2C example based on CMake and the GNU-ARM-GCC toolchain.
