@@ -1,0 +1,16 @@
+# Settings-File for local settings. Copy this template to 'local.cmake' and adjust the
+# paths and settings to your needing.
+
+# Python and serial.tools.miniterm is required for serial monitor functionality.
+set(PYTHON "C:/Python/Python37/python")
+
+# Serial monitor configuration. Used by target 'monitor and 'fmonitor'.
+set(PORT COM17)
+set(BAUDRATE 115200)
+
+# Path to OpenOCD. Used by target 'flash'.
+set(OOCD openocd)
+set(OOCD_FILE board/st_nucleo_f4.cfg)
+
+# Path to st-flash utility. Used by target 'upload'.
+set(STFLASH /home/ppkt/usr/bin/st-flash)
