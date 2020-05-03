@@ -5,6 +5,20 @@ message(STATUS "Configuring project ${PROJECT_NAME}")
 project(${PROJECT_NAME} C ASM)
 cmake_minimum_required(VERSION 3.1)
 
+# check if we have a local cmake include file and include it if we do
+# this is useful for setting our python location or st-flash as an alternative to
+# environment variables
+set(PYTHON "C:/Python/Python37/python")
+set(PORT COM17)
+set(BAUDRATE 115200)
+set(OOCD openocd)
+set(OOCD_FILE board/st_nucleo_f4.cfg)
+set(STFLASH /home/ppkt/usr/bin/st-flash)
+if (EXISTS ${CMAKE_SOURCE_DIR}/local.cmake)
+    message(STATUS "Using local.cmake")
+    include(${CMAKE_SOURCE_DIR}/local.cmake)
+endif ()
+
 macro(do_size size_target)
     add_custom_command(TARGET ${size_target}.elf POST_BUILD
             COMMAND ${SIZE} --format=berkeley "$<TARGET_FILE:${size_target}.elf>"
@@ -106,7 +120,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 # Source files for main target.
 set(SOURCES
         main.c
-#        common_lib/utils.c
+        # common_lib/utils.c
         ../common-code/api.c
         ../common-code/api-asm.S
         ../common-code/uartprint.c
@@ -132,26 +146,21 @@ do_objcopy(${CMAKE_PROJECT_NAME} srec)
 do_objcopy(${CMAKE_PROJECT_NAME} hex)
 do_size(${CMAKE_PROJECT_NAME})
 
-set(OOCD openocd)
-set(OOCD_FILE board/st_nucleo_f4.cfg)
 add_custom_target(flash
         ${OOCD} -f ${OOCD_FILE} -c "program ${CMAKE_PROJECT_NAME}.elf verify reset exit"
         DEPENDS ${CMAKE_PROJECT_NAME}.elf
         COMMENT "Invoking: OpenOCD flash with ${CMAKE_PROJECT_NAME}.elf")
 
-set(PYTHON "C:/Python/Python37/python")
-set(PORT COM17)
-set(BAUDRATE 115200)
-add_custom_target(monitor
+add_custom_target(monitor # Start serial monitor.
         ${PYTHON} -m serial.tools.miniterm --raw --eol CRLF --encoding ascii ${PORT} ${BAUDRATE}
         COMMENT "Invoking: miniterm on port ${PORT}. Exit with CTRL+'+'")
-add_custom_target(fmonitor
+add_custom_target(fmonitor # Flash target and start serial monitor.
         ${PYTHON} -m serial.tools.miniterm --raw --eol CRLF --encoding ascii ${PORT} ${BAUDRATE}
         DEPENDS flash
         COMMENT "Invoking: miniterm on port ${PORT}. Exit with CTRL+'+'")
 
 
-add_custom_target(upload
+add_custom_target(upload # Flash target via 'st-flash'.
         stat -c %s ${CMAKE_PROJECT_NAME}.bin &&
-        /home/ppkt/usr/bin/st-flash --reset write ${CMAKE_PROJECT_NAME}.bin 0x08000000
+        ${STFLASH} --reset write ${CMAKE_PROJECT_NAME}.bin 0x08000000
         DEPENDS ${CMAKE_PROJECT_NAME}.bin)
