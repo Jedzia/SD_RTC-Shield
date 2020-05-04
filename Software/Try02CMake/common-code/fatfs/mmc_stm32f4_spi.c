@@ -15,6 +15,7 @@
 
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/spi.h>
+#include <stdio.h>
 #define	_BV(bit) (1<<(bit))
 
 #define SPI_CH	3	/* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
@@ -90,10 +91,13 @@
 
 #elif SPI_CH == 3	/* PA4:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, PC4:MMC_CD */
 //#define CS_HIGH()	GPIOB_BSRR = _BV(6)
-#define CS_HIGH()	gpio_set(GPIOB, GPIO6)
+//#define CS_HIGH()	gpio_set(GPIOB, GPIO6)
+#define CS_HIGH()	gpio_clear(GPIOB, GPIO6)
 //#define CS_LOW()	GPIOB_BSRR = _BV(6+16)
-#define CS_LOW()	gpio_clear(GPIOB, GPIO6)
+//#define CS_LOW()	gpio_clear(GPIOB, GPIO6)
+#define CS_LOW()	gpio_set(GPIOB, GPIO6)
 #define	MMC_CD		true	/* Card detect (yes:true, no:false, default:true) */
+//#define	MMC_CD		gpio_get(GPIOB, GPIO9)	/* Card detect (yes:true, no:false, default:true) */
 #define	MMC_WP		0 /* Write protected (yes:true, no:false, default:false) */
 #define SPIx_CR1	SPI1_CR1
 #define SPIx_SR		SPI1_SR
@@ -114,22 +118,105 @@
 
 #include <libopencm3/stm32/rcc.h>
 
+#define console_puts(x) puts(x);
+
+/*
+ * put_status(char *)
+ *
+ * This is a helper function I wrote to watch the status register
+ * it decodes the bits and prints them on the console. Sometimes
+ * the SPI port comes up with the MODF flag set, you have to re-read
+ * the status port and re-write the control register to clear that.
+ */
+void put_status(char *m);
+
+
 void SPIxENABLE(void);
 
-void SPIxENABLE() {
-    rcc_periph_clock_enable(RCC_GPIOA);
-    rcc_periph_clock_enable(RCC_GPIOB);
+/**
+* @brief SPI MSP Initialization
+* This function configures the hardware resources used in this example
+* @param hspi: SPI handle pointer
+* @retval None
+*/
+//void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
+//{
+//    GPIO_InitTypeDef GPIO_InitStruct = {0};
+//    if(hspi->Instance==SPI1)
+//    {
+//        /* USER CODE BEGIN SPI1_MspInit 0 */
+//
+//        /* USER CODE END SPI1_MspInit 0 */
+//        /* Peripheral clock enable */
+//        __HAL_RCC_SPI1_CLK_ENABLE();
+//
+//        __HAL_RCC_GPIOA_CLK_ENABLE();
+//        /**SPI1 GPIO Configuration
+//        PA5     ------> SPI1_SCK
+//        PA6     ------> SPI1_MISO
+//        PA7     ------> SPI1_MOSI
+//        */
+//        GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+//        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+//        GPIO_InitStruct.Pull = GPIO_NOPULL;
+//        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+//        GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+//        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+//
+//        /* USER CODE BEGIN SPI1_MspInit 1 */
+//
+//        /* USER CODE END SPI1_MspInit 1 */
+//    }
+//
+//}
 
+void SPIxENABLE() {
+    put_status("Before init: ");
     // MMC_CS
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO6);
+
     // MMC_SCLK
-    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5);
+    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO5);
+    gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO5);
+
     // MISO
     //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, GPIO6);
-    // I,
-    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO7);
+    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO6);
+    gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO6);
 
-    spi_enable(SPI1);
+    // MOSI
+    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO7);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO7);
+    gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO7);
+
+    // later use:
+    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5 | GPIO6 | GPIO7);
+
+    put_status("Before enable: ");
+
+    rcc_periph_clock_enable(RCC_GPIOA);
+    rcc_periph_clock_enable(RCC_GPIOB);
+    rcc_periph_clock_enable(RCC_SPI1);
+
+    uint32_t cr_tmp;
+
+    put_status("\nBefore init: ");
+
+    cr_tmp = SPI_CR1_BAUDRATE_FPCLK_DIV_8 |
+             SPI_CR1_MSTR |
+             SPI_CR1_SPE |
+             SPI_CR1_CPHA |
+             SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE;
+
+
+    SPI_CR2(SPI1) |= SPI_CR2_SSOE;
+    SPI_CR1(SPI1) = cr_tmp;
+    put_status("After init: ");
+
+    //spi_enable(SPI1);
+    put_status("After enable: ");
 }
 
 
@@ -166,7 +253,7 @@ void SPIxENABLE() {
 #define CMD58	(58)		/* READ_OCR */
 
 
-static volatile
+/*static*/ volatile
 DSTATUS Stat = STA_NOINIT;	/* Physical drive status */
 
 static volatile
@@ -187,22 +274,43 @@ void init_spi (void)
 {
 	SPIxENABLE();		/* Enable SPI function */
 	CS_HIGH();			/* Set CS# high */
+    put_status("CS_HIGH: ");
 
 	for (Timer1 = 10; Timer1; ) ;	/* 10ms */
+    put_status("Timer1: ");
+
+	printf("[SD-Card] SPI Initialized\n");
 }
 
-
+#if 1
 /* Exchange a byte */
 static
 BYTE xchg_spi (
 	BYTE dat	/* Data to send */
 )
 {
-	SPIx_DR = dat;				/* Start an SPI transaction */
-	while ((SPIx_SR & 0x83) != 0x03) ;	/* Wait for end of the transaction */
-	return (BYTE)SPIx_DR;		/* Return received byte */
+    //printf("[SD-Card] xchg_spi\n");
+    //put_status("xchg_spi: ");
+    uint16_t result = spi_xfer(SPI1, dat);
+    //printf("[SD-Card] xchg_spi result=%d\n", result);
+    return result;
+	//SPIx_DR = dat;				/* Start an SPI transaction */
+    //printf("[SD-Card] SPIx_SR %d\n", SPIx_DR);
+    //while ((SPIx_SR & 0x83) != 0x03) ;	/* Wait for end of the transaction */
+	//return (BYTE)SPIx_DR;		/* Return received byte */
 }
-
+#else
+/* Exchange a byte */
+static
+BYTE xchg_spi (
+        BYTE dat	/* Data to send */
+)
+{
+    SPIx_DR = dat;				/* Start an SPI transaction */
+    while ((SPIx_SR & 0x83) != 0x03) ;	/* Wait for end of the transaction */
+    return (BYTE)SPIx_DR;		/* Return received byte */
+}
+#endif
 
 /* Receive multiple byte */
 static
@@ -315,6 +423,8 @@ int select (void)	/* 1:OK, 0:Timeout */
 	xchg_spi(0xFF);	/* Dummy clock (force DO enabled) */
 	if (wait_ready(500)) return 1;	/* Wait for card ready */
 
+	printf("SD-Card NOT ready!\n");
+
 	deselect();
 	return 0;	/* Timeout */
 }
@@ -363,7 +473,12 @@ int xmit_datablock (	/* 1:OK, 0:Failed */
 	BYTE resp;
 
 
-	if (!wait_ready(500)) return 0;		/* Wait for card ready */
+    //if (!wait_ready(500)) return 0;		/* Wait for card ready */
+    /* Wait for card ready */
+    if (!wait_ready(500)) {
+        printf("SD-Card NOT ready!\n");
+        return 0;
+    }
 
 	xchg_spi(token);					/* Send token */
 	if (token != 0xFD) {				/* Send data if token is other than StopTran */
@@ -448,9 +563,15 @@ DSTATUS disk_initialize (
 	init_spi();							/* Initialize SPI */
 
 	if (Stat & STA_NODISK) return Stat;	/* Is card existing in the soket? */
+    printf("[SD-Card] Has Disk\n");
 
 	FCLK_SLOW();
-	for (n = 10; n; n--) xchg_spi(0xFF);	/* Send 80 dummy clocks */
+    printf("[SD-Card] FCLK_SLOW, Send 80 dummy clocks\n");
+	for (n = 10; n; n--) {
+        /* Send 80 dummy clocks */
+        //printf("[SD-Card] Sent 80 dummy clocks\n");
+        xchg_spi(0xFF);
+	}
 
 	ty = 0;
 	if (send_cmd(CMD0, 0) == 1) {			/* Put the card SPI/Idle state */
@@ -707,5 +828,35 @@ void disk_timerproc(void) {
         s |= (STA_NODISK | STA_NOINIT);
     }
     Stat = s;
+}
+
+void put_status(char *m) {
+    uint16_t stmp;
+
+    console_puts(m);
+    console_puts(" Status: ");
+    stmp = SPI_SR(SPI1);
+    if (stmp & SPI_SR_TXE) {
+        console_puts("TXE, ");
+    }
+    if (stmp & SPI_SR_RXNE) {
+        console_puts("RXNE, ");
+    }
+    if (stmp & SPI_SR_BSY) {
+        console_puts("BUSY, ");
+    }
+    if (stmp & SPI_SR_OVR) {
+        console_puts("OVERRUN, ");
+    }
+    if (stmp & SPI_SR_MODF) {
+        console_puts("MODE FAULT, ");
+    }
+    if (stmp & SPI_SR_CRCERR) {
+        console_puts("CRC, ");
+    }
+    if (stmp & SPI_SR_UDR) {
+        console_puts("UNDERRUN, ");
+    }
+    console_puts("\n");
 }
 

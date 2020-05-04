@@ -152,6 +152,9 @@ __used void sys_tick_handler(void) {
     disk_timerproc();	/* Disk timer process */
 }
 
+// bad hack to print status, remove this after R&D
+extern volatile DSTATUS Stat;
+
 int main(void) {
 
    // int i, j = 0, c = 0;
@@ -179,7 +182,7 @@ int main(void) {
 
     printf("Initializing Fat File System ...\n");
     // mount immediately
-//    f_mount(&FatFs, "", 1);
+    f_mount(&FatFs, "", 1);
 
     /* Blink the LED (PC8) on the board. */
     while(1) {
@@ -228,6 +231,7 @@ int main(void) {
 
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
+        printf("SD stat %d\n", Stat );
 
     }
 
