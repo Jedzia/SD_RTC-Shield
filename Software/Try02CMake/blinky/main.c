@@ -73,56 +73,56 @@ void wait() {
     }
 }*/
 
-// Stubs that need implementation for FatFS to work.
-/*-----------------------------------------------------------------------*/
-/* Initialize disk drive                                                 */
-/*-----------------------------------------------------------------------*/
-DSTATUS disk_initialize (
-        __unused BYTE drv		/* Physical drive number (0) */
-)
-{
-    return STA_NOINIT;
-}
-
-
-/*-----------------------------------------------------------------------*/
-/* Get disk status                                                       */
-/*-----------------------------------------------------------------------*/
-DSTATUS disk_status (
-        __unused BYTE drv		/* Physical drive number (0) */
-)
-{
-    //if (drv) return STA_NOINIT;		/* Supports only drive 0 */
-
-    //return Stat;	/* Return disk status */
-    return STA_NOINIT;
-}
-
-/*-----------------------------------------------------------------------*/
-/* Read sector(s)                                                        */
-/*-----------------------------------------------------------------------*/
-DRESULT disk_read (
-        __unused BYTE drv,		/* Physical drive number (0) */
-        __unused BYTE *buff,		/* Pointer to the data buffer to store read data */
-        __unused LBA_t sector,	/* Start sector number (LBA) */
-        __unused UINT count		/* Number of sectors to read (1..128) */
-)
-{
-    return RES_NOTRDY;
-}
-
-/*-----------------------------------------------------------------------*/
-/* Write sector(s)                                                       */
-/*-----------------------------------------------------------------------*/
-DRESULT disk_write (
-        __unused BYTE drv,			/* Physical drive number (0) */
-        __unused const BYTE *buff,	/* Ponter to the data to write */
-        __unused LBA_t sector,		/* Start sector number (LBA) */
-        __unused UINT count			/* Number of sectors to write (1..128) */
-)
-{
-    return RES_NOTRDY;
-}
+//// Stubs that need implementation for FatFS to work.
+///*-----------------------------------------------------------------------*/
+///* Initialize disk drive                                                 */
+///*-----------------------------------------------------------------------*/
+//DSTATUS disk_initialize (
+//        __unused BYTE drv		/* Physical drive number (0) */
+//)
+//{
+//    return STA_NOINIT;
+//}
+//
+//
+///*-----------------------------------------------------------------------*/
+///* Get disk status                                                       */
+///*-----------------------------------------------------------------------*/
+//DSTATUS disk_status (
+//        __unused BYTE drv		/* Physical drive number (0) */
+//)
+//{
+//    //if (drv) return STA_NOINIT;		/* Supports only drive 0 */
+//
+//    //return Stat;	/* Return disk status */
+//    return STA_NOINIT;
+//}
+//
+///*-----------------------------------------------------------------------*/
+///* Read sector(s)                                                        */
+///*-----------------------------------------------------------------------*/
+//DRESULT disk_read (
+//        __unused BYTE drv,		/* Physical drive number (0) */
+//        __unused BYTE *buff,		/* Pointer to the data buffer to store read data */
+//        __unused LBA_t sector,	/* Start sector number (LBA) */
+//        __unused UINT count		/* Number of sectors to read (1..128) */
+//)
+//{
+//    return RES_NOTRDY;
+//}
+//
+///*-----------------------------------------------------------------------*/
+///* Write sector(s)                                                       */
+///*-----------------------------------------------------------------------*/
+//DRESULT disk_write (
+//        __unused BYTE drv,			/* Physical drive number (0) */
+//        __unused const BYTE *buff,	/* Ponter to the data to write */
+//        __unused LBA_t sector,		/* Start sector number (LBA) */
+//        __unused UINT count			/* Number of sectors to write (1..128) */
+//)
+//{
+//    return RES_NOTRDY;
+//}
 
 int main(void) {
 
