@@ -562,11 +562,13 @@ DSTATUS disk_initialize (
 	init_spi();							/* Initialize SPI */
 
 	if (Stat & STA_NODISK) return Stat;	/* Is card existing in the soket? */
-    printf("[SD-Card] Has Disk\n");
+    //printf("[SD-Card] Has Disk\n");
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
 	FCLK_SLOW();
-    printf("[SD-Card] FCLK_SLOW, Send 80 dummy clocks\n");
+    //printf("[SD-Card] FCLK_SLOW, Send 80 dummy clocks\n");
     for (n = 10; n; n--) xchg_spi(0xFF);	/* Send 80 dummy clocks */
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
 	ty = 0;
 	if (send_cmd(CMD0, 0) == 1) {			/* Put the card SPI/Idle state */
@@ -590,8 +592,10 @@ DSTATUS disk_initialize (
 			if (!Timer1 || send_cmd(CMD16, 512) != 0)	/* Set block length: 512 */
 				ty = 0;
 		}
-	}
-	CardType = ty;	/* Card type */
+	} else
+        printf("[SD-Card] send_cmd(CMD0, 0) failed?\n");
+
+        CardType = ty;	/* Card type */
 	deselect();
 
 	if (ty) {			/* OK */

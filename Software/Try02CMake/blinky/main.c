@@ -164,7 +164,7 @@ __used void sys_tick_handler(void) {
         gpio_clear(GPIOB, GPIO3);
 
     disk_timerproc();	/* Disk timer process */
-    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
 }
 
