@@ -200,11 +200,9 @@ void SPIxENABLE() {
     rcc_periph_clock_enable(RCC_GPIOB);
     rcc_periph_clock_enable(RCC_SPI1);
 
-    uint32_t cr_tmp;
-
     put_status("\nBefore init: ");
 
-    cr_tmp = SPI_CR1_BAUDRATE_FPCLK_DIV_8 |
+    uint32_t cr_tmp = SPI_CR1_BAUDRATE_FPCLK_DIV_8 |
              SPI_CR1_MSTR |
              SPI_CR1_SPE |
              SPI_CR1_CPHA |
@@ -215,7 +213,8 @@ void SPIxENABLE() {
     SPI_CR1(SPI1) = cr_tmp;
     put_status("After init: ");
 
-    //spi_enable(SPI1);
+    // ToDo: is this needed? check libopencm3 source
+    spi_enable(SPI1);
     put_status("After enable: ");
 }
 
