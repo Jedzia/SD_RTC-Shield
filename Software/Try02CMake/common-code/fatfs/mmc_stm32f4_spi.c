@@ -89,16 +89,16 @@
 // SDBlockDevice sd(MOSI, MISO, SCLK, CS  );
 // SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
 
-#elif SPI_CH == 3	/* PA4:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, PC4:MMC_CD */
+#elif SPI_CH == 3	/* PB6:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, always:MMC_CD */
 //#define CS_HIGH()	GPIOB_BSRR = _BV(6)
-//#define CS_HIGH()	gpio_set(GPIOB, GPIO6)
-#define CS_HIGH()	gpio_clear(GPIOB, GPIO6)
+#define CS_HIGH()	gpio_set(GPIOB, GPIO6)
+//#define CS_HIGH()	gpio_clear(GPIOB, GPIO6)
 //#define CS_LOW()	GPIOB_BSRR = _BV(6+16)
-//#define CS_LOW()	gpio_clear(GPIOB, GPIO6)
-#define CS_LOW()	gpio_set(GPIOB, GPIO6)
+#define CS_LOW()	gpio_clear(GPIOB, GPIO6)
+//#define CS_LOW()	gpio_set(GPIOB, GPIO6)
 #define	MMC_CD		true	/* Card detect (yes:true, no:false, default:true) */
 //#define	MMC_CD		gpio_get(GPIOB, GPIO9)	/* Card detect (yes:true, no:false, default:true) */
-#define	MMC_WP		0 /* Write protected (yes:true, no:false, default:false) */
+#define	MMC_WP		1 /* Write protected (yes:true, no:false, default:false) */
 #define SPIx_CR1	SPI1_CR1
 #define SPIx_SR		SPI1_SR
 #define SPIx_DR		SPI1_DR
@@ -177,19 +177,19 @@ void SPIxENABLE() {
 
     // MMC_SCLK
     gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5);
-    gpio_set_af(GPIOA, GPIO_AF5, GPIO5);
     gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO5);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO5);
 
     // MISO
     //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, GPIO6);
     gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6);
-    gpio_set_af(GPIOA, GPIO_AF5, GPIO6);
     gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO6);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO6);
 
     // MOSI
     gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO7);
-    gpio_set_af(GPIOA, GPIO_AF5, GPIO7);
     gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO7);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO7);
 
     // later use:
     //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5 | GPIO6 | GPIO7);
@@ -214,7 +214,7 @@ void SPIxENABLE() {
     put_status("After init: ");
 
     // ToDo: is this needed? check libopencm3 source
-    spi_enable(SPI1);
+    //spi_enable(SPI1);
     put_status("After enable: ");
 }
 
@@ -281,7 +281,7 @@ void init_spi (void)
 	printf("[SD-Card] SPI Initialized\n");
 }
 
-#if 1
+#if 0
 /* Exchange a byte */
 static
 BYTE xchg_spi (
@@ -422,7 +422,7 @@ int select (void)	/* 1:OK, 0:Timeout */
 	xchg_spi(0xFF);	/* Dummy clock (force DO enabled) */
 	if (wait_ready(500)) return 1;	/* Wait for card ready */
 
-	printf("SD-Card NOT ready!\n");
+	printf("[SD-Card] select NOT ready!\n");
 
 	deselect();
 	return 0;	/* Timeout */
@@ -475,7 +475,7 @@ int xmit_datablock (	/* 1:OK, 0:Failed */
     //if (!wait_ready(500)) return 0;		/* Wait for card ready */
     /* Wait for card ready */
     if (!wait_ready(500)) {
-        printf("SD-Card NOT ready!\n");
+        printf("[SD-Card] xmit_datablock NOT ready!\n");
         return 0;
     }
 
@@ -566,11 +566,7 @@ DSTATUS disk_initialize (
 
 	FCLK_SLOW();
     printf("[SD-Card] FCLK_SLOW, Send 80 dummy clocks\n");
-	for (n = 10; n; n--) {
-        /* Send 80 dummy clocks */
-        //printf("[SD-Card] Sent 80 dummy clocks\n");
-        xchg_spi(0xFF);
-	}
+    for (n = 10; n; n--) xchg_spi(0xFF);	/* Send 80 dummy clocks */
 
 	ty = 0;
 	if (send_cmd(CMD0, 0) == 1) {			/* Put the card SPI/Idle state */

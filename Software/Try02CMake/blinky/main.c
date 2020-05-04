@@ -8,6 +8,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
+#include <libopencm3/stm32/spi.h>
 #include "../common-code/DS1307.h"
 #include "../common-code/clock.h"
 
@@ -37,6 +38,8 @@ static void clock_setup(void) {
 
 static void usart_setup(void) {
     /* Setup USART2 parameters. */
+    // USART_TX is PA2, USART_RX is PA3. not connected. bridges are open. on Morpho:
+    // USART_TX is CN10-35, USART_RX is CN10-37
     usart_set_baudrate(USART2, 115200);
     usart_set_databits(USART2, 8);
     usart_set_stopbits(USART2, USART_STOPBITS_1);
@@ -59,6 +62,9 @@ static void gpio_setup(void) {
     // Both LED's
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
+
+    // PA3 - Arduino D2
+    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO10);
 
     /* Setup GPIO pins for USART2 transmit. */
     gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO2);
@@ -146,10 +152,20 @@ __used void sys_tick_handler(void) {
     if (++led >= 500) {
         led = 0;
         //GPIOC_ODR ^= _BV(9)|_BV(8);		/* Flip Green/Blue LED state */
-        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
+        //gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
+
     }
 
+
+    //if(((SPI1_SR & 0x83) != 0x03))
+    if(gpio_get(GPIOB, GPIO6))
+        gpio_set(GPIOB, GPIO3);
+    else
+        gpio_clear(GPIOB, GPIO3);
+
     disk_timerproc();	/* Disk timer process */
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+
 }
 
 // bad hack to print status, remove this after R&D
