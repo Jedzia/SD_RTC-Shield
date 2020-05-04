@@ -124,6 +124,32 @@ void wait() {
 //    return RES_NOTRDY;
 //}
 
+extern void disk_timerproc (void);
+
+/*---------------------------------------------*/
+/* 1kHz timer process                          */
+/*---------------------------------------------*/
+
+volatile UINT Timer;
+
+__used void sys_tick_handler (void);
+
+__used void sys_tick_handler(void) {
+    clock_sys_tick_handler();
+    static uint16_t led;
+
+
+    Timer++;	/* Increment performance counter */
+
+    if (++led >= 500) {
+        led = 0;
+        //GPIOC_ODR ^= _BV(9)|_BV(8);		/* Flip Green/Blue LED state */
+        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
+    }
+
+    disk_timerproc();	/* Disk timer process */
+}
+
 int main(void) {
 
    // int i, j = 0, c = 0;
@@ -172,7 +198,7 @@ int main(void) {
         /*	__asm__("nop"); */
 
         /* Using API function gpio_toggle(): */
-        gpio_toggle(GPIOA, GPIO5);    /* LED on/off */
+//        gpio_toggle(GPIOA, GPIO5);    /* LED on/off */
 
     //    printf("Blink %d\n", c);
 //        usart_send_blocking(USART2, 'X');
@@ -193,7 +219,7 @@ int main(void) {
 
         //msleep(3 * DELAY_TIME);
 
-        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
+//        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
         //msleep(5 * DELAY_TIME);
 
         DS1307_DoSomething();

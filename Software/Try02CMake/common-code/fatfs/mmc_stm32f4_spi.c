@@ -13,7 +13,7 @@
 /
 /-------------------------------------------------------------------------*/
 
-#define SPI_CH	1	/* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
+#define SPI_CH	3	/* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
 
 #define FCLK_SLOW() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28; }	/* Set SCLK = PCLK / 64 */
 #define FCLK_FAST() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00; }	/* Set SCLK = PCLK / 2 */
@@ -77,6 +77,30 @@
 	__gpio_conf_bit(GPIOB, 15, ALT_PP);							/* PB15: MMC_DI */\
 	GPIOD_BSRR = _BV(8); __gpio_conf_bit(GPIOD, 8, IN_PUL); 	/* PD8: MMC_CD with pull-up */\
 	SPIx_CR1 = _BV(9)|_BV(8)|_BV(6)|_BV(2);						/* Enable SPI1 */\
+}
+
+// via my setup from mbed:
+// SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
+// SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
+
+#elif SPI_CH == 3	/* PA4:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, PC4:MMC_CD */
+#define CS_HIGH()	GPIOA_BSRR = _BV(4)
+#define CS_LOW()	GPIOA_BSRR = _BV(4+16)
+#define	MMC_CD		!(GPIOC_IDR & _BV(4))	/* Card detect (yes:true, no:false, default:true) */
+#define	MMC_WP		0 /* Write protected (yes:true, no:false, default:false) */
+#define SPIx_CR1	SPI1_CR1
+#define SPIx_SR		SPI1_SR
+#define SPIx_DR		SPI1_DR
+#define	SPIxENABLE() {\
+	__enable_peripheral(SPI1EN);\
+	__enable_peripheral(IOPAEN);\
+	__enable_peripheral(IOPCEN);\
+	__gpio_conf_bit(GPIOA, 4, OUT_PP);						/* PA4: MMC_CS */\
+	__gpio_conf_bit(GPIOA, 5, ALT_PP);						/* PA5: MMC_SCLK */\
+	GPIOA_BSRR = _BV(6); __gpio_conf_bit(GPIOA, 6, IN_PUL); /* PA6: MMC_DO with pull-up */\
+	__gpio_conf_bit(GPIOA, 7, ALT_PP);						/* PA7: MMC_DI */\
+	GPIOC_BSRR = _BV(4); __gpio_conf_bit(GPIOC, 4, IN_PUL);	/* PC4: MMC_CD with pull-up */\
+	SPIx_CR1 = _BV(9)|_BV(8)|_BV(6)|_BV(2);					/* Enable SPI1 */\
 }
 
 #endif
@@ -634,28 +658,29 @@ DRESULT disk_ioctl (
 /  of 1 ms to generate card control timing.
 */
 
-void disk_timerproc (void)
-{
-	WORD n;
-	BYTE s;
+void disk_timerproc (void);
+
+void disk_timerproc(void) {
+    WORD n;
+    BYTE s;
 
 
-	n = Timer1;						/* 1kHz decrement timer stopped at 0 */
-	if (n) Timer1 = --n;
-	n = Timer2;
-	if (n) Timer2 = --n;
+    n = Timer1;						/* 1kHz decrement timer stopped at 0 */
+    if (n) Timer1 = --n;
+    n = Timer2;
+    if (n) Timer2 = --n;
 
-	s = Stat;
-	if (MMC_WP) {	/* Write protected */
-		s |= STA_PROTECT;
-	} else {		/* Write enabled */
-		s &= ~STA_PROTECT;
-	}
-	if (MMC_CD) {	/* Card is in socket */
-		s &= ~STA_NODISK;
-	} else {		/* Socket empty */
-		s |= (STA_NODISK | STA_NOINIT);
-	}
-	Stat = s;
+    s = Stat;
+    if (MMC_WP) {	/* Write protected */
+        s |= STA_PROTECT;
+    } else {		/* Write enabled */
+        s &= ~STA_PROTECT;
+    }
+    if (MMC_CD) {	/* Card is in socket */
+        s &= ~STA_NODISK;
+    } else {		/* Socket empty */
+        s |= (STA_NODISK | STA_NOINIT);
+    }
+    Stat = s;
 }
 

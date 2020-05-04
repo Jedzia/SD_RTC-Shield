@@ -37,11 +37,6 @@
 /* milliseconds since boot */
 static volatile uint32_t system_millis;
 
-/* Called when systick fires */
-__attribute__ ((used))  void sys_tick_handler(void) {
-    system_millis++;
-}
-
 /* simple sleep for delay milliseconds */
 void msleep(uint32_t delay) {
     uint32_t wake = system_millis + delay;
@@ -439,5 +434,9 @@ void sys_clock_setup_old(void) {
     /* this done last */
     systick_interrupt_enable();
 
+}
+
+void clock_sys_tick_handler(void) {
+    system_millis++;
 }
 
