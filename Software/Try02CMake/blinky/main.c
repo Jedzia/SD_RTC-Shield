@@ -54,7 +54,9 @@ static void gpio_setup(void) {
     /*GPIOA_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((8 - 8) * 4) + 2)); */
     /*GPIOA_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((8 - 8) * 4)); */
     /* Using API functions: */
-    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
+    //gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
+
+    // Both LED's
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3);
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
 
@@ -177,7 +179,7 @@ int main(void) {
 
     printf("Initializing Fat File System ...\n");
     // mount immediately
-    f_mount(&FatFs, "", 1);
+//    f_mount(&FatFs, "", 1);
 
     /* Blink the LED (PC8) on the board. */
     while(1) {

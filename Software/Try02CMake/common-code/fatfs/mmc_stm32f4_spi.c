@@ -13,6 +13,10 @@
 /
 /-------------------------------------------------------------------------*/
 
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/spi.h>
+#define	_BV(bit) (1<<(bit))
+
 #define SPI_CH	3	/* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
 
 #define FCLK_SLOW() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28; }	/* Set SCLK = PCLK / 64 */
@@ -81,21 +85,24 @@
 
 // via my setup from mbed:
 // SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
+// SDBlockDevice sd(MOSI, MISO, SCLK, CS  );
 // SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
 
 #elif SPI_CH == 3	/* PA4:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, PC4:MMC_CD */
-#define CS_HIGH()	GPIOA_BSRR = _BV(4)
-#define CS_LOW()	GPIOA_BSRR = _BV(4+16)
-#define	MMC_CD		!(GPIOC_IDR & _BV(4))	/* Card detect (yes:true, no:false, default:true) */
+//#define CS_HIGH()	GPIOB_BSRR = _BV(6)
+#define CS_HIGH()	gpio_set(GPIOB, GPIO6)
+//#define CS_LOW()	GPIOB_BSRR = _BV(6+16)
+#define CS_LOW()	gpio_clear(GPIOB, GPIO6)
+#define	MMC_CD		true	/* Card detect (yes:true, no:false, default:true) */
 #define	MMC_WP		0 /* Write protected (yes:true, no:false, default:false) */
 #define SPIx_CR1	SPI1_CR1
 #define SPIx_SR		SPI1_SR
 #define SPIx_DR		SPI1_DR
-#define	SPIxENABLE() {\
+#define	SPIxENABLEXXX() {\
 	__enable_peripheral(SPI1EN);\
 	__enable_peripheral(IOPAEN);\
 	__enable_peripheral(IOPCEN);\
-	__gpio_conf_bit(GPIOA, 4, OUT_PP);						/* PA4: MMC_CS */\
+	__gpio_conf_bit(GPIOB, 6, OUT_PP);						/* PB6: MMC_CS */\
 	__gpio_conf_bit(GPIOA, 5, ALT_PP);						/* PA5: MMC_SCLK */\
 	GPIOA_BSRR = _BV(6); __gpio_conf_bit(GPIOA, 6, IN_PUL); /* PA6: MMC_DO with pull-up */\
 	__gpio_conf_bit(GPIOA, 7, ALT_PP);						/* PA7: MMC_DI */\
@@ -105,7 +112,25 @@
 
 #endif
 
+#include <libopencm3/stm32/rcc.h>
 
+void SPIxENABLE(void);
+
+void SPIxENABLE() {
+    rcc_periph_clock_enable(RCC_GPIOA);
+    rcc_periph_clock_enable(RCC_GPIOB);
+
+    // MMC_CS
+    gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO6);
+    // MMC_SCLK
+    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5);
+    // MISO
+    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, GPIO6);
+    // I,
+    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO7);
+
+    spi_enable(SPI1);
+}
 
 
 /*--------------------------------------------------------------------------
@@ -114,7 +139,7 @@
 
 ---------------------------------------------------------------------------*/
 
-#include "STM32F100.h"
+//#include "STM32F100.h"
 #include "diskio.h"
 
 
