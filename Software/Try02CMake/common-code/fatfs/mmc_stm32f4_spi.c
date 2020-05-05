@@ -25,8 +25,8 @@
 
 #define SPI_CH    3    /* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
 
-#define FCLK_SLOW() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28; }    /* Set SCLK = PCLK / 64 */
-#define FCLK_FAST() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00; }    /* Set SCLK = PCLK / 2 */
+//#define FCLK_SLOW() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28; }    /* Set SCLK = PCLK / 64 */
+//#define FCLK_FAST() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00; }    /* Set SCLK = PCLK / 2 */
 //#define FCLK_SLOW() {  }	/* Set SCLK = PCLK / 64 */
 //#define FCLK_FAST() {  }	/* Set SCLK = PCLK / 2 */
 
@@ -281,6 +281,31 @@ void SPIxENABLE() {
 
 void SPIxENABLE2(void);
 
+void FCLK_SLOW(void);
+
+void FCLK_FAST(void);
+
+void FCLK_SLOW() {
+    /* Set SCLK = PCLK / 64 */
+    //SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28;
+    uint32_t reg32 = RCC_CFGR;
+    reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+    //RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
+    RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_2 << RCC_CFGR_PPRE2_SHIFT);
+    spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_256);
+
+}
+
+void FCLK_FAST() {
+    /* Set SCLK = PCLK / 2 */
+    //SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00;
+    uint32_t reg32 = RCC_CFGR;
+    reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+    //RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
+    RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_NONE << RCC_CFGR_PPRE2_SHIFT);
+    spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_8);
+}
+
 void SPIxENABLE2() {
     /* PB6:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, always:MMC_CD */
     // via my setup from mbed:
@@ -391,7 +416,9 @@ void SPIxENABLE2() {
 //    spi_set_clock_phase_1(SPI1);
 //    spi_set_dff_8bit(SPI1);
 //    spi_send_msb_first(SPI1);
-//    //spi_disable_software_slave_management(SPI1);
+    spi_disable_software_slave_management(SPI1);
+    spi_enable_ss_output(SPI1);
+    spi_set_nss_high(SPI1);
 
     // ToDo: is this needed? check libopencm3 source
     spi_enable(SPI1);
@@ -1094,6 +1121,15 @@ uint8_t DebugFS(void) {
         //printf("wait for ready\n");
     };
 
+    static bool isInFirstRun = true;
+    if(isInFirstRun) {
+        FCLK_SLOW();
+        isInFirstRun = false;
+    } else {
+        FCLK_FAST();
+    }
+
+
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     //if (!wait_ready(2500))
     //   printf("Timeout, init, wait\n");
@@ -1130,11 +1166,11 @@ uint8_t DebugFS(void) {
     char buf[256] = {"Receive Data="};
     //sprintf(buf, "Receive Data=");
     //printf("Receive Data=");
-    for(size_t i = 0; i < sizeof(receive_data)/sizeof(receive_data[0]); ++i) {
+    for(size_t i = 0; i < sizeof(receive_data) / sizeof(receive_data[0]); ++i) {
         //printf("%04X, ", receive_data[i]);
-        sprintf(buf+strlen(buf), "%04X, ", receive_data[i]);
+        sprintf(buf + strlen(buf), "%04X, ", receive_data[i]);
     }
-    sprintf(buf+strlen(buf)-2, "\n");
+    sprintf(buf + strlen(buf) - 2, "\n");
     printf("%s", buf);
     //printf("\n");
 
