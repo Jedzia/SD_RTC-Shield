@@ -1061,19 +1061,13 @@ void put_status(char *m) {
 }
 
 BYTE toSend = 0x42;
-
-uint8_t DebugFS(void) {
-    //init_spi();
-    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-    SPIxENABLE2();		/* Enable SPI function */
-    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-    //if (!wait_ready(2500))
-     //   printf("Timeout, init, wait\n");
+void MySend(BYTE data);
+void MySend(BYTE data) {
     CS_LOW();
     //select();
 //    msleep(10);
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-    spi_send(SPI1, toSend);
+    spi_send(SPI1, data);
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 //    if (!wait_ready(2500))
 //        printf("Timeout, send, wait\n");
@@ -1086,9 +1080,33 @@ uint8_t DebugFS(void) {
     };
     //msleep(10);
     CS_HIGH();
-    toSend++;
+}
+
+uint8_t DebugFS(void) {
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    //init_spi();
+    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    SPIxENABLE2();		/* Enable SPI function */
+    while(SPI1_SR & SPI_SR_BSY){
+        gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+        //printf("wait for ready\n");
+    };
+
+    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    //if (!wait_ready(2500))
+     //   printf("Timeout, init, wait\n");
+
+     MySend(toSend);
+
+
+
     //spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_128);
     //spi_set_bidirectional_transmit_only_mode(SPI1);
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+
+    toSend++;
     return toSend;
 }
 
