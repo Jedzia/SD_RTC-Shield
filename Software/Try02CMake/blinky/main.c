@@ -198,7 +198,7 @@ int main(void) {
 
     printf("Initializing Fat File System ...\n");
     // mount immediately
-    f_mount(&FatFs, "", 1);
+    f_mount(&FatFs, "0:", 1);
 
     /* Blink the LED (PC8) on the board. */
     while(1) {
