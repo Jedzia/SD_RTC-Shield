@@ -1163,6 +1163,7 @@ uint8_t DebugFS(void) {
     receive_data[8] = spi_xfer(SPI1, 0xFF);
     //printf("Receive Data='%d'\n", receive_data);
 
+#if 0
     char buf[256] = {"Receive Data="};
     //sprintf(buf, "Receive Data=");
     //printf("Receive Data=");
@@ -1173,6 +1174,12 @@ uint8_t DebugFS(void) {
     sprintf(buf + strlen(buf) - 2, "\n");
     printf("%s", buf);
     //printf("\n");
+#endif
+
+    if (receive_data[8] != 0x01){
+        printf("No SD Card! (receive_data[8])\n");
+    }
+
 
     //uint16_t receive_data = spi_read(SPI1);
     //receive_data = spi_read(SPI1);
