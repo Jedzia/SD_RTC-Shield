@@ -177,7 +177,9 @@ void SPIxENABLE(void);
 //
 //}
 
-void SPIxENABLE() {
+void SPIxENABLE_OLD(void);
+
+void SPIxENABLE_OLD() {
     /* PB6:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, always:MMC_CD */
     // via my setup from mbed:
     // SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
@@ -279,8 +281,6 @@ void SPIxENABLE() {
     //   msleep(10);
 }
 
-void SPIxENABLE2(void);
-
 void FCLK_SLOW(void);
 
 void FCLK_FAST(void);
@@ -311,7 +311,7 @@ void FCLK_FAST() {
     spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_8);
 }
 
-void SPIxENABLE2() {
+void SPIxENABLE() {
     /* PB6:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, always:MMC_CD */
     // via my setup from mbed:
     // SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
@@ -1121,7 +1121,7 @@ uint8_t DebugFS(void) {
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     //init_spi();
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-    SPIxENABLE2();        /* Enable SPI function */
+    SPIxENABLE();        /* Enable SPI function */
     while(SPI1_SR & SPI_SR_BSY) {
         gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
         //printf("wait for ready\n");
@@ -1129,8 +1129,21 @@ uint8_t DebugFS(void) {
 
     static bool isInFirstRun = true;
     if(isInFirstRun) {
-        FCLK_SLOW();
         isInFirstRun = false;
+        FCLK_SLOW();
+
+        CS_HIGH();
+        for(int n = 10; n; n--) {
+            /* Send 80 dummy clocks */
+            spi_xfer(SPI1, 0xFF);
+            gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+        }
+
+        while(SPI1_SR & SPI_SR_BSY) {
+            gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+            //printf("wait for ready\n");
+        };
+
     } else {
         FCLK_FAST();
     }
