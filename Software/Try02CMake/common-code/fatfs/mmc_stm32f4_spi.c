@@ -288,21 +288,26 @@ void FCLK_FAST(void);
 void FCLK_SLOW() {
     /* Set SCLK = PCLK / 64 */
     //SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28;
-    uint32_t reg32 = RCC_CFGR;
+    /*uint32_t reg32 = RCC_CFGR;
     reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
     //RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
-    RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_2 << RCC_CFGR_PPRE2_SHIFT);
-    spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_256);
+    RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_2 << RCC_CFGR_PPRE2_SHIFT);*/
+    // can be simplified to:
+    rcc_set_ppre2(RCC_CFGR_PPRE_DIV_2);
 
+    spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_256);
 }
 
 void FCLK_FAST() {
     /* Set SCLK = PCLK / 2 */
     //SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00;
-    uint32_t reg32 = RCC_CFGR;
+    /*uint32_t reg32 = RCC_CFGR;
     reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
     //RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
-    RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_NONE << RCC_CFGR_PPRE2_SHIFT);
+    RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_NONE << RCC_CFGR_PPRE2_SHIFT);*/
+    // can be simplified to:
+    rcc_set_ppre2(RCC_CFGR_PPRE_DIV_NONE);
+
     spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_8);
 }
 
@@ -1111,6 +1116,7 @@ void MySend(BYTE data) {
 }
 
 uint8_t DebugFS(void) {
+    // Followed http://www.dejazzer.com/ee379/lecture_notes/lec12_sd_card.pdf ... and it works.
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     //init_spi();
