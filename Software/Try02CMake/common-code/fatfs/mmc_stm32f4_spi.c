@@ -333,6 +333,13 @@ void SPIxENABLE2() {
 
     //put_status("Before enable: ");
 
+    uint32_t reg32 = RCC_CFGR;
+    reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+    //RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
+    RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_2 << RCC_CFGR_PPRE2_SHIFT);
+
+    //rcc_set_ppre2(reg32);
+
     rcc_periph_clock_enable(RCC_GPIOA);
     rcc_periph_clock_enable(RCC_GPIOB);
     rcc_periph_clock_enable(RCC_SPI1);
