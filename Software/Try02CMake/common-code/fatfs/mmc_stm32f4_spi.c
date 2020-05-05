@@ -1139,10 +1139,12 @@ uint8_t DebugFS(void) {
             gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
         }
 
+        /* No need to wait, spi_xfer() waited already
         while(SPI1_SR & SPI_SR_BSY) {
-            gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+            gpio_toggle(GPIOA, GPIO10);
             //printf("wait for ready\n");
         };
+         */
 
     } else {
         FCLK_FAST();
@@ -1195,36 +1197,39 @@ uint8_t DebugFS(void) {
     //printf("\n");
 #endif
 
-    if (receive_data[8] != 0x01){
+    if(receive_data[8] != 0x01) {
         printf("No SD Card! (receive_data[8])\n");
     }
 
 
-    //uint16_t receive_data = spi_read(SPI1);
-    //receive_data = spi_read(SPI1);
-    //MySend(toSend);
+//uint16_t receive_data = spi_read(SPI1);
+//receive_data = spi_read(SPI1);
+//MySend(toSend);
 
 //    if (!wait_ready(2500))
 //        printf("Timeout, send, wait\n");
 //    msleep(10);
-    //deselect();
-    //spi_xfer(SPI1, toSend);
-    while(SPI1_SR & SPI_SR_BSY) {
-        gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-        //printf("wait for ready\n");
-    };
+//deselect();
+//spi_xfer(SPI1, toSend);
+    /* No need to wait, spi_xfer() waited already
+while(SPI1_SR & SPI_SR_BSY) {
+    gpio_toggle(GPIOA, GPIO10);
+    //printf("wait for ready\n");
+};
+*/
 
-    //msleep(1);
+//msleep(1);
     CS_HIGH();
 
-    //printf("Receive Data='%d'\n", receive_data);
+//printf("Receive Data='%d'\n", receive_data);
 
-    //spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_128);
-    //spi_set_bidirectional_transmit_only_mode(SPI1);
+//spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_128);
+//spi_set_bidirectional_transmit_only_mode(SPI1);
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
     toSend++;
-    return toSend;
+    return
+            toSend;
 }
 
