@@ -16,7 +16,8 @@
 #include "../common-code/fatfs/ff.h"
 #include "../common-code/fatfs/diskio.h"
 
-const int DELAY_TIME = 700;
+#define USE_RTC 0
+const int DELAY_TIME = 1000;
 
 FATFS FatFs;				/* File system object for each logical drive */
 FIL File[2];				/* File objects */
@@ -152,16 +153,16 @@ __used void sys_tick_handler(void) {
     if (++led >= 500) {
         led = 0;
         //GPIOC_ODR ^= _BV(9)|_BV(8);		/* Flip Green/Blue LED state */
-        //gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
+        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
 
     }
 
 
     //if(((SPI1_SR & 0x83) != 0x03))
-    if(gpio_get(GPIOB, GPIO6))
+    /*if(gpio_get(GPIOB, GPIO6))
         gpio_set(GPIOB, GPIO3);
     else
-        gpio_clear(GPIOB, GPIO3);
+        gpio_clear(GPIOB, GPIO3);*/
 
     disk_timerproc();	/* Disk timer process */
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
@@ -184,6 +185,7 @@ int main(void) {
     msleep(2000);
     printf("\n\nHello, we're running\n");
     //msleep(100);
+#if USE_RTC
     i2c_setup();
     //DS1307_i2c_init();
     msleep(100);
@@ -195,10 +197,11 @@ int main(void) {
         msleep(500);
         DS1307_Init();
     }
+#endif
 
     printf("Initializing Fat File System ...\n");
     // mount immediately
-    f_mount(&FatFs, "0:", 1);
+    //f_mount(&FatFs, "0:", 1);
 
     /* Blink the LED (PC8) on the board. */
     while(1) {
@@ -243,8 +246,9 @@ int main(void) {
 //        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
         //msleep(5 * DELAY_TIME);
 
-        DS1307_DoSomething();
+//        DS1307_DoSomething();
 
+        DebugFS();
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
         printf("SD stat %d\n", Stat );

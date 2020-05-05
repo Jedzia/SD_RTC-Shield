@@ -350,7 +350,7 @@ TCHAR* f_gets (TCHAR* buff, int len, FIL* fp);						/* Get a string from the fil
 #endif
 
 
-
+uint8_t DebugFS(void);
 
 /*--------------------------------------------------------------*/
 /* Additional user defined functions                            */

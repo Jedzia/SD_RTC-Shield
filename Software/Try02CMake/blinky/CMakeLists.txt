@@ -132,7 +132,6 @@ set(SOURCES
         # these are the library and example implementations of raw disk access functions
         # ../common-code/fatfs/diskio.c
         # ../common-code/fatfs/mmc_stm32f1_spi.c
-        ../common-code/fatfs/STM32F100.h
         ../common-code/fatfs/mmc_stm32f4_spi.c
         ../common-code/fatfs/ff.c
         ../common-code/fatfs/ff.h

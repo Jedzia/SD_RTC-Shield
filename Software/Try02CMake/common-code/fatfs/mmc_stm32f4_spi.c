@@ -24,10 +24,10 @@
 
 #define SPI_CH	3	/* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
 
-//#define FCLK_SLOW() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28; }	/* Set SCLK = PCLK / 64 */
-//#define FCLK_FAST() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00; }	/* Set SCLK = PCLK / 2 */
-#define FCLK_SLOW() {  }	/* Set SCLK = PCLK / 64 */
-#define FCLK_FAST() {  }	/* Set SCLK = PCLK / 2 */
+#define FCLK_SLOW() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28; }	/* Set SCLK = PCLK / 64 */
+#define FCLK_FAST() { SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00; }	/* Set SCLK = PCLK / 2 */
+//#define FCLK_SLOW() {  }	/* Set SCLK = PCLK / 64 */
+//#define FCLK_FAST() {  }	/* Set SCLK = PCLK / 2 */
 
 #if SPI_CH == 1	/* PA4:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, PC4:MMC_CD */
 #define CS_HIGH()	GPIOA_BSRR = _BV(4)
@@ -182,7 +182,8 @@ void SPIxENABLE() {
     // SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
     // SDBlockDevice sd(MOSI, MISO, SCLK, CS  );
     // SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
-    put_status("Before init: ");
+    //put_status("Before init: ");
+
     // MMC_CS
     gpio_set(GPIOB, GPIO6);
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO6);
@@ -266,7 +267,7 @@ void SPIxENABLE() {
    // spi_set_nss_high(SPI1);
 
     // ToDo: is this needed? check libopencm3 source
-    spi_enable(SPI1);
+//    spi_enable(SPI1);
     //put_status("After enable: ");
     //msleep(1000);
 
@@ -274,7 +275,125 @@ void SPIxENABLE() {
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
     //spi_send(SPI1, 0xdead);
+ //   msleep(10);
+}
+
+void SPIxENABLE2(void);
+void SPIxENABLE2() {
+    /* PB6:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, always:MMC_CD */
+    // via my setup from mbed:
+    // SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
+    // SDBlockDevice sd(MOSI, MISO, SCLK, CS  );
+    // SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
+    //put_status("Before init: ");
+
+    /*CS_HIGH();
     msleep(10);
+    CS_LOW();
+    //msleep(1);
+    for(int i = 0; i < 100; ++i) {
+        __asm volatile (
+        ".thumb_func\n"
+        "NOP\n"
+        "\n" : : : "memory");
+    }
+    //CS_HIGH();
+    msleep(10);*/
+
+    // MMC_SCLK
+    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5);
+    gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_100MHZ, GPIO5);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO5);
+
+    // MISO
+    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, GPIO6);
+    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6);
+    //gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO6);
+    //gpio_set_af(GPIOA, GPIO_AF5, GPIO6);
+    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6);
+    gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_100MHZ, GPIO6);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO6);
+
+    // MOSI
+    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO7);
+    gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_100MHZ, GPIO7);
+    gpio_set_af(GPIOA, GPIO_AF5, GPIO7);
+    //gpio_set(GPIOA, GPIO7);
+
+    // MMC_CS
+    gpio_set(GPIOB, GPIO6);
+    gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO6);
+    gpio_set_output_options(GPIOB, GPIO_OTYPE_PP, GPIO_OSPEED_100MHZ, GPIO6);
+    CS_HIGH();
+
+    // later use:
+    //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5 | GPIO6 | GPIO7);
+
+    //put_status("Before enable: ");
+
+    rcc_periph_clock_enable(RCC_GPIOA);
+    rcc_periph_clock_enable(RCC_GPIOB);
+    rcc_periph_clock_enable(RCC_SPI1);
+
+    //put_status("\nBefore init: ");
+
+    /*uint32_t cr_tmp = SPI_CR1_BAUDRATE_FPCLK_DIV_8 |
+                      SPI_CR1_MSTR |
+                      SPI_CR1_SPE |
+                      SPI_CR1_CPHA |
+                      SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE;
+
+
+    SPI_CR2(SPI1) |= SPI_CR2_SSOE;
+    SPI_CR1(SPI1) = cr_tmp;*/
+    //put_status("After init: ");
+
+    /* Set up SPI in Master mode with:
+ * Clock baud rate: 1/64 of peripheral clock frequency
+ * Clock polarity: Idle High
+ * Clock phase: Data valid on 2nd clock pulse
+ * Data frame format: 8-bit
+ * Frame format: MSB First
+ */
+    spi_init_master(SPI1, SPI_CR1_BAUDRATE_FPCLK_DIV_64, SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE,
+              SPI_CR1_CPHA_CLK_TRANSITION_2, SPI_CR1_DFF_8BIT, SPI_CR1_MSBFIRST);
+//       spi_init_master(SPI1, SPI_CR1_BAUDRATE_FPCLK_DIV_256, SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE,
+//              SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_DFF_8BIT, SPI_CR1_MSBFIRST);
+
+    /*
+ * Set NSS management to software.
+ *
+ * Note:
+ * Setting nss high is very important, even if we are controlling the GPIO
+ * ourselves this bit needs to be at least set to 1, otherwise the spi
+ * peripheral will not send any data out.
+ */
+    //spi_enable_software_slave_management(SPI1);
+    /*spi_disable_software_slave_management (SPI1);
+    spi_disable_ss_output(SPI1);
+    spi_set_nss_high(SPI1);*/
+
+
+/*    spi_set_master_mode(SPI1);
+    spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_8);
+    //spi_set_full_duplex_mode(SPI1);
+    spi_set_unidirectional_mode(SPI1);
+    spi_set_clock_polarity_1(SPI1);
+    spi_set_clock_phase_1(SPI1);
+    spi_set_dff_8bit(SPI1);
+    spi_send_msb_first(SPI1);
+    //spi_disable_software_slave_management(SPI1);*/
+
+    // ToDo: is this needed? check libopencm3 source
+    spi_enable(SPI1);
+    //put_status("After enable: ");
+    //msleep(1000);
+
+    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+
+    //spi_send(SPI1, 0xdead);
+    //   msleep(10);
 }
 
 
@@ -340,7 +459,8 @@ void init_spi (void)
 	printf("[SD-Card] SPI Initialized\n");
 }
 
-#if 0
+
+#if 1
 /* Exchange a byte */
 static
 BYTE xchg_spi (
@@ -433,10 +553,11 @@ void xmit_spi_multi (
 #endif
 
 
-/*-----------------------------------------------------------------------*/
-/* Wait for card ready                                                   */
-/*-----------------------------------------------------------------------*/
-
+/** Wait for card ready
+ *
+ * @param wt Timeout in [ms]
+ * @return <b>1</b> when ready before timeout; otherwise a <b>0</b> indicates that the timeout has expired.
+ */
 static
 int wait_ready (	/* 1:Ready, 0:Timeout */
 	UINT wt			/* Timeout [ms] */
@@ -937,5 +1058,37 @@ void put_status(char *m) {
         console_puts("UNDERRUN, ");
     }
     console_puts("\n");
+}
+
+BYTE toSend = 0x42;
+
+uint8_t DebugFS(void) {
+    //init_spi();
+    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    SPIxENABLE2();		/* Enable SPI function */
+    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    //if (!wait_ready(2500))
+     //   printf("Timeout, init, wait\n");
+    CS_LOW();
+    //select();
+//    msleep(10);
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+    spi_send(SPI1, toSend);
+    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+//    if (!wait_ready(2500))
+//        printf("Timeout, send, wait\n");
+//    msleep(10);
+    //deselect();
+    //spi_xfer(SPI1, toSend);
+    while(SPI1_SR & SPI_SR_BSY){
+        gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+        //printf("wait for ready\n");
+    };
+    //msleep(10);
+    CS_HIGH();
+    toSend++;
+    //spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_128);
+    //spi_set_bidirectional_transmit_only_mode(SPI1);
+    return toSend;
 }
 
