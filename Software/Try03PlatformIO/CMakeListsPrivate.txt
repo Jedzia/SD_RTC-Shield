@@ -8,7 +8,7 @@
 
 set(CMAKE_CONFIGURATION_TYPES "nucleo_f401re" CACHE STRING "" FORCE)
 
-set(PLATFORMIO_CMD "C:/Python/Python37/Scripts/platformio.exe")
+set(PLATFORMIO_CMD "C:/Python/Python38/Scripts/platformio.exe")
 set(SVD_PATH "$ENV{HOMEDRIVE}$ENV{HOMEPATH}/.platformio/platforms/ststm32/misc/svd/STM32F401xE.svd")
 
 SET(CMAKE_C_COMPILER "$ENV{HOMEDRIVE}$ENV{HOMEPATH}/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe")

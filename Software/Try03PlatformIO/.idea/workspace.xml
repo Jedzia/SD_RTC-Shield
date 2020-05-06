@@ -2,22 +2,22 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPDATE_ALL" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD" />
-      <config projectName="Try03PlatformIO" targetName="Z_DUMMY_TARGET" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
-      <config projectName="Try03PlatformIO" targetName="Try03PlatformIO" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_MONITOR" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_TEST" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOAD" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_CLEAN" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_VERBOSE" />
       <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD_DEBUG" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOADFS" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOAD" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_PROGRAM" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_BUILD" />
+      <config projectName="Try03PlatformIO" targetName="Z_DUMMY_TARGET" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_MONITOR" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO" />
       <config projectName="Try03PlatformIO" targetName="DEBUG" />
-      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_DEVICE_LIST" />
+      <config projectName="Try03PlatformIO" targetName="Try03PlatformIO" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_CLEAN" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPLOADFS" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_TEST" />
+      <config projectName="Try03PlatformIO" targetName="PLATFORMIO_UPDATE_ALL" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -27,14 +27,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/platformio.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/platformio.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeListsPrivate.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeListsPrivate.txt" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -46,10 +51,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="MacroExpansionManager">
-    <option name="directoryName" value="nzvtYkyD" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="252" />
+    <option name="y" value="21" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
   </component>
-  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
+  <component name="ProjectId" id="1bYFG13PIVxzcY3SsugnlXrfe8O" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -66,93 +74,97 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="FullScreen" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/platformio.ini" />
-    <property name="restartRequiresConfirmation" value="true" />
-    <property name="FullScreen" value="false" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="RemoteSynchronizer">
+    <option name="targetMappings">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <TargetMappings>
+          <option name="name" value="Default" />
+        </TargetMappings>
       </list>
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.PLATFORMIO_BUILD">
-    <configuration name="PLATFORMIO_BUILD" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_BUILD" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_BUILD_DEBUG" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD_DEBUG" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_BUILD_DEBUG" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD_DEBUG" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_BUILD_VERBOSE" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD_VERBOSE" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_BUILD_VERBOSE" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_BUILD_VERBOSE" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_CLEAN" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_CLEAN" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_CLEAN" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_CLEAN" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_DEVICE_LIST" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_DEVICE_LIST" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_DEVICE_LIST" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_DEVICE_LIST" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_MONITOR" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_MONITOR" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_MONITOR" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_MONITOR" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_PROGRAM" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_PROGRAM" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_PROGRAM" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_PROGRAM" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_REBUILD_PROJECT_INDEX" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_REBUILD_PROJECT_INDEX" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_REBUILD_PROJECT_INDEX" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_REBUILD_PROJECT_INDEX" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_TEST" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_TEST" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_TEST" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_TEST" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_UPDATE" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_UPDATE_ALL" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_UPDATE" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_UPDATE_ALL" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_UPLOAD" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_UPLOAD" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_UPLOAD" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_UPLOAD" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PLATFORMIO_UPLOADFS" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_UPLOADFS" CONFIG_NAME="nucleo_f401re">
+    <configuration name="PLATFORMIO_UPLOADFS" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="PLATFORMIO_UPLOADFS" CONFIG_NAME="nucleo_f401re">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="nucleo_f401re" RUN_TARGET_PROJECT_NAME="Try03PlatformIO" RUN_TARGET_NAME="Z_DUMMY_TARGET">
+    <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="nucleo_f401re" RUN_TARGET_PROJECT_NAME="Try03PlatformIO" RUN_TARGET_NAME="Z_DUMMY_TARGET">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="Try03PlatformIO" CONFIG_NAME="Debug">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try03PlatformIO" TARGET_NAME="Try03PlatformIO" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -167,7 +179,6 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="CMake Application.PLATFORMIO_UPDATE" />
       <item itemvalue="CMake Application.PLATFORMIO_BUILD" />
       <item itemvalue="CMake Application.PLATFORMIO_BUILD_DEBUG" />
       <item itemvalue="CMake Application.PLATFORMIO_BUILD_VERBOSE" />
@@ -177,15 +188,12 @@
       <item itemvalue="CMake Application.PLATFORMIO_PROGRAM" />
       <item itemvalue="CMake Application.PLATFORMIO_REBUILD_PROJECT_INDEX" />
       <item itemvalue="CMake Application.PLATFORMIO_TEST" />
-      <item itemvalue="CMake Application.PLATFORMIO_UPLOAD" />
+      <item itemvalue="CMake Application.PLATFORMIO_UPDATE" />
       <item itemvalue="CMake Application.PLATFORMIO_UPLOADFS" />
+      <item itemvalue="CMake Application.PLATFORMIO_UPLOAD" />
       <item itemvalue="CMake Application.Z_DUMMY_TARGET" />
       <item itemvalue="OpenOCD Download &amp; Run.OpenOCD PLATFORMIO_BUILD" />
     </list>
-  </component>
-  <component name="StructureViewFactory">
-    <option name="AUTOSCROLL_MODE" value="false" />
-    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -197,8 +205,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
+      <workItem from="1588801026831" duration="477000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -208,16 +220,8 @@
       <collection />
     </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.cpp</url>
-          <line>17</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="masterDetails">
     <states>
