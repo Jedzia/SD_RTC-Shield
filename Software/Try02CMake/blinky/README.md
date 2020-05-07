@@ -259,3 +259,6 @@ via http://elm-chan.org/fsw/ff/patches.html:
 
   https://github.com/tmolteno/openfat/blob/master/stm32/example.c                                                                       
 * Aug 16, 2013 https://github.com/mfauzi/STM32F4/tree/master/STM32F4%20Standard%20Peripheral%20Library/Project/STM32F4xx_StdPeriph_Examples/SDIO/SDIO_uSDCard
+
+## Karols Stuff ##
+* https://github.com/ppkt/common_lib
