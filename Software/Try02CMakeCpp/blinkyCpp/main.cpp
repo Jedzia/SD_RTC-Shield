@@ -19,9 +19,9 @@
 #define USE_RTC 0
 const int DELAY_TIME = 1000;
 
-FATFS FatFs;				/* File system object for each logical drive */
-FIL File[2];				/* File objects */
-DIR Dir;					/* Directory object */
+FATFS FatFs;                /* File system object for each logical drive */
+FIL File[2];                /* File objects */
+DIR Dir;                    /* Directory object */
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
@@ -133,7 +133,7 @@ void wait() {
 //    return RES_NOTRDY;
 //}
 
-extern void disk_timerproc (void);
+extern void disk_timerproc(void);
 
 /*---------------------------------------------*/
 /* 1kHz timer process                          */
@@ -141,16 +141,16 @@ extern void disk_timerproc (void);
 
 volatile UINT Timer;
 
-__used void sys_tick_handler (void);
+__used void sys_tick_handler(void);
 
 __used void sys_tick_handler(void) {
     clock_sys_tick_handler();
     static uint16_t led;
 
 
-    Timer++;	/* Increment performance counter */
+    Timer++;    /* Increment performance counter */
 
-    if (++led >= 500) {
+    if(++led >= 500) {
         led = 0;
         //GPIOC_ODR ^= _BV(9)|_BV(8);		/* Flip Green/Blue LED state */
         gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
@@ -164,7 +164,7 @@ __used void sys_tick_handler(void) {
     else
         gpio_clear(GPIOB, GPIO3);*/
 
-    disk_timerproc();	/* Disk timer process */
+    disk_timerproc();    /* Disk timer process */
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
 }
@@ -174,7 +174,7 @@ extern volatile DSTATUS Stat;
 
 int main(void) {
 
-   // int i, j = 0, c = 0;
+    // int i, j = 0, c = 0;
 
     sys_clock_setup();
     clock_setup();
@@ -182,8 +182,14 @@ int main(void) {
     usart_setup();
 
     //wait();
-    msleep(2000);
-    printf("\n\nHello, we're running\n");
+    //msleep(2000);
+    while(1) {
+        static size_t cnt = 0;
+        printf("\n\nHello, we're running %d\n", cnt);
+        for(int i = 0; i < 5000000; i++)     /* Wait a bit. */
+                __asm__("nop");
+        cnt++;
+    }
     //msleep(100);
 #if USE_RTC
     i2c_setup();
@@ -224,7 +230,7 @@ int main(void) {
         /* Using API function gpio_toggle(): */
 //        gpio_toggle(GPIOA, GPIO5);    /* LED on/off */
 
-    //    printf("Blink %d\n", c);
+        //    printf("Blink %d\n", c);
 //        usart_send_blocking(USART2, 'X');
 //        usart_send_blocking(USART2, (uint16_t) (c + '0')); /* USART2: Send byte. */
 //        c = (c == 9) ? 0 : c + 1;    /* Increment c. */
@@ -251,7 +257,7 @@ int main(void) {
         DebugFS();
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
-        printf("SD stat %d\n", Stat );
+        printf("SD stat %d\n", Stat);
 
     }
 
