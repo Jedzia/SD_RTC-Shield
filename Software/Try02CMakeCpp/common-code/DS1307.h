@@ -5,6 +5,9 @@
 
 #ifndef BLINKY_DS1307_H
 #define BLINKY_DS1307_H
+#ifdef    __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 
@@ -60,5 +63,9 @@ uint8_t DS1307_Init(void);
 uint8_t DS1307_IsRunning(void);
 
 void DS1307_DoSomething(void);
+
+#ifdef    __cplusplus
+}
+#endif
 
 #endif //BLINKY_DS1307_H

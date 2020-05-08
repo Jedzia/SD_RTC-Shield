@@ -146,7 +146,7 @@ set(SOURCES
         ../common-code/fatfs/ffunicode.c
         ../common-code/fatfs/xprintf.c
         ../common-code/fatfs/xprintf.h
-        )
+        ../common-code/fatfs/mmc_stm32f4_spi.h)
 #set_source_files_properties(../common-code/api-asm.S PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 
 

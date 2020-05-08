@@ -9,12 +9,14 @@
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/spi.h>
+#include <libopencm3/cm3/nvic.h>
 #include "../common-code/DS1307.h"
 #include "../common-code/clock.h"
 
 #include "../common-code/fatfs/xprintf.h"
 #include "../common-code/fatfs/ff.h"
 #include "../common-code/fatfs/diskio.h"
+#include "../common-code/fatfs/mmc_stm32f4_spi.h"
 
 #define USE_RTC 0
 const int DELAY_TIME = 1000;
@@ -175,21 +177,13 @@ extern volatile DSTATUS Stat;
 int main(void) {
 
     // int i, j = 0, c = 0;
-
     sys_clock_setup();
     clock_setup();
     gpio_setup();
     usart_setup();
+    printf("Initializing...\n");
 
-    //wait();
-    //msleep(2000);
-    while(1) {
-        static size_t cnt = 0;
-        printf("\n\nHello, we're running %d\n", cnt);
-        for(int i = 0; i < 5000000; i++)     /* Wait a bit. */
-                __asm__("nop");
-        cnt++;
-    }
+    msleep(100);
     //msleep(100);
 #if USE_RTC
     i2c_setup();
@@ -252,7 +246,9 @@ int main(void) {
 //        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
         //msleep(5 * DELAY_TIME);
 
-//        DS1307_DoSomething();
+#if USE_RTC
+        DS1307_DoSomething();
+#endif
 
         DebugFS();
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */

@@ -13,6 +13,7 @@
 /
 /-------------------------------------------------------------------------*/
 
+#include "mmc_stm32f4_spi.h"
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/spi.h>
 #include <stdio.h>
@@ -1048,8 +1049,6 @@ DRESULT disk_ioctl(
 /* This function must be called from timer interrupt routine in period
 /  of 1 ms to generate card control timing.
 */
-
-void disk_timerproc(void);
 
 void disk_timerproc(void) {
     WORD n;
