@@ -4,7 +4,7 @@ message(STATUS "Configuring project ${PROJECT_NAME}")
 
 project(${PROJECT_NAME} C CXX ASM)
 cmake_minimum_required(VERSION 3.1)
-set(CMAKE_VERBOSE_MAKEFILE On)
+#set(CMAKE_VERBOSE_MAKEFILE On)
 
 # check if we have a local cmake include file and include it if we do
 # this is useful for setting our python location or st-flash as an alternative to
