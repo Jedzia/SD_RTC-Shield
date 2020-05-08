@@ -1,8 +1,11 @@
+#set(CMAKE_C_COMPILER_WORKS 1) # In some cases you have to force compiler detection to work.
+#set(CMAKE_CXX_COMPILER_WORKS 1) # In some cases you have to force compiler detection to work.
 get_filename_component(PROJECT_NAME ${CMAKE_SOURCE_DIR} NAME)
 
 message(STATUS "Configuring project ${PROJECT_NAME}")
 
-project(${PROJECT_NAME} C ASM)
+project(${PROJECT_NAME} C CXX ASM)
+#project(${PROJECT_NAME})
 cmake_minimum_required(VERSION 3.1)
 
 # check if we have a local cmake include file and include it if we do
@@ -119,7 +122,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 
 # Source files for main target.
 set(SOURCES
-        main.c
+        main.cpp
         # common_lib/utils.c
         ../common-code/api.c
         ../common-code/api-asm.S
