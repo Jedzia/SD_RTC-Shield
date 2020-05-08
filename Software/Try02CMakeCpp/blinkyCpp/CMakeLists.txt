@@ -1,12 +1,10 @@
-#set(CMAKE_C_COMPILER_WORKS 1) # In some cases you have to force compiler detection to work.
-#set(CMAKE_CXX_COMPILER_WORKS 1) # In some cases you have to force compiler detection to work.
 get_filename_component(PROJECT_NAME ${CMAKE_SOURCE_DIR} NAME)
 
 message(STATUS "Configuring project ${PROJECT_NAME}")
 
 project(${PROJECT_NAME} C CXX ASM)
-#project(${PROJECT_NAME})
 cmake_minimum_required(VERSION 3.1)
+set(CMAKE_VERBOSE_MAKEFILE On)
 
 # check if we have a local cmake include file and include it if we do
 # this is useful for setting our python location or st-flash as an alternative to
@@ -88,7 +86,7 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "\
  ${CMAKE_COMMON_FLAGS} ${STM32F4_FLAGS}")
 #-DSTM32F4 -DSTM32F401RET6
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_COMMON_FLAGS} ${STM32F4_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_COMMON_FLAGS} ${STM32F4_FLAGS} -lc -lm -lstdc++ -lsupc++")
 SET(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${CMAKE_C_FLAGS} -x assembler-with-cpp")
 
 #[[

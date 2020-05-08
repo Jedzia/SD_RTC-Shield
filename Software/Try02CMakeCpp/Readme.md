@@ -9,6 +9,6 @@
 |                                   Development Setup                                   |
 | ------------------------------------------------------------------------------------- |
 | ![NUCLEO-Board with shield](../../doc/images/nucleo_with_shield-DSC06056.jpg)         |
-| [blinky](blinky/README.md)                                                            |
+| [blinky](blinkyCpp/README.md)                                                            |
 
-Go to [blinky](blinky/README.md) for a simple I2C example based on CMake and the GNU-ARM-GCC toolchain.
+Go to [blinky](blinkyCpp/README.md) for a simple I2C example based on CMake and the GNU-ARM-GCC toolchain.
