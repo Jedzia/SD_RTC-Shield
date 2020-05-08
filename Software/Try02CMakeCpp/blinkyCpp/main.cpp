@@ -2,8 +2,8 @@
 //#include "api.h"
 //#include "api-asm.h"
 
-#include <errno.h>
-#include <stdio.h>
+#include <cerrno>
+#include <cstdio>
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>

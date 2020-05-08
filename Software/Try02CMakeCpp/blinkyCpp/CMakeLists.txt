@@ -75,17 +75,21 @@ ${STM32F4_FLAGS}")
 ]]
 # -Werror \
 
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "\
--O0 -std=c99 -ggdb3 \
+set(CMAKE_COMMON_FLAGS "\
+-O0 -ggdb3 \
 -mfpu=fpv4-sp-d16 \
 -fno-common -ffunction-sections -fdata-sections \
--Wextra -Wshadow -Wno-unused-variable -Wimplicit-function-declaration -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes \
 -MD -Wall -Wundef \
  ${STM32F4_FLAGS}")
+
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "\
+-std=c99 \
+-Wextra -Wshadow -Wno-unused-variable -Wimplicit-function-declaration -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes \
+ ${CMAKE_COMMON_FLAGS} ${STM32F4_FLAGS}")
 #-DSTM32F4 -DSTM32F401RET6
 
-
-SET(CMAKE_ASM_FLAGS ${CMAKE_ASM_FLAGS} "${CMAKE_C_FLAGS} -x assembler-with-cpp")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_COMMON_FLAGS} ${STM32F4_FLAGS}")
+SET(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${CMAKE_C_FLAGS} -x assembler-with-cpp")
 
 #[[
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
@@ -123,6 +127,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 # Source files for main target.
 set(SOURCES
         main.cpp
+        #main2.cpp
         # common_lib/utils.c
         ../common-code/api.c
         ../common-code/api-asm.S
