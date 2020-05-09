@@ -127,26 +127,26 @@ set(SOURCES
         main.cpp
         #main2.cpp
         # common_lib/utils.c
-        ../common-code/api.c
-        ../common-code/api-asm.S
-        ../common-code/uartprint.c
-        ../common-code/clock.c
-        ../common-code/DS1307.c
+        ../../common-code/api.c
+        ../../common-code/api-asm.S
+        ../../common-code/uartprint.c
+        ../../common-code/clock.c
+        ../../common-code/DS1307.c
 
         # ChaN's FatFs - Generic FAT Filesystem Module http://elm-chan.org/fsw/ff/00index_e.html
-        ../common-code/fatfs/diskio.h
+        ../../common-code/fatfs/diskio.h
         # these are the library and example implementations of raw disk access functions
-        # ../common-code/fatfs/diskio.c
-        # ../common-code/fatfs/mmc_stm32f1_spi.c
-        ../common-code/fatfs/mmc_stm32f4_spi.c
-        ../common-code/fatfs/ff.c
-        ../common-code/fatfs/ff.h
-        ../common-code/fatfs/ffconf.h
-        ../common-code/fatfs/ffsystem.c
-        ../common-code/fatfs/ffunicode.c
-        ../common-code/fatfs/xprintf.c
-        ../common-code/fatfs/xprintf.h
-        ../common-code/fatfs/mmc_stm32f4_spi.h)
+        # ../../common-code/fatfs/diskio.c
+        # ../../common-code/fatfs/mmc_stm32f1_spi.c
+        ../../common-code/fatfs/mmc_stm32f4_spi.c
+        ../../common-code/fatfs/ff.c
+        ../../common-code/fatfs/ff.h
+        ../../common-code/fatfs/ffconf.h
+        ../../common-code/fatfs/ffsystem.c
+        ../../common-code/fatfs/ffunicode.c
+        ../../common-code/fatfs/xprintf.c
+        ../../common-code/fatfs/xprintf.h
+        ../../common-code/fatfs/mmc_stm32f4_spi.h)
 #set_source_files_properties(../common-code/api-asm.S PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 
 
@@ -154,6 +154,7 @@ add_definitions(-DSTM32F4 -DSTM32F401RET6 -D_LF_CRLF=1)
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}../my-common-code
+        ${CMAKE_CURRENT_SOURCE_DIR}../../../
         ${LIBOPENCM3_DIR}/include
 )
 

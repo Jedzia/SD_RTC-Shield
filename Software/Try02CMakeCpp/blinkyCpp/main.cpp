@@ -5,18 +5,19 @@
 #include <cerrno>
 #include <cstdio>
 
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/gpio.h>
-#include <libopencm3/stm32/usart.h>
-#include <libopencm3/stm32/spi.h>
 #include <libopencm3/cm3/nvic.h>
-#include "../common-code/DS1307.h"
-#include "../common-code/clock.h"
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/spi.h>
+#include <libopencm3/stm32/usart.h>
 
-#include "../common-code/fatfs/xprintf.h"
-#include "../common-code/fatfs/ff.h"
-#include "../common-code/fatfs/diskio.h"
-#include "../common-code/fatfs/mmc_stm32f4_spi.h"
+#include <common-code/DS1307.h>
+#include <common-code/clock.h>
+
+#include <common-code/fatfs/xprintf.h>
+#include <common-code/fatfs/ff.h>
+#include <common-code/fatfs/diskio.h>
+#include <common-code/fatfs/mmc_stm32f4_spi.h>
 
 #define USE_RTC 0
 const int DELAY_TIME = 1000;
