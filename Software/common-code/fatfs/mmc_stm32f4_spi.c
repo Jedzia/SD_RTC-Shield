@@ -403,15 +403,11 @@ static
 BYTE xchg_spi(
         BYTE dat    /* Data to send */
 ) {
-    //dprintf("[SD-Card] xchg_spi\n");
-    //put_status("xchg_spi: ");
+    // dprintf("[SD-Card] xchg_spi\n");
+    // put_status("xchg_spi: ");
     uint16_t result = spi_xfer(SPI1, dat);
-    //dprintf("[SD-Card] xchg_spi result=%d\n", result);
+    // dprintf("[SD-Card] xchg_spi result=%d\n", result);
     return result;
-    //SPIx_DR = dat;				/* Start an SPI transaction */
-    //dprintf("[SD-Card] SPIx_SR %d\n", SPIx_DR);
-    //while ((SPIx_SR & 0x83) != 0x03) ;	/* Wait for end of the transaction */
-    //return (BYTE)SPIx_DR;		/* Return received byte */
 }
 
 #else
@@ -427,7 +423,7 @@ BYTE xchg_spi (
 }
 #endif
 
-/* Receive multiple byte */
+/* Receive multiple byte, ToDo: use libopencm3 functions */
 static
 void rcvr_spi_multi(
         BYTE *buff,        /* Pointer to data buffer */

@@ -241,11 +241,14 @@ int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
     BYTE res = 0, b = 0, drv = 0;
 
 //    while (*ptr == ' ') ptr++;
+#if FF_FS_MINIMIZE == 0
     res = f_getfree(path, (DWORD *) &p1, &fs);
     if(res) {
         put_rc(res);
         return -1;
     }
+#endif
+
     printf("FAT type = %s\n", ft[fs->fs_type]);
     printf("Bytes/Cluster = %lu\n", (DWORD) fs->csize * 512);
     printf("Number of FATs = %u\n", fs->n_fats);
@@ -265,6 +268,8 @@ int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
     printf(Buff[0] ? "Volume name is %s\n" : "No volume label\n", (char *) Buff);
     printf("Volume S/N is %04lX-%04lX\n", (DWORD) p2 >> 16, (DWORD) p2 & 0xFFFF);
 #endif
+    
+#if FF_FS_MINIMIZE < 2
     AccSize = AccFiles = AccDirs = 0;
     printf("...");
     strcpy((char *) Buff, path);
@@ -278,6 +283,8 @@ int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
             AccFiles, AccSize, AccDirs,
             (fs->n_fatent - 2) * (fs->csize / 2), (DWORD) p1 * (fs->csize / 2)
     );
+#endif
+
     return 0;
 }
 

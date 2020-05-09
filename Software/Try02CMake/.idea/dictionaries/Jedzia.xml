@@ -6,6 +6,7 @@
       <w>csson</w>
       <w>dcache</w>
       <w>dcen</w>
+      <w>dprintf</w>
       <w>fatfs</w>
       <w>fclk</w>
       <w>fmonitor</w>
