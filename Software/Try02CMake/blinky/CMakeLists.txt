@@ -121,6 +121,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
 set(SOURCES
         main.c
         # common_lib/utils.c
+        ../../common-code/debug.h
         ../../common-code/api.c
         ../../common-code/api-asm.S
         ../../common-code/uartprint.c
@@ -138,8 +139,8 @@ set(SOURCES
         ../../common-code/fatfs/ffconf.h
         ../../common-code/fatfs/ffsystem.c
         ../../common-code/fatfs/ffunicode.c
-        ../../common-code/fatfs/xprintf.c
-        ../../common-code/fatfs/xprintf.h
+        #../../common-code/fatfs/xprintf.c
+        #../../common-code/fatfs/xprintf.h
         )
 #set_source_files_properties(../common-code/api-asm.S PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 

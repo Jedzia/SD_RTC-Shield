@@ -9,6 +9,11 @@
 extern "C" {
 #endif
 
+void FCLK_SLOW(void);
+
+void FCLK_FAST(void);
+
+
 void disk_timerproc(void);
 
 #ifdef    __cplusplus

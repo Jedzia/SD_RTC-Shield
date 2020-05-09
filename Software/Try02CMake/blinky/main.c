@@ -13,11 +13,12 @@
 #include <common-code/DS1307.h>
 #include <common-code/clock.h>
 
-#include <common-code/fatfs/xprintf.h>
+//#include <common-code/fatfs/xprintf.h>
 #include <common-code/fatfs/ff.h>
 #include <common-code/fatfs/diskio.h>
+#include <common-code/debug.h>
 
-#define USE_RTC 0
+#define USE_RTC 1
 const int DELAY_TIME = 1000;
 
 FATFS FatFs;                /* File system object for each logical drive */
@@ -197,7 +198,7 @@ void put_rc(FRESULT rc) {
     for(i = 0; i != rc && *str; i++) {
         while(*str++);
     }
-    xprintf("rc=%u FR_%s\n", (UINT) rc, str);
+    printf("rc=%u FR_%s\n", (UINT) rc, str);
 }
 
 static
@@ -217,7 +218,7 @@ FRESULT scan_files(
                 //strcpy(path + i + 1, Finfo.fname);
                 strcpy(path + i + 1, Finfo.fname);
                 res = scan_files(path);
-                xprintf("[scan_files] path='%s'\n", path);
+                printf("[scan_files] path='%s'\n", path);
                 *(path + i) = '\0';
                 if(res != FR_OK) break;
             } else {
@@ -245,34 +246,34 @@ int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
         put_rc(res);
         return -1;
     }
-    xprintf("FAT type = %s\n", ft[fs->fs_type]);
-    xprintf("Bytes/Cluster = %lu\n", (DWORD) fs->csize * 512);
-    xprintf("Number of FATs = %u\n", fs->n_fats);
-    if(fs->fs_type < FS_FAT32) xprintf("Root DIR entries = %u\n", fs->n_rootdir);
-    xprintf("Sectors/FAT = %lu\n", fs->fsize);
-    xprintf("Number of clusters = %lu\n", (DWORD) fs->n_fatent - 2);
-    xprintf("Volume start (lba) = %lu\n", fs->volbase);
-    xprintf("FAT start (lba) = %lu\n", fs->fatbase);
-    xprintf("DIR start (lba,clustor) = %lu\n", fs->dirbase);
-    xprintf("Data start (lba) = %lu\n\n", fs->database);
+    printf("FAT type = %s\n", ft[fs->fs_type]);
+    printf("Bytes/Cluster = %lu\n", (DWORD) fs->csize * 512);
+    printf("Number of FATs = %u\n", fs->n_fats);
+    if(fs->fs_type < FS_FAT32) printf("Root DIR entries = %u\n", fs->n_rootdir);
+    printf("Sectors/FAT = %lu\n", fs->fsize);
+    printf("Number of clusters = %lu\n", (DWORD) fs->n_fatent - 2);
+    printf("Volume start (lba) = %lu\n", fs->volbase);
+    printf("FAT start (lba) = %lu\n", fs->fatbase);
+    printf("DIR start (lba,clustor) = %lu\n", fs->dirbase);
+    printf("Data start (lba) = %lu\n\n", fs->database);
 #if FF_USE_LABEL
     res = f_getlabel(path, (char *) Buff, (DWORD *) &p2);
     if(res) {
         put_rc(res);
         return -2;
     }
-    xprintf(Buff[0] ? "Volume name is %s\n" : "No volume label\n", (char *) Buff);
-    xprintf("Volume S/N is %04X-%04X\n", (DWORD) p2 >> 16, (DWORD) p2 & 0xFFFF);
+    printf(Buff[0] ? "Volume name is %s\n" : "No volume label\n", (char *) Buff);
+    printf("Volume S/N is %04lX-%04lX\n", (DWORD) p2 >> 16, (DWORD) p2 & 0xFFFF);
 #endif
     AccSize = AccFiles = AccDirs = 0;
-    xprintf("...");
+    printf("...");
     strcpy((char *) Buff, path);
     res = scan_files((char *) Buff);
     if(res) {
         put_rc(res);
         return -3;
     }
-    xprintf("\r%u files, %lu bytes.\n%u folders.\n"
+    printf("\r%u files, %lu bytes.\n%u folders.\n"
             "%lu KiB total disk space.\n%lu KiB available.\n",
             AccFiles, AccSize, AccDirs,
             (fs->n_fatent - 2) * (fs->csize / 2), (DWORD) p1 * (fs->csize / 2)
@@ -296,7 +297,7 @@ int main(void) {
     clock_setup();
     gpio_setup();
     usart_setup();
-    xfunc_out = xprint_impl;
+    //xfunc_out = xprint_impl;
 
     //wait();
     msleep(2000);
@@ -366,7 +367,9 @@ int main(void) {
 //        gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
         //msleep(5 * DELAY_TIME);
 
-//        DS1307_DoSomething();
+#if USE_RTC
+        DS1307_DoSomething();
+#endif
 
         //DebugFS();
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
