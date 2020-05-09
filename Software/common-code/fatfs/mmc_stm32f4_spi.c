@@ -17,6 +17,7 @@
 #include "mmc_stm32f4_spi.h"
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/spi.h>
+#include <libopencm3/stm32/rcc.h>
 #include <stdio.h>
 #include <string.h>
 //#include "STM32F100.h"
@@ -111,74 +112,10 @@ __enable_peripheral(SPI1EN);\
 #define SPIx_CR1    SPI1_CR1
 #define SPIx_SR        SPI1_SR
 #define SPIx_DR        SPI1_DR
-#define    SPIxENABLEXXX() {\
-    __enable_peripheral(SPI1EN);\
-    __enable_peripheral(IOPAEN);\
-    __enable_peripheral(IOPCEN);\
-    __gpio_conf_bit(GPIOB, 6, OUT_PP);                        /* PB6: MMC_CS */\
-    __gpio_conf_bit(GPIOA, 5, ALT_PP);                        /* PA5: MMC_SCLK */\
-    GPIOA_BSRR = _BV(6); __gpio_conf_bit(GPIOA, 6, IN_PUL); /* PA6: MMC_DO with pull-up */\
-    __gpio_conf_bit(GPIOA, 7, ALT_PP);                        /* PA7: MMC_DI */\
-    GPIOC_BSRR = _BV(4); __gpio_conf_bit(GPIOC, 4, IN_PUL);    /* PC4: MMC_CD with pull-up */\
-    SPIx_CR1 = _BV(9)|_BV(8)|_BV(6)|_BV(2);                    /* Enable SPI1 */\
-}
 
 #endif
 
-#include <libopencm3/stm32/rcc.h>
-
-#define console_puts(x) puts(x);
-
-/*
- * put_status(char *)
- *
- * This is a helper function I wrote to watch the status register
- * it decodes the bits and prints them on the console. Sometimes
- * the SPI port comes up with the MODF flag set, you have to re-read
- * the status port and re-write the control register to clear that.
- */
-void put_status(char *m);
-
-
-void SPIxENABLE(void);
-
-/**
-* @brief SPI MSP Initialization
-* This function configures the hardware resources used in this example
-* @param hspi: SPI handle pointer
-* @retval None
-*/
-//void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
-//{
-//    GPIO_InitTypeDef GPIO_InitStruct = {0};
-//    if(hspi->Instance==SPI1)
-//    {
-//        /* USER CODE BEGIN SPI1_MspInit 0 */
-//
-//        /* USER CODE END SPI1_MspInit 0 */
-//        /* Peripheral clock enable */
-//        __HAL_RCC_SPI1_CLK_ENABLE();
-//
-//        __HAL_RCC_GPIOA_CLK_ENABLE();
-//        /**SPI1 GPIO Configuration
-//        PA5     ------> SPI1_SCK
-//        PA6     ------> SPI1_MISO
-//        PA7     ------> SPI1_MOSI
-//        */
-//        GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
-//        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-//        GPIO_InitStruct.Pull = GPIO_NOPULL;
-//        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//        GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-//        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-//
-//        /* USER CODE BEGIN SPI1_MspInit 1 */
-//
-//        /* USER CODE END SPI1_MspInit 1 */
-//    }
-//
-//}
-
+static inline
 void FCLK_SLOW() {
     /* Set SCLK = PCLK / 64 */
     //SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x28;
@@ -192,6 +129,7 @@ void FCLK_SLOW() {
     spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_256);
 }
 
+static inline
 void FCLK_FAST() {
     /* Set SCLK = PCLK / 2 */
     //SPIx_CR1 = (SPIx_CR1 & ~0x38) | 0x00;
@@ -207,24 +145,10 @@ void FCLK_FAST() {
 
 void SPIxENABLE() {
     /* PB6:MMC_CS, PA5:MMC_SCLK, PA6:MMC_DO, PA7:MMC_DI, always:MMC_CD */
-    // via my setup from mbed:
-    // SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
     // SDBlockDevice sd(MOSI, MISO, SCLK, CS  );
     // SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
-    //put_status("Before init: ");
 
-    /*CS_HIGH();
-    msleep(10);
-    CS_LOW();
-    //msleep(1);
-    for(int i = 0; i < 100; ++i) {
-        __asm volatile (
-        ".thumb_func\n"
-        "NOP\n"
-        "\n" : : : "memory");
-    }
-    //CS_HIGH();
-    msleep(10);*/
+    //put_status("Before init: ");
 
     // MMC_SCLK
     gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5);
@@ -252,16 +176,14 @@ void SPIxENABLE() {
     gpio_set_output_options(GPIOB, GPIO_OTYPE_PP, GPIO_OSPEED_100MHZ, GPIO6);
     CS_HIGH();
 
-    // later use:
+    // ToDo: simplify GPIO-Setup to the following after development has matured:
     //gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5 | GPIO6 | GPIO7);
 
     //put_status("Before enable: ");
 
     uint32_t reg32 = RCC_CFGR;
     reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
-    //RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
     RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_2 << RCC_CFGR_PPRE2_SHIFT);
-
     //rcc_set_ppre2(reg32);
 
     rcc_periph_clock_enable(RCC_GPIOA);
@@ -270,65 +192,45 @@ void SPIxENABLE() {
 
     //put_status("\nBefore init: ");
 
-    /*uint32_t cr_tmp = SPI_CR1_BAUDRATE_FPCLK_DIV_8 |
-                      SPI_CR1_MSTR |
-                      SPI_CR1_SPE |
-                      SPI_CR1_CPHA |
-                      SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE;
-
-
-    SPI_CR2(SPI1) |= SPI_CR2_SSOE;
-    SPI_CR1(SPI1) = cr_tmp;*/
-    //put_status("After init: ");
 
     /* Set up SPI in Master mode with:
- * Clock baud rate: 1/64 of peripheral clock frequency
- * Clock polarity: Idle High
- * Clock phase: Data valid on 2nd clock pulse
- * Data frame format: 8-bit
- * Frame format: MSB First
- */
+    * Clock baud rate: 1/256 of peripheral clock frequency
+    * Clock polarity: Idle High
+    * Clock phase: Data valid on 2nd clock pulse
+    * Data frame format: 8-bit
+    * Frame format: MSB First
+    */
     spi_init_master(SPI1, SPI_CR1_BAUDRATE_FPCLK_DIV_256, SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE,
             SPI_CR1_CPHA_CLK_TRANSITION_2, SPI_CR1_DFF_8BIT, SPI_CR1_MSBFIRST);
-//       spi_init_master(SPI1, SPI_CR1_BAUDRATE_FPCLK_DIV_256, SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE,
-//              SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_DFF_8BIT, SPI_CR1_MSBFIRST);
+
+    //put_status("After init: ");
+
+    // spi_set_master_mode(SPI1);
+    // spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_8);
+    spi_set_full_duplex_mode(SPI1);
+    // spi_set_unidirectional_mode(SPI1);
+    // spi_set_clock_polarity_1(SPI1);
+    // spi_set_clock_phase_1(SPI1);
+    // spi_set_dff_8bit(SPI1);
+    // spi_send_msb_first(SPI1);
 
     /*
- * Set NSS management to software.
- *
- * Note:
- * Setting nss high is very important, even if we are controlling the GPIO
- * ourselves this bit needs to be at least set to 1, otherwise the spi
- * peripheral will not send any data out.
- */
+    * Set NSS management to software.
+    *
+    * Note:
+    * Setting nss high is very important, even if we are controlling the GPIO
+    * ourselves this bit needs to be at least set to 1, otherwise the spi
+    * peripheral will not send any data out.
+    */
     //spi_enable_software_slave_management(SPI1);
-    /*spi_disable_software_slave_management (SPI1);
-    spi_disable_ss_output(SPI1);
-    spi_set_nss_high(SPI1);*/
-
-
-//    spi_set_master_mode(SPI1);
-//    spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_8);
-    spi_set_full_duplex_mode(SPI1);
-//    spi_set_unidirectional_mode(SPI1);
-//    spi_set_clock_polarity_1(SPI1);
-//    spi_set_clock_phase_1(SPI1);
-//    spi_set_dff_8bit(SPI1);
-//    spi_send_msb_first(SPI1);
     spi_disable_software_slave_management(SPI1);
     spi_enable_ss_output(SPI1);
+    //spi_disable_ss_output(SPI1);
     spi_set_nss_high(SPI1);
 
-    // ToDo: is this needed? check libopencm3 source
     spi_enable(SPI1);
     //put_status("After enable: ");
     //msleep(1000);
-
-    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-    //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-
-    //spi_send(SPI1, 0xdead);
-    //   msleep(10);
 }
 
 
@@ -521,7 +423,6 @@ static
 void deselect(void) {
     CS_HIGH();        /* Set CS# high */
     xchg_spi(0xFF);    /* Dummy clock (force DO hi-z for multiple slave SPI) */
-
 }
 
 
@@ -535,7 +436,7 @@ int select(void)    /* 1:OK, 0:Timeout */
 {
     CS_LOW();        /* Set CS# low */
     xchg_spi(0xFF);    /* Dummy clock (force DO enabled) */
-    if(wait_ready(500)) return 1;    /* Wait for card ready */
+    if(wait_ready(FF_FS_TIMEOUT)) return 1;    /* Wait for card ready */
 
     dprintf("[SD-Card] select NOT ready, deselecting!\n");
 
@@ -587,9 +488,9 @@ int xmit_datablock(    /* 1:OK, 0:Failed */
     BYTE resp;
 
 
-    //if (!wait_ready(500)) return 0;		/* Wait for card ready */
+    //if (!wait_ready(FF_FS_TIMEOUT)) return 0;		/* Wait for card ready */
     /* Wait for card ready */
-    if(!wait_ready(500)) {
+    if(!wait_ready(FF_FS_TIMEOUT)) {
         dprintf("[SD-Card] xmit_datablock NOT ready!\n");
         return 0;
     }
@@ -731,7 +632,6 @@ DSTATUS disk_initialize(
     if(receive_data[8] != 0x01) {
         dprintf("[SD-Card] No SD Card! (receive_data[8])\n");
     }
-
 
 
     ty = 0;
@@ -1033,15 +933,6 @@ void put_status(char *m) {
 }
 
 BYTE toSend = 0x42;
-
-void MySend(BYTE data);
-
-void MySend(BYTE data) {
-    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-    spi_send(SPI1, data);
-    gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-}
-
 
 uint8_t DebugFS(void) {
     dprintf("[SD-Card] DebugFS\n");
