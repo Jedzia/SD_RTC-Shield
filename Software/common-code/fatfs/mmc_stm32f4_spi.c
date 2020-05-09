@@ -22,6 +22,24 @@
 #include "diskio.h"
 #include "../clock.h"
 
+#if 1
+#include <stdarg.h>
+
+static inline
+int	dprintf (const char *__restrict, ...)
+_ATTRIBUTE ((__format__ (__printf__, 1, 2)));
+
+int dprintf(const char *fmt, ...) {
+    va_list arp;
+    va_start(arp, fmt);
+    int result = printf(fmt, arp);
+    va_end(arp);
+
+    return result;
+}
+
+#endif
+
 #define    _BV(bit) (1<<(bit))
 
 #define SPI_CH    3    /* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
@@ -497,12 +515,12 @@ void init_spi(void) {
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
     //put_status("Timer1: ");
-    printf("[SD-Card] SPI Initialized\n");
+    dprintf("[SD-Card] SPI Initialized\n");
     while(SPI1_SR & SPI_SR_BSY) {
         gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-        //printf("wait for ready\n");
+        //dprintf("wait for ready\n");
     };
-    printf("[SD-Card] SPI Ready\n");
+    dprintf("[SD-Card] SPI Ready\n");
 }
 
 
@@ -513,13 +531,13 @@ static
 BYTE xchg_spi(
         BYTE dat    /* Data to send */
 ) {
-    //printf("[SD-Card] xchg_spi\n");
+    //dprintf("[SD-Card] xchg_spi\n");
     //put_status("xchg_spi: ");
     uint16_t result = spi_xfer(SPI1, dat);
-    //printf("[SD-Card] xchg_spi result=%d\n", result);
+    //dprintf("[SD-Card] xchg_spi result=%d\n", result);
     return result;
     //SPIx_DR = dat;				/* Start an SPI transaction */
-    //printf("[SD-Card] SPIx_SR %d\n", SPIx_DR);
+    //dprintf("[SD-Card] SPIx_SR %d\n", SPIx_DR);
     //while ((SPIx_SR & 0x83) != 0x03) ;	/* Wait for end of the transaction */
     //return (BYTE)SPIx_DR;		/* Return received byte */
 }
@@ -651,7 +669,7 @@ int select(void)    /* 1:OK, 0:Timeout */
     xchg_spi(0xFF);    /* Dummy clock (force DO enabled) */
     if(wait_ready(500)) return 1;    /* Wait for card ready */
 
-    printf("[SD-Card] select NOT ready, deselecting!\n");
+    dprintf("[SD-Card] select NOT ready, deselecting!\n");
 
     deselect();
     return 0;    /* Timeout */
@@ -704,7 +722,7 @@ int xmit_datablock(    /* 1:OK, 0:Failed */
     //if (!wait_ready(500)) return 0;		/* Wait for card ready */
     /* Wait for card ready */
     if(!wait_ready(500)) {
-        printf("[SD-Card] xmit_datablock NOT ready!\n");
+        dprintf("[SD-Card] xmit_datablock NOT ready!\n");
         return 0;
     }
 
@@ -795,7 +813,7 @@ DSTATUS disk_initialize(
     //return STA_NOINIT;
 
     if(Stat & STA_NODISK) return Stat;    /* Is card existing in the soket? */
-    printf("[SD-Card] STA_NODISK: Has Disk\n");
+    dprintf("[SD-Card] STA_NODISK: Has Disk\n");
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
@@ -807,7 +825,7 @@ DSTATUS disk_initialize(
     gpio_toggle(GPIOA, GPIO10);
     CS_HIGH();*/
 
-    printf("[SD-Card] FCLK_SLOW, Send 80 dummy clocks\n");
+    dprintf("[SD-Card] FCLK_SLOW, Send 80 dummy clocks\n");
     for(n = 10; n; n--) {
         xchg_spi(0xFF);    /* Send 80 dummy clocks */
         //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
@@ -843,7 +861,7 @@ DSTATUS disk_initialize(
 #endif
 
     if(receive_data[8] != 0x01) {
-        printf("[SD-Card] No SD Card! (receive_data[8])\n");
+        dprintf("[SD-Card] No SD Card! (receive_data[8])\n");
     }
 
 
@@ -875,7 +893,7 @@ DSTATUS disk_initialize(
                 ty = 0;
         }
     } else {
-        printf("[SD-Card] send_cmd(CMD0, 0) failed?\n");
+        dprintf("[SD-Card] send_cmd(CMD0, 0) failed?\n");
         gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     }
 
@@ -885,10 +903,10 @@ DSTATUS disk_initialize(
     if(ty) {            /* OK */
         FCLK_FAST();            /* Set fast clock */
         Stat &= ~STA_NOINIT;    /* Clear STA_NOINIT flag */
-        printf("[SD-Card] ty: %d -> Fast IO\n", ty);
+        dprintf("[SD-Card] ty: %d -> Fast IO\n", ty);
     } else {            /* Failed */
         Stat = STA_NOINIT;
-        printf("[SD-Card] ty: %d -> Slow IO\n", ty);
+        dprintf("[SD-Card] ty: %d -> Slow IO\n", ty);
     }
 
     return Stat;
@@ -921,7 +939,7 @@ DRESULT disk_read(
         UINT count        /* Number of sectors to read (1..128) */
 ) {
     DWORD sect = (DWORD) sector;
-    printf("[SD-Card] disk_read, sector: %lu\n", sector);
+    dprintf("[SD-Card] disk_read, sector: %lu\n", sector);
 
 
     if(drv || !count) return RES_PARERR;        /* Check parameter */
@@ -1156,8 +1174,9 @@ void MySend(BYTE data) {
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 }
 
+
 uint8_t DebugFS(void) {
-    printf("[SD-Card] DebugFS\n");
+    dprintf("[SD-Card] DebugFS\n");
 
     // Followed http://www.dejazzer.com/ee379/lecture_notes/lec12_sd_card.pdf ... and it works.
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
@@ -1167,7 +1186,7 @@ uint8_t DebugFS(void) {
     SPIxENABLE();        /* Enable SPI function */
     while(SPI1_SR & SPI_SR_BSY) {
         gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-        //printf("wait for ready\n");
+        //dprintf("wait for ready\n");
     };
 
     static bool isInFirstRun = true;
@@ -1185,7 +1204,7 @@ uint8_t DebugFS(void) {
         /* No need to wait, spi_xfer() waited already
         while(SPI1_SR & SPI_SR_BSY) {
             gpio_toggle(GPIOA, GPIO10);
-            //printf("wait for ready\n");
+            //dprintf("wait for ready\n");
         };
          */
 
@@ -1196,7 +1215,7 @@ uint8_t DebugFS(void) {
 
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     //if (!wait_ready(2500))
-    //   printf("Timeout, init, wait\n");
+    //   dprintf("Timeout, init, wait\n");
 
     CS_LOW();
     //select();
@@ -1225,23 +1244,23 @@ uint8_t DebugFS(void) {
     receive_data[6] = spi_xfer(SPI1, 0x95);
     receive_data[7] = spi_xfer(SPI1, 0xFF);
     receive_data[8] = spi_xfer(SPI1, 0xFF);
-    //printf("Receive Data='%d'\n", receive_data);
+    //dprintf("Receive Data='%d'\n", receive_data);
 
 #if 0
     char buf[256] = {"Receive Data="};
     //sprintf(buf, "Receive Data=");
-    //printf("Receive Data=");
+    //dprintf("Receive Data=");
     for(size_t i = 0; i < sizeof(receive_data) / sizeof(receive_data[0]); ++i) {
-        //printf("%04X, ", receive_data[i]);
+        //dprintf("%04X, ", receive_data[i]);
         sprintf(buf + strlen(buf), "%04X, ", receive_data[i]);
     }
     sprintf(buf + strlen(buf) - 2, "\n");
-    printf("%s", buf);
-    //printf("\n");
+    dprintf("%s", buf);
+    //dprintf("\n");
 #endif
 
     if(receive_data[8] != 0x01) {
-        printf("No SD Card! (receive_data[8])\n");
+        dprintf("No SD Card! (receive_data[8])\n");
     }
 
 
@@ -1250,21 +1269,21 @@ uint8_t DebugFS(void) {
 //MySend(toSend);
 
 //    if (!wait_ready(2500))
-//        printf("Timeout, send, wait\n");
+//        dprintf("Timeout, send, wait\n");
 //    msleep(10);
 //deselect();
 //spi_xfer(SPI1, toSend);
     /* No need to wait, spi_xfer() waited already
 while(SPI1_SR & SPI_SR_BSY) {
     gpio_toggle(GPIOA, GPIO10);
-    //printf("wait for ready\n");
+    //dprintf("wait for ready\n");
 };
 */
 
 //msleep(1);
     CS_HIGH();
 
-//printf("Receive Data='%d'\n", receive_data);
+//dprintf("Receive Data='%d'\n", receive_data);
 
 //spi_set_baudrate_prescaler(SPI1, SPI_CR1_BR_FPCLK_DIV_128);
 //spi_set_bidirectional_transmit_only_mode(SPI1);

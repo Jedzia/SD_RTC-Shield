@@ -4,6 +4,7 @@
 
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
@@ -173,11 +174,119 @@ __used void sys_tick_handler(void) {
 extern volatile DSTATUS Stat;
 
 static const char *ft[] = {"", "FAT12", "FAT16", "FAT32", "exFAT"};
+BYTE Buff[4096] __attribute__ ((aligned (4)));    /* Working buffer */
+DWORD AccSize;                /* Work register for fs command */
+WORD AccFiles, AccDirs;
+FILINFO Finfo;
+
 
 static inline void xprint_impl(unsigned char c) {
     //printf("%c", c);
     putchar(c);
 }
+
+static
+void put_rc(FRESULT rc) {
+    const char *str =
+            "OK\0" "DISK_ERR\0" "INT_ERR\0" "NOT_READY\0" "NO_FILE\0" "NO_PATH\0"
+            "INVALID_NAME\0" "DENIED\0" "EXIST\0" "INVALID_OBJECT\0" "WRITE_PROTECTED\0"
+            "INVALID_DRIVE\0" "NOT_ENABLED\0" "NO_FILE_SYSTEM\0" "MKFS_ABORTED\0" "TIMEOUT\0"
+            "LOCKED\0" "NOT_ENOUGH_CORE\0" "TOO_MANY_OPEN_FILES\0" "INVALID_PARAMETER\0";
+    FRESULT i;
+
+    for(i = 0; i != rc && *str; i++) {
+        while(*str++);
+    }
+    xprintf("rc=%u FR_%s\n", (UINT) rc, str);
+}
+
+static
+FRESULT scan_files(
+        char *path        /* Pointer to the path name working buffer */
+) {
+    DIR dirs;
+    FRESULT res = 0;
+    BYTE i = 0;
+
+    if((res = f_opendir(&dirs, path)) == FR_OK) {
+        i = strlen(path);
+        while(((res = f_readdir(&dirs, &Finfo)) == FR_OK) && Finfo.fname[0]) {
+            if(Finfo.fattrib & AM_DIR) {
+                AccDirs++;
+                *(path + i) = '/';
+                //strcpy(path + i + 1, Finfo.fname);
+                strcpy(path + i + 1, Finfo.fname);
+                res = scan_files(path);
+                xprintf("[scan_files] path='%s'\n", path);
+                *(path + i) = '\0';
+                if(res != FR_OK) break;
+            } else {
+                /*	xprintf("%s/%s\n", path, fn); */
+                AccFiles++;
+                AccSize += Finfo.fsize;
+            }
+        }
+    }
+
+    return res;
+}
+
+
+int ShowVolumeStatus(FATFS *fs, const TCHAR *path);
+
+int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
+    long p1 = 0, p2 = 0, p3 = 0;
+    //char *ptr = NULL, *ptr2 = NULL;
+    BYTE res = 0, b = 0, drv = 0;
+
+//    while (*ptr == ' ') ptr++;
+    res = f_getfree(path, (DWORD *) &p1, &fs);
+    if(res) {
+        put_rc(res);
+        return -1;
+    }
+    xprintf("FAT type = %s\n", ft[fs->fs_type]);
+    xprintf("Bytes/Cluster = %lu\n", (DWORD) fs->csize * 512);
+    xprintf("Number of FATs = %u\n", fs->n_fats);
+    if(fs->fs_type < FS_FAT32) xprintf("Root DIR entries = %u\n", fs->n_rootdir);
+    xprintf("Sectors/FAT = %lu\n", fs->fsize);
+    xprintf("Number of clusters = %lu\n", (DWORD) fs->n_fatent - 2);
+    xprintf("Volume start (lba) = %lu\n", fs->volbase);
+    xprintf("FAT start (lba) = %lu\n", fs->fatbase);
+    xprintf("DIR start (lba,clustor) = %lu\n", fs->dirbase);
+    xprintf("Data start (lba) = %lu\n\n", fs->database);
+#if FF_USE_LABEL
+    res = f_getlabel(path, (char *) Buff, (DWORD *) &p2);
+    if(res) {
+        put_rc(res);
+        return -2;
+    }
+    xprintf(Buff[0] ? "Volume name is %s\n" : "No volume label\n", (char *) Buff);
+    xprintf("Volume S/N is %04X-%04X\n", (DWORD) p2 >> 16, (DWORD) p2 & 0xFFFF);
+#endif
+    AccSize = AccFiles = AccDirs = 0;
+    xprintf("...");
+    strcpy((char *) Buff, path);
+    res = scan_files((char *) Buff);
+    if(res) {
+        put_rc(res);
+        return -3;
+    }
+    xprintf("\r%u files, %lu bytes.\n%u folders.\n"
+            "%lu KiB total disk space.\n%lu KiB available.\n",
+            AccFiles, AccSize, AccDirs,
+            (fs->n_fatent - 2) * (fs->csize / 2), (DWORD) p1 * (fs->csize / 2)
+    );
+    return 0;
+}
+
+/*void ShowDiskStatus(FATFS *fs);
+
+void ShowDiskStatus(FATFS *fs) {
+    long p1 = 0, p2 = 0, p3 = 0;
+
+    if(disk_ioctl((BYTE) p1, GET_SECTOR_COUNT, &p2) == RES_OK) { xprintf("Drive size: %lu sectors\n", p2); }
+}*/
 
 int main(void) {
 
@@ -211,7 +320,8 @@ int main(void) {
     // mount immediately
     DebugFS();
     f_mount(&FatFs, "0:", 1);
-    xprintf("FAT type = %s\n", ft[FatFs.fs_type]);
+    //xprintf("FAT type = %s\n", ft[FatFs.fs_type]);
+    ShowVolumeStatus(&FatFs, "0:");
 
     /* Blink the LED (PC8) on the board. */
     while(1) {
