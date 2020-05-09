@@ -498,6 +498,11 @@ void init_spi(void) {
 
     //put_status("Timer1: ");
     printf("[SD-Card] SPI Initialized\n");
+    while(SPI1_SR & SPI_SR_BSY) {
+        gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
+        //printf("wait for ready\n");
+    };
+    printf("[SD-Card] SPI Ready\n");
 }
 
 
@@ -785,11 +790,12 @@ DSTATUS disk_initialize(
 
     if(drv) return STA_NOINIT;            /* Supports only drive 0 */
     init_spi();                            /* Initialize SPI */
+    FCLK_SLOW();
 
     //return STA_NOINIT;
 
     if(Stat & STA_NODISK) return Stat;    /* Is card existing in the soket? */
-    printf("[SD-Card] Has Disk\n");
+    printf("[SD-Card] STA_NODISK: Has Disk\n");
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
@@ -801,13 +807,46 @@ DSTATUS disk_initialize(
     gpio_toggle(GPIOA, GPIO10);
     CS_HIGH();*/
 
-    FCLK_SLOW();
     printf("[SD-Card] FCLK_SLOW, Send 80 dummy clocks\n");
     for(n = 10; n; n--) {
         xchg_spi(0xFF);    /* Send 80 dummy clocks */
         //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     }
     //for (Timer1 = 10; Timer1; ) {};	/* 10ms */
+
+    //uint16_t receive_data = 0;
+    uint16_t receive_data[9] = {};
+
+    CS_LOW();
+    receive_data[0] = spi_xfer(SPI1, 0xFF);
+    receive_data[1] = spi_xfer(SPI1, 0x40);
+    receive_data[2] = spi_xfer(SPI1, 0x00);
+    receive_data[3] = spi_xfer(SPI1, 0x00);
+    receive_data[4] = spi_xfer(SPI1, 0x00);
+    receive_data[5] = spi_xfer(SPI1, 0x00);
+    receive_data[6] = spi_xfer(SPI1, 0x95);
+    receive_data[7] = spi_xfer(SPI1, 0xFF);
+    receive_data[8] = spi_xfer(SPI1, 0xFF);
+    CS_HIGH();
+
+#if 0
+    char buf[256] = {"Receive Data="};
+    //sprintf(buf, "Receive Data=");
+    //printf("Receive Data=");
+    for(size_t i = 0; i < sizeof(receive_data) / sizeof(receive_data[0]); ++i) {
+        //printf("%04X, ", receive_data[i]);
+        sprintf(buf + strlen(buf), "%04X, ", receive_data[i]);
+    }
+    sprintf(buf + strlen(buf) - 2, "\n");
+    printf("%s", buf);
+    //printf("\n");
+#endif
+
+    if(receive_data[8] != 0x01) {
+        printf("[SD-Card] No SD Card! (receive_data[8])\n");
+    }
+
+
 
     ty = 0;
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
@@ -846,8 +885,10 @@ DSTATUS disk_initialize(
     if(ty) {            /* OK */
         FCLK_FAST();            /* Set fast clock */
         Stat &= ~STA_NOINIT;    /* Clear STA_NOINIT flag */
+        printf("[SD-Card] ty: %d -> Fast IO\n", ty);
     } else {            /* Failed */
         Stat = STA_NOINIT;
+        printf("[SD-Card] ty: %d -> Slow IO\n", ty);
     }
 
     return Stat;
@@ -880,6 +921,7 @@ DRESULT disk_read(
         UINT count        /* Number of sectors to read (1..128) */
 ) {
     DWORD sect = (DWORD) sector;
+    printf("[SD-Card] disk_read, sector: %lu\n", sector);
 
 
     if(drv || !count) return RES_PARERR;        /* Check parameter */
@@ -1115,6 +1157,8 @@ void MySend(BYTE data) {
 }
 
 uint8_t DebugFS(void) {
+    printf("[SD-Card] DebugFS\n");
+
     // Followed http://www.dejazzer.com/ee379/lecture_notes/lec12_sd_card.pdf ... and it works.
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
     gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */

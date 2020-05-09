@@ -19,9 +19,9 @@
 #define USE_RTC 0
 const int DELAY_TIME = 1000;
 
-FATFS FatFs;				/* File system object for each logical drive */
-FIL File[2];				/* File objects */
-DIR Dir;					/* Directory object */
+FATFS FatFs;                /* File system object for each logical drive */
+FIL File[2];                /* File objects */
+DIR Dir;                    /* Directory object */
 
 static void clock_setup(void) {
     /* Enable GPIOA clock. */
@@ -133,7 +133,7 @@ void wait() {
 //    return RES_NOTRDY;
 //}
 
-extern void disk_timerproc (void);
+extern void disk_timerproc(void);
 
 /*---------------------------------------------*/
 /* 1kHz timer process                          */
@@ -141,16 +141,16 @@ extern void disk_timerproc (void);
 
 volatile UINT Timer;
 
-__used void sys_tick_handler (void);
+__used void sys_tick_handler(void);
 
 __used void sys_tick_handler(void) {
     clock_sys_tick_handler();
     static uint16_t led;
 
 
-    Timer++;	/* Increment performance counter */
+    Timer++;    /* Increment performance counter */
 
-    if (++led >= 500) {
+    if(++led >= 500) {
         led = 0;
         //GPIOC_ODR ^= _BV(9)|_BV(8);		/* Flip Green/Blue LED state */
         gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
@@ -164,7 +164,7 @@ __used void sys_tick_handler(void) {
     else
         gpio_clear(GPIOB, GPIO3);*/
 
-    disk_timerproc();	/* Disk timer process */
+    disk_timerproc();    /* Disk timer process */
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
 
 }
@@ -172,14 +172,22 @@ __used void sys_tick_handler(void) {
 // bad hack to print status, remove this after R&D
 extern volatile DSTATUS Stat;
 
+static const char *ft[] = {"", "FAT12", "FAT16", "FAT32", "exFAT"};
+
+static inline void xprint_impl(unsigned char c) {
+    //printf("%c", c);
+    putchar(c);
+}
+
 int main(void) {
 
-   // int i, j = 0, c = 0;
+    // int i, j = 0, c = 0;
 
     sys_clock_setup();
     clock_setup();
     gpio_setup();
     usart_setup();
+    xfunc_out = xprint_impl;
 
     //wait();
     msleep(2000);
@@ -201,7 +209,9 @@ int main(void) {
 
     printf("Initializing Fat File System ...\n");
     // mount immediately
-    //f_mount(&FatFs, "0:", 1);
+    DebugFS();
+    f_mount(&FatFs, "0:", 1);
+    xprintf("FAT type = %s\n", ft[FatFs.fs_type]);
 
     /* Blink the LED (PC8) on the board. */
     while(1) {
@@ -224,7 +234,7 @@ int main(void) {
         /* Using API function gpio_toggle(): */
 //        gpio_toggle(GPIOA, GPIO5);    /* LED on/off */
 
-    //    printf("Blink %d\n", c);
+        //    printf("Blink %d\n", c);
 //        usart_send_blocking(USART2, 'X');
 //        usart_send_blocking(USART2, (uint16_t) (c + '0')); /* USART2: Send byte. */
 //        c = (c == 9) ? 0 : c + 1;    /* Increment c. */
@@ -248,10 +258,10 @@ int main(void) {
 
 //        DS1307_DoSomething();
 
-        DebugFS();
+        //DebugFS();
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
-        printf("SD stat %d\n", Stat );
+        printf("SD stat %d\n", Stat);
 
     }
 
