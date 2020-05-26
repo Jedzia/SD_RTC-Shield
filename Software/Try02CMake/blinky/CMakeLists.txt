@@ -156,6 +156,7 @@ include_directories(
 add_custom_target(libopencm3 make WORKING_DIRECTORY ${LIBOPENCM3_DIR})
 link_directories(${LIBOPENCM3_DIR}/lib)
 
+# Note ${CMAKE_PROJECT_NAME} is the top-level one. Use ${PROJECT_NAME} like above for the local name.
 add_executable(${CMAKE_PROJECT_NAME}.elf ${SOURCES})
 target_link_libraries(${CMAKE_PROJECT_NAME}.elf opencm3_stm32f4)
 do_objcopy(${CMAKE_PROJECT_NAME} bin)
@@ -163,6 +164,8 @@ do_objcopy(${CMAKE_PROJECT_NAME} srec)
 do_objcopy(${CMAKE_PROJECT_NAME} hex)
 do_size(${CMAKE_PROJECT_NAME})
 
+# see E:\Projects\Elektronik\Arduino\!Templates\CMake\Arduino-Uno-CMake-Template\cmake\Arduino.cmake to macro-fy aboves
+# do_objcopy and do_size.
 add_custom_target(flash
         ${OOCD} -f ${OOCD_FILE} -c "program ${CMAKE_PROJECT_NAME}.elf verify reset exit"
         DEPENDS ${CMAKE_PROJECT_NAME}.elf
@@ -181,3 +184,15 @@ add_custom_target(upload # Flash target via 'st-flash'.
         stat -c %s ${CMAKE_PROJECT_NAME}.bin &&
         ${STFLASH} --reset write ${CMAKE_PROJECT_NAME}.bin 0x08000000
         DEPENDS ${CMAKE_PROJECT_NAME}.bin)
+
+add_custom_target(listing # Assembler listing
+        ${OBJDUMP} -S "${CMAKE_PROJECT_NAME}.elf" > ${CMAKE_PROJECT_NAME}.lst
+        DEPENDS ${CMAKE_PROJECT_NAME}.elf
+        COMMENT "Creating assembly listing of '${CMAKE_PROJECT_NAME}.elf'")
+
+add_custom_target(map # Map file with size information
+        COMMAND ${OBJDUMP} -t "${CMAKE_PROJECT_NAME}.elf" > ${CMAKE_PROJECT_NAME}.map
+        COMMAND ${SIZE} --format=berkeley "$<TARGET_FILE:${CMAKE_PROJECT_NAME}.elf>" >> ${CMAKE_PROJECT_NAME}.map
+        DEPENDS ${CMAKE_PROJECT_NAME}.elf
+        COMMENT "Creating assembly listing of '${CMAKE_PROJECT_NAME}.elf'")
+
