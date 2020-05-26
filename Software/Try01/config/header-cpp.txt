@@ -1,0 +1,15 @@
+/*---------------------------------------------------------*/
+/*!
+ * This file is part of the SD_RTC Datalogger Shield example repository.
+ * License details can be found in the file COPYING.
+ * Copyright (c) 2020, EvePanix. All rights reserved.
+ *
+ * \brief      This file contains the definition of
+ *             the $(filename) class.
+ * \file       $(filename)
+ * \date       2020-01-01
+ * \author     Jedzia.
+ *
+ * modified    2020-01-01, Jedzia
+ */
+/*---------------------------------------------------------*/
