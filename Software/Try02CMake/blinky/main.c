@@ -1,22 +1,36 @@
-#include <sched.h>
+/*---------------------------------------------------------*/
+/*!
+ * This file is part of the SD_RTC Datalogger Shield example repository.
+ * License details can be found in the file COPYING.
+ * Copyright (c) 2020, EvePanix. All rights reserved.
+ *
+ * \brief      This file contains the definition of
+ *             the main.c class.
+ * \file       main.c
+ * \date       2020-01-01
+ * \author     Jedzia.
+ *
+ * modified    2020-05-27, Jedzia
+ */
+/*---------------------------------------------------------*/
 //#include "api.h"
 //#include "api-asm.h"
 
+#include <common-code/clock.h>
+#include <common-code/debug.h>
+#include <common-code/DS1307.h>
+#include <common-code/fatfs/diskio.h>
+#include <common-code/fatfs/ff.h>
 #include <errno.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/spi.h>
+#include <libopencm3/stm32/usart.h>
+#include <sched.h>
 #include <stdio.h>
 #include <string.h>
 
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/gpio.h>
-#include <libopencm3/stm32/usart.h>
-#include <libopencm3/stm32/spi.h>
-#include <common-code/DS1307.h>
-#include <common-code/clock.h>
-
 //#include <common-code/fatfs/xprintf.h>
-#include <common-code/fatfs/ff.h>
-#include <common-code/fatfs/diskio.h>
-#include <common-code/debug.h>
 
 #define USE_RTC 1
 const int DELAY_TIME = 1000;
@@ -74,22 +88,22 @@ static void gpio_setup(void) {
 
     /* Setup USART2 TX pin as alternate function. */
     gpio_set_af(GPIOA, GPIO_AF7, GPIO2);
-}
+} /* gpio_setup */
 
 /*void wait(void);
 
-void wait() {
+   void wait() {
     for(int i = 0; i < 20 * 120000; i++) {    // Wait a bit.
         __asm__("nop");
     }
-}*/
+   }*/
 
 //// Stubs that need implementation for FatFS to work.
 ///*-----------------------------------------------------------------------*/
 ///* Initialize disk drive                                                 */
 ///*-----------------------------------------------------------------------*/
 //DSTATUS disk_initialize (
-//        __unused BYTE drv		/* Physical drive number (0) */
+//        __unused BYTE drv             /* Physical drive number (0) */
 //)
 //{
 //    return STA_NOINIT;
@@ -100,12 +114,12 @@ void wait() {
 ///* Get disk status                                                       */
 ///*-----------------------------------------------------------------------*/
 //DSTATUS disk_status (
-//        __unused BYTE drv		/* Physical drive number (0) */
+//        __unused BYTE drv             /* Physical drive number (0) */
 //)
 //{
-//    //if (drv) return STA_NOINIT;		/* Supports only drive 0 */
+//    //if (drv) return STA_NOINIT;             /* Supports only drive 0 */
 //
-//    //return Stat;	/* Return disk status */
+//    //return Stat;    /* Return disk status */
 //    return STA_NOINIT;
 //}
 //
@@ -113,10 +127,10 @@ void wait() {
 ///* Read sector(s)                                                        */
 ///*-----------------------------------------------------------------------*/
 //DRESULT disk_read (
-//        __unused BYTE drv,		/* Physical drive number (0) */
-//        __unused BYTE *buff,		/* Pointer to the data buffer to store read data */
-//        __unused LBA_t sector,	/* Start sector number (LBA) */
-//        __unused UINT count		/* Number of sectors to read (1..128) */
+//        __unused BYTE drv,            /* Physical drive number (0) */
+//        __unused BYTE *buff,          /* Pointer to the data buffer to store read data */
+//        __unused LBA_t sector,        /* Start sector number (LBA) */
+//        __unused UINT count           /* Number of sectors to read (1..128) */
 //)
 //{
 //    return RES_NOTRDY;
@@ -126,10 +140,10 @@ void wait() {
 ///* Write sector(s)                                                       */
 ///*-----------------------------------------------------------------------*/
 //DRESULT disk_write (
-//        __unused BYTE drv,			/* Physical drive number (0) */
-//        __unused const BYTE *buff,	/* Ponter to the data to write */
-//        __unused LBA_t sector,		/* Start sector number (LBA) */
-//        __unused UINT count			/* Number of sectors to write (1..128) */
+//        __unused BYTE drv,                    /* Physical drive number (0) */
+//        __unused const BYTE *buff,    /* Ponter to the data to write */
+//        __unused LBA_t sector,                /* Start sector number (LBA) */
+//        __unused UINT count                   /* Number of sectors to write (1..128) */
 //)
 //{
 //    return RES_NOTRDY;
@@ -149,37 +163,32 @@ __used void sys_tick_handler(void) {
     clock_sys_tick_handler();
     static uint16_t led;
 
-
     Timer++;    /* Increment performance counter */
 
     if(++led >= 500) {
         led = 0;
-        //GPIOC_ODR ^= _BV(9)|_BV(8);		/* Flip Green/Blue LED state */
+        //GPIOC_ODR ^= _BV(9)|_BV(8);           /* Flip Green/Blue LED state */
         gpio_toggle(GPIOB, GPIO3);    /* LED on/off */
-
     }
-
 
     //if(((SPI1_SR & 0x83) != 0x03))
     /*if(gpio_get(GPIOB, GPIO6))
         gpio_set(GPIOB, GPIO3);
-    else
+       else
         gpio_clear(GPIOB, GPIO3);*/
 
     disk_timerproc();    /* Disk timer process */
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-
-}
+} /* sys_tick_handler */
 
 // bad hack to print status, remove this after R&D
 extern volatile DSTATUS Stat;
 
 static const char *ft[] = {"", "FAT12", "FAT16", "FAT32", "exFAT"};
-BYTE Buff[4096] __attribute__ ((aligned (4)));    /* Working buffer */
+BYTE Buff[4096] __attribute__ ((aligned(4)));     /* Working buffer */
 DWORD AccSize;                /* Work register for fs command */
 WORD AccFiles, AccDirs;
 FILINFO Finfo;
-
 
 static inline void xprint_impl(unsigned char c) {
     //printf("%c", c);
@@ -189,14 +198,14 @@ static inline void xprint_impl(unsigned char c) {
 static
 void put_rc(FRESULT rc) {
     const char *str =
-            "OK\0" "DISK_ERR\0" "INT_ERR\0" "NOT_READY\0" "NO_FILE\0" "NO_PATH\0"
-            "INVALID_NAME\0" "DENIED\0" "EXIST\0" "INVALID_OBJECT\0" "WRITE_PROTECTED\0"
-            "INVALID_DRIVE\0" "NOT_ENABLED\0" "NO_FILE_SYSTEM\0" "MKFS_ABORTED\0" "TIMEOUT\0"
-            "LOCKED\0" "NOT_ENOUGH_CORE\0" "TOO_MANY_OPEN_FILES\0" "INVALID_PARAMETER\0";
+        "OK\0" "DISK_ERR\0" "INT_ERR\0" "NOT_READY\0" "NO_FILE\0" "NO_PATH\0"
+        "INVALID_NAME\0" "DENIED\0" "EXIST\0" "INVALID_OBJECT\0" "WRITE_PROTECTED\0"
+        "INVALID_DRIVE\0" "NOT_ENABLED\0" "NO_FILE_SYSTEM\0" "MKFS_ABORTED\0" "TIMEOUT\0"
+        "LOCKED\0" "NOT_ENOUGH_CORE\0" "TOO_MANY_OPEN_FILES\0" "INVALID_PARAMETER\0";
     FRESULT i;
 
     for(i = 0; i != rc && *str; i++) {
-        while(*str++);
+        while(*str++) {}
     }
     printf("rc=%u FR_%s\n", (UINT) rc, str);
 }
@@ -204,13 +213,14 @@ void put_rc(FRESULT rc) {
 static
 FRESULT scan_files(
         char *path        /* Pointer to the path name working buffer */
-) {
+        ) {
     DIR dirs;
     FRESULT res = 0;
     BYTE i = 0;
 
     if((res = f_opendir(&dirs, path)) == FR_OK) {
         i = strlen(path);
+
         while(((res = f_readdir(&dirs, &Finfo)) == FR_OK) && Finfo.fname[0]) {
             if(Finfo.fattrib & AM_DIR) {
                 AccDirs++;
@@ -220,9 +230,9 @@ FRESULT scan_files(
                 res = scan_files(path);
                 printf("[scan_files] path='%s'\n", path);
                 *(path + i) = '\0';
-                if(res != FR_OK) break;
+                if(res != FR_OK) {break;}
             } else {
-                /*	xprintf("%s/%s\n", path, fn); */
+                /*      xprintf("%s/%s\n", path, fn); */
                 AccFiles++;
                 AccSize += Finfo.fsize;
             }
@@ -230,8 +240,7 @@ FRESULT scan_files(
     }
 
     return res;
-}
-
+} /* scan_files */
 
 int ShowVolumeStatus(FATFS *fs, const TCHAR *path);
 
@@ -247,12 +256,14 @@ int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
         put_rc(res);
         return -1;
     }
+
 #endif
 
     printf("FAT type = %s\n", ft[fs->fs_type]);
     printf("Bytes/Cluster = %lu\n", (DWORD) fs->csize * 512);
     printf("Number of FATs = %u\n", fs->n_fats);
-    if(fs->fs_type < FS_FAT32) printf("Root DIR entries = %u\n", fs->n_rootdir);
+    if(fs->fs_type < FS_FAT32) {printf("Root DIR entries = %u\n", fs->n_rootdir);}
+
     printf("Sectors/FAT = %lu\n", fs->fsize);
     printf("Number of clusters = %lu\n", (DWORD) fs->n_fatent - 2);
     printf("Volume start (lba) = %lu\n", fs->volbase);
@@ -265,10 +276,11 @@ int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
         put_rc(res);
         return -2;
     }
+
     printf(Buff[0] ? "Volume name is %s\n" : "No volume label\n", (char *) Buff);
     printf("Volume S/N is %04lX-%04lX\n", (DWORD) p2 >> 16, (DWORD) p2 & 0xFFFF);
 #endif
-    
+
 #if FF_FS_MINIMIZE < 2
     AccSize = AccFiles = AccDirs = 0;
     printf("...");
@@ -278,26 +290,26 @@ int ShowVolumeStatus(FATFS *fs, const TCHAR *path) {
         put_rc(res);
         return -3;
     }
+
     printf("\r%u files, %lu bytes.\n%u folders.\n"
             "%lu KiB total disk space.\n%lu KiB available.\n",
             AccFiles, AccSize, AccDirs,
             (fs->n_fatent - 2) * (fs->csize / 2), (DWORD) p1 * (fs->csize / 2)
-    );
-#endif
+            );
+#endif /* if FF_FS_MINIMIZE < 2 */
 
     return 0;
-}
+} /* ShowVolumeStatus */
 
 /*void ShowDiskStatus(FATFS *fs);
 
-void ShowDiskStatus(FATFS *fs) {
+   void ShowDiskStatus(FATFS *fs) {
     long p1 = 0, p2 = 0, p3 = 0;
 
-    if(disk_ioctl((BYTE) p1, GET_SECTOR_COUNT, &p2) == RES_OK) { xprintf("Drive size: %lu sectors\n", p2); }
-}*/
-
+    if(disk_ioctl((BYTE) p1, GET_SECTOR_COUNT, &p2) == RES_OK) { xprintf("Drive size: %lu
+       sectors\n", p2); }
+   }*/
 int main(void) {
-
     // int i, j = 0, c = 0;
 
     sys_clock_setup();
@@ -322,7 +334,8 @@ int main(void) {
         msleep(500);
         DS1307_Init();
     }
-#endif
+
+#endif /* if USE_RTC */
 
     printf("Initializing Fat File System ...\n");
     // mount immediately
@@ -336,18 +349,18 @@ int main(void) {
         /* Manually: */
         /* GPIOA_BSRR = GPIO5; */        /* LED off */
         /* for (i = 0; i < 1000000; i++) */    /* Wait a bit. */
-        /*	__asm__("nop"); */
+        /*      __asm__("nop"); */
         /* GPIOA_BRR = GPIO5; */        /* LED on */
         /* for (i = 0; i < 1000000; i++) */    /* Wait a bit. */
-        /*	__asm__("nop"); */
+        /*      __asm__("nop"); */
 
         /* Using API functions gpio_set()/gpio_clear(): */
         /* gpio_set(GPIOA, GPIO5); */    /* LED off */
         /* for (i = 0; i < 1000000; i++) */    /* Wait a bit. */
-        /*	__asm__("nop"); */
+        /*      __asm__("nop"); */
         /* gpio_clear(GPIOA, GPIO5); */    /* LED on */
         /* for (i = 0; i < 1000000; i++) */    /* Wait a bit. */
-        /*	__asm__("nop"); */
+        /*      __asm__("nop"); */
 
         /* Using API function gpio_toggle(): */
 //        gpio_toggle(GPIOA, GPIO5);    /* LED on/off */
@@ -361,13 +374,12 @@ int main(void) {
 //            usart_send_blocking(USART2, '\n');
 //        }
 
-
         /*uint32_t tickstart = mtime();
-        for(int k = 0; k < 1000000; ++k) {
+           for(int k = 0; k < 1000000; ++k) {
             __asm__("nop");
-        }
-        uint32_t currticks = mtime();
-        printf("mtime (%lu - %lu) = %lu\n",  currticks, tickstart, currticks - tickstart);*/
+           }
+           uint32_t currticks = mtime();
+           printf("mtime (%lu - %lu) = %lu\n",  currticks, tickstart, currticks - tickstart);*/
 
         //msleep(3 * DELAY_TIME);
 
@@ -382,13 +394,11 @@ int main(void) {
         gpio_toggle(GPIOB, GPIO5);    /* LED on/off */
         msleep(DELAY_TIME);
         printf("SD stat %d\n", Stat);
-
     }
-
     //return 0;
 
     /* add your own code */
     /*uint32_t rev = 0xaabbccdd;
-    rev = rev_bytes(rev);
-    return my_func(rev);*/
-}
+       rev = rev_bytes(rev);
+       return my_func(rev);*/
+} /* main */
