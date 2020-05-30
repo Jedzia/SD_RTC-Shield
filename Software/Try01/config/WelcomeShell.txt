@@ -1,13 +1,14 @@
      
    .
    Build project:
-   > platformio run
-   For specific target:
-   > platformio run -e nucleo_f401re
+   > cd my-project
+   > make
+   Some options:
+   > make elf
+   > make bin
+   > make hex
+   > make srec
    .
    Upload to target device:
-   > pio run -t upload
-   .
-   Generate IDE files for CLion
-   > pio init --ide clion
+   > make flash
    .
