@@ -1,13 +1,7 @@
      
    .
    Build project:
-   > platformio run
-   For specific target:
-   > platformio run -e nucleo_f401re
-   .
-   Upload to target device:
-   > pio run -t upload
-   .
-   Generate IDE files for CLion
-   > pio init --ide clion
+   Use STM32CubeIDE to build
+   or
+   Generate Project with STM32CubeMX
    .
