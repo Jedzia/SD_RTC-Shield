@@ -1,13 +1,26 @@
      
    .
-   Build project:
-   > platformio run
-   For specific target:
-   > platformio run -e nucleo_f401re
+   Update Submodules:
+   $ git submodule update --init --recursive
+   Configure
+   $ cd blinky
+   $ mkdir build && cd build
+   $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake ..
    .
-   Upload to target device:
-   > pio run -t upload
+   Build libopencm3 once
+   $ make libopencm3
+   Build project
+   $ make -j
+   $ make help <- for info
    .
-   Generate IDE files for CLion
-   > pio init --ide clion
+   Upload via OpenOCD (flash) or st-flash
+   $ make flash
+   $ make upload
+   Serial monitor/with flash
+   $ make monitor
+   $ make fmonitor
+   .
+   MSys/Cygwin
+   cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"MSYS Makefiles"
+   cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"Unix Makefiles"
    .
