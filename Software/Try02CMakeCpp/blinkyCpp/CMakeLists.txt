@@ -15,6 +15,7 @@ set(BAUDRATE 115200)
 set(OOCD openocd)
 set(OOCD_FILE board/st_nucleo_f4.cfg)
 set(STFLASH /home/ppkt/usr/bin/st-flash)
+set(QEMU "C:/Toolchain/ARM/GNU MCU Eclipse/QEMU/bin/qemu-system-gnuarmeclipse.exe")
 if (EXISTS ${CMAKE_SOURCE_DIR}/local.cmake)
     message(STATUS "Using local.cmake")
     include(${CMAKE_SOURCE_DIR}/local.cmake)
@@ -185,4 +186,39 @@ add_custom_target(fmonitor # Flash target and start serial monitor.
 add_custom_target(upload # Flash target via 'st-flash'.
         stat -c %s ${CMAKE_PROJECT_NAME}.bin &&
         ${STFLASH} --reset write ${CMAKE_PROJECT_NAME}.bin 0x08000000
+        DEPENDS ${CMAKE_PROJECT_NAME}.bin)
+
+# >qemu-system-gnuarmeclipse.exe -board help
+#
+# Supported boards:
+# Maple                LeafLab Arduino-style STM32 microcontroller board (r5)
+# NUCLEO-F072RB        ST Nucleo Development Board for STM32 F072 devices
+# NUCLEO-F103RB        ST Nucleo Development Board for STM32 F1 series
+# NUCLEO-F411RE        ST Nucleo Development Board for STM32 F4 series
+# NetduinoGo           Netduino GoBus Development Board with STM32F4
+# NetduinoPlus2        Netduino Development Board with STM32F4
+# OLIMEXINO-STM32      Olimex Maple (Arduino-like) Development Board
+# STM32-E407           Olimex Development Board for STM32F407ZGT6
+# STM32-H103           Olimex Header Board for STM32F103RBT6
+# STM32-P103           Olimex Prototype Board for STM32F103RBT6
+# STM32-P107           Olimex Prototype Board for STM32F107VCT6
+# STM32F0-Discovery    ST Discovery kit for STM32F051 line
+# STM32F4-Discovery    ST Discovery kit for STM32F407/417 lines
+# STM32F429I-Discovery ST Discovery kit for STM32F429/439 lines
+# generic              Generic Cortex-M board; use -mcu to define the device
+#
+# >qemu-system-gnuarmeclipse.exe -mcu help
+#
+# Supported MCUs:
+# STM32F051R8
+# STM32F072RB
+# STM32F103RB
+# STM32F107VC
+# STM32F405RG
+# STM32F407VG
+# STM32F407ZG
+# STM32F411RE
+# STM32F429ZI
+add_custom_target(emu # emulation with QEMU-Arm.
+        ${QEMU} --verbose --verbose --board NUCLEO-F411RE --mcu STM32F411RE -d unimp,guest_errors --image ${CMAKE_PROJECT_NAME}.elf
         DEPENDS ${CMAKE_PROJECT_NAME}.bin)
