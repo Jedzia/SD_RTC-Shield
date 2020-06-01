@@ -45,6 +45,10 @@ macro(do_objcopy objcopy_target type)
             ${OBJCOPY} -O${do_objcopy_cmd} ${objcopy_target}.elf ${objcopy_target}.${do_objcopy_ext}
             DEPENDS ${objcopy_target}.elf
             COMMENT "Invoking: Cross ARM GNU OBJCOPY ${objcopy_target} to ${do_objcopy_cmd}")
+    #add_custom_command(TARGET ${objcopy_target}.elf
+    #        COMMAND ${OBJCOPY} -O${do_objcopy_cmd} ${objcopy_target}.elf ${objcopy_target}.${do_objcopy_ext}
+    #        DEPENDS ${objcopy_target}.elf
+    #        COMMENT "Invoking: Cross ARM GNU OBJCOPY ${objcopy_target} to ${do_objcopy_cmd}")
 endmacro(do_objcopy)
 
 
