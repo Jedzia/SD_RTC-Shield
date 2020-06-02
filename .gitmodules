@@ -4,3 +4,6 @@
 [submodule "Software/Try02CMake/libopencm3"]
 	path = Software/Try02CMake/libopencm3
 	url = https://github.com/libopencm3/libopencm3
+[submodule "Software/Try02CMakeCpp/libopencm3"]
+	path = Software/Try02CMakeCpp/libopencm3
+	url = https://github.com/libopencm3/libopencm3
