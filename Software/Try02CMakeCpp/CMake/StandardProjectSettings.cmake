@@ -31,6 +31,7 @@ if (ENABLE_CCACHE)
 
 
             message(STATUS "using ccache with CLION: ${CCACHE}")
+            # ccache and CLion combined do not like to compile C code, allow only C++.
             set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
             #message(FATAL_ERROR "CMAKE_CXX_COMPILER_LAUNCHER ${CMAKE_CXX_COMPILER_LAUNCHER}")
             #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS} -std=c++14 -O2 -Wall -pedantic ${CCACHE_INCLUDES}")
