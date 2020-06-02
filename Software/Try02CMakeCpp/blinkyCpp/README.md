@@ -16,11 +16,13 @@ Under Windows you may have to specify the generator with `-G"MinGW Makefiles"` a
 
 - Configure the CMake build system 
 
-        $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake ..
+        $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"MinGW Makefiles"
         
 - Build the platform libopencm3 library
 
         $ make libopencm3
+        or in the libopencm3 a 
+        $ make -j
         
 - Build your project with
 
@@ -92,7 +94,7 @@ Just as a note that it is possible to use VS/VS-Code for editing. But i don't us
 
 Visual studio setup (for editing, with Windows CMake)
 
-    cd blinky
+    cd blinkyCpp
     mkdir buildVS
     cd buildVS
     "C:\Program Files\CMake\bin\cmake" -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"Visual Studio 16 2019"
@@ -274,3 +276,6 @@ via http://elm-chan.org/fsw/ff/patches.html:
 
   https://github.com/tmolteno/openfat/blob/master/stm32/example.c                                                                       
 * Aug 16, 2013 https://github.com/mfauzi/STM32F4/tree/master/STM32F4%20Standard%20Peripheral%20Library/Project/STM32F4xx_StdPeriph_Examples/SDIO/SDIO_uSDCard
+
+## Karols Stuff ##
+* https://github.com/ppkt/common_lib

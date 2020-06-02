@@ -16,11 +16,13 @@ Under Windows you may have to specify the generator with `-G"MinGW Makefiles"` a
 
 - Configure the CMake build system 
 
-        $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake ..
+        $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"MinGW Makefiles"
         
 - Build the platform libopencm3 library
 
         $ make libopencm3
+        or in the libopencm3 a 
+        $ make -j
         
 - Build your project with
 
@@ -99,6 +101,21 @@ Visual studio setup (for editing, with Windows CMake)
 
 
 # Development notes #
+
+## C++ related
+
+from a STM32CubeIDE project:
+
+    # > make all
+    # > arm-none-eabi-g++ "../main.cpp" -std=gnu++14 -g3 -c -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"main.d" -MT"main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "main.o"
+    # > arm-none-eabi-g++ -o "Mcu01.elf" @"objects.list"   --specs=nosys.specs -Wl,-Map="Mcu01.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+    # > Finished building target: Mcu01.elf
+
+C++ project:
+
+    # > arm-none-eabi-g++ -o "MyCpp.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Projects\Elektronik\ARM\Algobuilder\Design01\Project\CubeIDE\STM32F401RE-Nucleo\MyCpp\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MyCpp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+    # > Finished building target: MyCpp.elf
+
 
 ## Known Problems
 via http://elm-chan.org/fsw/ff/patches.html:
