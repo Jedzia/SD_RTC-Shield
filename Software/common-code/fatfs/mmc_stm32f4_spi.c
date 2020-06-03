@@ -24,7 +24,7 @@
 #include "diskio.h"
 #include "../clock.h"
 
-#define    _BV(bit) (1<<(bit))
+#define    _BV(bit) (1U<<(bit))
 
 #define SPI_CH    3    /* SPI channel to use = 1: SPI1, 11: SPI1/remap, 2: SPI2 */
 
@@ -182,7 +182,7 @@ void SPIxENABLE() {
     //put_status("Before enable: ");
 
     uint32_t reg32 = RCC_CFGR;
-    reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+    reg32 &=  (uint32_t) ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
     RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_2 << RCC_CFGR_PPRE2_SHIFT);
     //rcc_set_ppre2(reg32);
 
@@ -302,7 +302,7 @@ void init_spi(void) {
 
 /* Exchange a byte */
 static
-BYTE xchg_spi(
+uint16_t xchg_spi(
         BYTE dat    /* Data to send */
 ) {
     // dprintf("[SD-Card] xchg_spi\n");
@@ -341,15 +341,15 @@ void rcvr_spi_multi(
     btr -= 2;
     do {                    /* Receive the data block into buffer */
         while((SPIx_SR & 0x83) != 0x03);    /* Wait for end of the SPI transaction */
-        d = SPIx_DR;                        /* Get received word */
+        d = (WORD) SPIx_DR;                        /* Get received word */
         SPIx_DR = 0xFFFF;                    /* Start next transaction */
-        buff[1] = d;
+        buff[1] = (BYTE) d;
         buff[0] = d >> 8;        /* Store received data */
         buff += 2;
     } while(btr -= 2);
     while((SPIx_SR & 0x83) != 0x03);        /* Wait for end of the SPI transaction */
-    d = SPIx_DR;                            /* Get last word received */
-    buff[1] = d;
+    d = (WORD) SPIx_DR;                            /* Get last word received */
+    buff[1] = (BYTE) d;
     buff[0] = d >> 8;            /* Store it */
 
     SPIx_CR1 &= ~(_BV(6) | _BV(11));    /* Put SPI into 8-bit mode */
@@ -371,12 +371,12 @@ void xmit_spi_multi(
     SPIx_CR1 &= ~_BV(6);
     SPIx_CR1 |= (_BV(6) | _BV(11));        /* Put SPI into 16-bit mode */
 
-    d = buff[0] << 8 | buff[1];
+    d = (WORD) (buff[0] << 8 | buff[1]);
     buff += 2;
     SPIx_DR = d;    /* Send the first word */
     btx -= 2;
     do {
-        d = buff[0] << 8 | buff[1];
+        d = (WORD) (buff[0] << 8 | buff[1]);
         buff += 2;    /* Word to send next */
         while((SPIx_SR & 0x83) != 0x03);    /* Wait for end of the SPI transaction */
         SPIx_DR;                            /* Discard received word */
@@ -401,8 +401,7 @@ static
 int wait_ready(    /* 1:Ready, 0:Timeout */
         UINT wt            /* Timeout [ms] */
 ) {
-    BYTE d;
-
+    uint16_t d = 0;
 
     Timer2 = wt;
     do {
@@ -455,7 +454,7 @@ int rcvr_datablock(    /* 1:OK, 0:Error */
         BYTE *buff,            /* Data buffer */
         UINT btr            /* Data block length (byte) */
 ) {
-    BYTE token;
+    uint16_t token;
 
 
     Timer1 = 200;
@@ -485,7 +484,7 @@ int xmit_datablock(    /* 1:OK, 0:Failed */
         const BYTE *buff,    /* Ponter to 512 byte data to be sent */
         BYTE token            /* Token */
 ) {
-    BYTE resp;
+    uint16_t resp;
 
 
     //if (!wait_ready(FF_FS_TIMEOUT)) return 0;		/* Wait for card ready */
@@ -515,11 +514,12 @@ int xmit_datablock(    /* 1:OK, 0:Failed */
 /*-----------------------------------------------------------------------*/
 
 static
-BYTE send_cmd(        /* Return value: R1 resp (bit7==1:Failed to send) */
+uint16_t send_cmd(        /* Return value: R1 resp (bit7==1:Failed to send) */
         BYTE cmd,        /* Command index */
         DWORD arg        /* Argument */
 ) {
-    BYTE n, res;
+    BYTE n;
+    uint16_t res;
 
 
     if(cmd & 0x80) {    /* Send a CMD55 prior to ACMD<n> */
@@ -572,7 +572,8 @@ DSTATUS disk_initialize(
         BYTE drv        /* Physical drive number (0) */
 ) {
     //gpio_toggle(GPIOA, GPIO10); /* Arduino D2 on/off */
-    BYTE n, cmd, ty, ocr[4];
+    BYTE n, cmd, ty;
+    uint16_t ocr[4];
 
 
     if(drv) return STA_NOINIT;            /* Supports only drive 0 */
@@ -602,7 +603,7 @@ DSTATUS disk_initialize(
     //for (Timer1 = 10; Timer1; ) {};	/* 10ms */
 
     //uint16_t receive_data = 0;
-    uint16_t receive_data[9] = {};
+    uint16_t receive_data[9];
 
     CS_LOW();
     receive_data[0] = spi_xfer(SPI1, 0xFF);
@@ -790,7 +791,8 @@ DRESULT disk_ioctl(
         void *buff        /* Pointer to the conrtol data */
 ) {
     DRESULT res;
-    BYTE n, csd[16];
+    BYTE n;
+    BYTE csd[16];
     DWORD st, ed, csize;
     LBA_t *dp;
 
@@ -879,8 +881,8 @@ DRESULT disk_ioctl(
 */
 
 void disk_timerproc(void) {
-    WORD n;
-    BYTE s;
+    UINT n = 0;
+    BYTE s = 0;
 
 
     n = Timer1;                        /* 1kHz decrement timer stopped at 0 */
@@ -903,7 +905,7 @@ void disk_timerproc(void) {
 }
 
 void put_status(char *m) {
-    uint16_t stmp;
+    uint32_t stmp = 0;
 
     console_puts(m);
     console_puts(" Status: ");
@@ -981,7 +983,7 @@ uint8_t DebugFS(void) {
 //    msleep(10);
 
     //uint16_t receive_data = 0;
-    uint16_t receive_data[9] = {};
+    uint16_t receive_data[9];
 
     //MySend(toSend);
     /*MySend(0xFF);

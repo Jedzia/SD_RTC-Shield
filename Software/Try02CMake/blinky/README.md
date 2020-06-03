@@ -16,17 +16,23 @@ Under Windows you may have to specify the generator with `-G"MinGW Makefiles"` a
 
 - Configure the CMake build system 
 
+        $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake ..
+        or
         $ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi.cmake .. -G"MinGW Makefiles"
         
 - Build the platform libopencm3 library
 
         $ make libopencm3
-        or in the libopencm3 a 
+        or in the libopencm3 directory a 
         $ make -j
         
 - Build your project with
 
         $ make 
+        
+- Get info about available targets with
+
+        $ make help
         
 - Then upload it via OpenOCD (flash) or st-flash (upload) 
 
@@ -51,6 +57,7 @@ For MSys or Cygwin you may have to specify the Generator:
     set(CMAKE_SYSTEM_PROCESSOR arm)
     SET(CMAKE_CROSSCOMPILING 1)
     #set(CMAKE_C_COMPILER_WORKS 1) # In some cases you have to force compiler detection to work.
+    #set(CMAKE_CXX_COMPILER_WORKS 1) # In some cases you have to force compiler detection to work.
     set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY) # ToDo: a way to specify different link flags for TryCompile
     
     set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
@@ -60,7 +67,13 @@ For MSys or Cygwin you may have to specify the Generator:
     
     set(OBJCOPY arm-none-eabi-objcopy)
     set(SIZE arm-none-eabi-size)
-    set(CMAKE_C_COMPILER arm-none-eabi-gcc)
+    set(NM arm-none-eabi-nm)
+    set(OBJDUMP arm-none-eabi-objdump)
+    
+    #set(CMAKE_ASM_COMPILER arm-none-eabi-as)
+    set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
+    set(CMAKE_C_COMPILER   arm-none-eabi-gcc)
+    set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
     
     #Enable semi hosting
     #set(CMAKE_EXE_LINKER_FLAGS_INIT "--specs=rdimon.specs")
@@ -86,6 +99,9 @@ settings or tool locations.
     
     # Path to st-flash utility. Used by target 'upload'.
     set(STFLASH /home/ppkt/usr/bin/st-flash)
+    
+    # Path to QEMU Arm Emulator
+    set(QEMU "C:/Toolchain/ARM/GNU MCU Eclipse/QEMU/bin/qemu-system-gnuarmeclipse.exe")
 
 
 ## Alternative Editor, Visual Studio / Code ##
