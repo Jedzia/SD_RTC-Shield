@@ -182,7 +182,7 @@ void SPIxENABLE() {
     //put_status("Before enable: ");
 
     uint32_t reg32 = RCC_CFGR;
-    reg32 &=  (uint32_t) ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+    reg32 &= (uint32_t) ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
     RCC_CFGR = reg32 | (RCC_CFGR_PPRE_DIV_2 << RCC_CFGR_PPRE2_SHIFT);
     //rcc_set_ppre2(reg32);
 
@@ -883,7 +883,6 @@ DRESULT disk_ioctl(
 void disk_timerproc(void) {
     UINT n = 0;
     BYTE s = 0;
-
 
     n = Timer1;                        /* 1kHz decrement timer stopped at 0 */
     if(n) Timer1 = --n;
