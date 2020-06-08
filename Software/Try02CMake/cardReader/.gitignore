@@ -1,0 +1,7 @@
+/tmp
+/build
+/buildVS2015
+/common_lib
+/cmake-build-debug*/
+/cmake-build-release*/
+/local.cmake
