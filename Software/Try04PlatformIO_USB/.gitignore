@@ -1,0 +1,7 @@
+.pio
+.pioenvs
+.piolibdeps
+/cmake-build-*
+/tmp
+*.unc-backup.md5~
+*.unc-backup~
