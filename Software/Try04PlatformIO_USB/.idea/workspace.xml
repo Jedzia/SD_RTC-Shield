@@ -26,45 +26,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="try05">
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBAudio/USBAudio.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBAudio/USBAudio.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBAudio/USBAudio_Types.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDescriptor.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice_Types.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints_KL25Z.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints_LPC11U.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints_LPC17_LPC23.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL_KL25Z.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL_LPC11U.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL_LPC17.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBHID.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBHID.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBHID_Types.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBKeyboard.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBKeyboard.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouse.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouse.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouseKeyboard.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouseKeyboard.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMIDI/MIDIMessage.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMIDI/USBMIDI.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMIDI/USBMIDI.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMSD/USBMSD.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMSD/USBMSD.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/CircBuffer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBCDC.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBCDC.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBSerial.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBSerial.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBMSD_SD/USBMSD_SD.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBMSD_SD/USBMSD_SD.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="works for nucleo_f103rb">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +200,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1591791121492" duration="8071000" />
+      <workItem from="1591791121492" duration="10630000" />
     </task>
     <task id="LOCAL-00001" summary="works for lpc1768">
       <created>1591800525101</created>
@@ -253,7 +216,21 @@
       <option name="project" value="LOCAL" />
       <updated>1591800537245</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="works for nucleo_f401re">
+      <created>1591800792877</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591800792877</updated>
+    </task>
+    <task id="LOCAL-00004" summary="works for nucleo_f103rb">
+      <created>1591803368937</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1591803368937</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,13 +247,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="works for lpc1768" />
     <MESSAGE value="try05" />
-    <option name="LAST_COMMIT_MESSAGE" value="try05" />
+    <MESSAGE value="works for nucleo_f401re" />
+    <MESSAGE value="works for nucleo_f103rb" />
+    <option name="LAST_COMMIT_MESSAGE" value="works for nucleo_f103rb" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="269" y="10" width="2084" height="1358" key="CommitChangelistDialog2" timestamp="1591800536782">
+    <state x="269" y="10" width="2084" height="1358" key="CommitChangelistDialog2" timestamp="1591803367771">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="269" y="10" width="2084" height="1358" key="CommitChangelistDialog2/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591800536782" />
+    <state x="269" y="10" width="2084" height="1358" key="CommitChangelistDialog2/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591803367771" />
     <state x="330" y="102" width="1242" height="885" key="find.popup" timestamp="1591793758115">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
