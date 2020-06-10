@@ -1,0 +1,41 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="FORMATTER_TAGS_ENABLED" value="true" />
+    <Objective-C>
+      <option name="INDENT_PREPROCESSOR_DIRECTIVE" value="2" />
+      <option name="FUNCTION_CALL_ARGUMENTS_ALIGN_MULTILINE" value="false" />
+      <option name="CLASS_CONSTRUCTOR_INIT_LIST_ALIGN_MULTILINE" value="false" />
+      <option name="HEADER_GUARD_STYLE_PATTERN" value="${PROJECT_NAME}_${UUID}_${FILE_NAME}_${EXT}" />
+    </Objective-C>
+    <Objective-C-extensions>
+      <rules>
+        <rule entity="NAMESPACE" visibility="ANY" specifier="ANY" prefix="" style="LOWERCASE" suffix="" />
+        <rule entity="MACRO" visibility="ANY" specifier="ANY" prefix="" style="SCREAMING_SNAKE_CASE" suffix="" />
+        <rule entity="CLASS" visibility="ANY" specifier="ANY" prefix="" style="PASCAL_CASE" suffix="" />
+        <rule entity="ENUM" visibility="ANY" specifier="ANY" prefix="" style="PASCAL_CASE" suffix="" />
+        <rule entity="ENUMERATOR" visibility="ANY" specifier="ANY" prefix="" style="PASCAL_CASE" suffix="" />
+        <rule entity="TYPEDEF" visibility="ANY" specifier="ANY" prefix="" style="PASCAL_CASE" suffix="" />
+        <rule entity="UNION" visibility="ANY" specifier="ANY" prefix="" style="PASCAL_CASE" suffix="" />
+        <rule entity="CLASS_MEMBER_FUNCTION,STRUCT_MEMBER_FUNCTION" visibility="ANY" specifier="ANY" prefix="" style="CAMEL_CASE" suffix="" />
+        <rule entity="CLASS_MEMBER_FUNCTION,STRUCT_MEMBER_FUNCTION" visibility="PUBLIC" specifier="ANY" prefix="" style="PASCAL_CASE" suffix="" />
+        <rule entity="CLASS_MEMBER_FIELD,STRUCT_MEMBER_FIELD" visibility="ANY" specifier="ANY" prefix="m_" style="CAMEL_CASE" suffix="" />
+        <rule entity="CLASS_MEMBER_FIELD,STRUCT_MEMBER_FIELD" visibility="ANY" specifier="CONST" prefix="" style="UPPER_SNAKE_CASE" suffix="" />
+        <rule entity="PARAMETER" visibility="ANY" specifier="ANY" prefix="" style="CAMEL_CASE" suffix="" />
+        <rule entity="LOCAL_VARIABLE" visibility="ANY" specifier="ANY" prefix="" style="CAMEL_CASE" suffix="" />
+        <rule entity="LOCAL_VARIABLE" visibility="ANY" specifier="CONST,STATIC" prefix="" style="PASCAL_CASE" suffix="" />
+        <rule entity="GLOBAL_FUNCTION" visibility="ANY" specifier="ANY" prefix="" style="CAMEL_CASE" suffix="" />
+        <rule entity="GLOBAL_VARIABLE" visibility="ANY" specifier="ANY" prefix="G_" style="SCREAMING_SNAKE_CASE" suffix="" />
+      </rules>
+    </Objective-C-extensions>
+    <clangFormatSettings>
+      <option name="ENABLED" value="true" />
+    </clangFormatSettings>
+    <codeStyleSettings language="ObjectiveC">
+      <option name="SPACE_BEFORE_IF_PARENTHESES" value="false" />
+      <option name="SPACE_BEFORE_WHILE_PARENTHESES" value="false" />
+      <option name="SPACE_BEFORE_FOR_PARENTHESES" value="false" />
+      <option name="SPACE_BEFORE_CATCH_PARENTHESES" value="false" />
+      <option name="SPACE_BEFORE_SWITCH_PARENTHESES" value="false" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>

@@ -1,60 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CMakeRunConfigurationManager" shouldGenerate="true" assignedExecutableTargets="true" buildAllGenerated="true">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO" />
-      <config projectName="Try04PlatformIO_USB" targetName="Try04PlatformIO_USB" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOAD" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_CLEAN" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_TEST" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_PROGRAM" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOADFS" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPDATE_ALL" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
       <config projectName="Try04PlatformIO_USB" targetName="DEBUG" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_PROGRAM" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD" />
+      <config projectName="Try04PlatformIO_USB" targetName="Try04PlatformIO_USB" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOADFS" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_DEVICE_LIST" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_MONITOR" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_CLEAN" />
+      <config projectName="Try04PlatformIO_USB" targetName="Z_DUMMY_TARGET" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOAD" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPDATE_ALL" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD_VERBOSE" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_TEST" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD_DEBUG" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
-   <configurations>
+    <configurations>
       <configuration PROFILE_NAME="nucleo_f401re" CONFIG_NAME="nucleo_f401re" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="" />
-    <ignored path="platformio.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
+    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Try04PlatformIO_USB.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/OpenOCD_PLATFORMIO_BUILD.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/OpenOCD_PLATFORMIO_BUILD.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
-  <component name="FavoritesManager">
-    <favorites_list name="Try04PlatformIO_USB" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:nucleo_f401re" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="platformio.ini" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/platformio.ini"></entry>
-      </file>
-      <file leaf-file-name="file://$PROJECT_DIR$/src/main.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR/$src/main.cpp"></entry>
-      </file>
-    </leaf>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-  </component>
-  <component name="NamedScopeManager">
-    <order />
+  <component name="OCResolveContextSettings">
+    <option name="configuration" value="0-nucleo_f401re-Z_DUMMY_TARGET" />
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="252" />
@@ -62,6 +57,7 @@
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
+  <component name="ProjectId" id="1d7zqlj62R0qxsnXThd8YEd0GYG" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -78,123 +74,129 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
-  </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Try04PlatformIO_USB" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Try04PlatformIO_USB" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Try04PlatformIO_USB" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Try04PlatformIO_USB" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Try04PlatformIO_USB" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-    </panes>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="FullScreen" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.advertisement.text.overridden" value="true" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/platformio.ini" />
-    <property name="restartRequiresConfirmation" value="true" />
-    <property name="FullScreen" value="false" />
   </component>
-  <component name="RunManager" selected="Application.PLATFORMIO_BUILD">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="Try04PlatformIO_USB" CONFIG_NAME="Debug">
-      <envs />
-      <method />
+  <component name="RemoteSynchronizer">
+    <option name="targetMappings">
+      <list>
+        <TargetMappings>
+          <option name="name" value="Default" />
+        </TargetMappings>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="CMake Application.PLATFORMIO_BUILD">
+    <configuration name="PLATFORMIO_BUILD" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_BUILD" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+    <configuration name="PLATFORMIO_BUILD_DEBUG" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_BUILD_DEBUG" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_BUILD_VERBOSE" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_BUILD_VERBOSE" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_CLEAN" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_CLEAN" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_DEVICE_LIST" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_DEVICE_LIST" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_MONITOR" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_MONITOR" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_PROGRAM" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_PROGRAM" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_REBUILD_PROJECT_INDEX" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_REBUILD_PROJECT_INDEX" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_TEST" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_TEST" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_UPDATE" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_UPDATE_ALL" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_UPLOAD" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_UPLOAD" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PLATFORMIO_UPLOADFS" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_UPLOADFS" CONFIG_NAME="nucleo_f401re">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="nucleo_f401re" RUN_TARGET_PROJECT_NAME="Try04PlatformIO_USB" RUN_TARGET_NAME="Z_DUMMY_TARGET">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="Try04PlatformIO_USB" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
-      <envs />
-      <method />
+      <method v="2" />
     </configuration>
-    <configuration default="false" name="PLATFORMIO_BUILD" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_BUILD" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="PLATFORMIO_CLEAN" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_CLEAN" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="PLATFORMIO_TEST" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_TEST" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="PLATFORMIO_UPLOAD" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_UPLOAD" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="PLATFORMIO_UPLOADFS" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_UPLOADFS" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="PLATFORMIO_PROGRAM" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_PROGRAM" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="PLATFORMIO_UPDATE" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_UPDATE_ALL" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="PLATFORMIO_REBUILD_PROJECT_INDEX" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Try04PlatformIO_USB" TARGET_NAME="PLATFORMIO_REBUILD_PROJECT_INDEX" CONFIG_NAME="Debug">
-      <envs />
-      <method />
-    </configuration>
+    <list>
+      <item itemvalue="CMake Application.PLATFORMIO_BUILD" />
+      <item itemvalue="CMake Application.PLATFORMIO_BUILD_DEBUG" />
+      <item itemvalue="CMake Application.PLATFORMIO_BUILD_VERBOSE" />
+      <item itemvalue="CMake Application.PLATFORMIO_CLEAN" />
+      <item itemvalue="CMake Application.PLATFORMIO_DEVICE_LIST" />
+      <item itemvalue="CMake Application.PLATFORMIO_MONITOR" />
+      <item itemvalue="CMake Application.PLATFORMIO_PROGRAM" />
+      <item itemvalue="CMake Application.PLATFORMIO_REBUILD_PROJECT_INDEX" />
+      <item itemvalue="CMake Application.PLATFORMIO_TEST" />
+      <item itemvalue="CMake Application.PLATFORMIO_UPDATE" />
+      <item itemvalue="CMake Application.PLATFORMIO_UPLOAD" />
+      <item itemvalue="CMake Application.PLATFORMIO_UPLOADFS" />
+      <item itemvalue="CMake Application.Z_DUMMY_TARGET" />
+      <item itemvalue="OpenOCD Download &amp; Run.OpenOCD PLATFORMIO_BUILD" />
+    </list>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -203,16 +205,14 @@
       <changelist id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="" />
       <created>1435919971910</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
+      <workItem from="1591791121492" duration="5350000" />
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="181" y="23" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-    </layout>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -222,14 +222,15 @@
       <collection />
     </option>
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="4" />
-    </breakpoint-manager>
-    <watches-manager />
+  <component name="WindowStateProjectService">
+    <state x="330" y="102" width="1242" height="885" key="find.popup" timestamp="1591793758115">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="330" y="102" width="1242" height="885" key="find.popup/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591793758115" />
+    <state x="936" y="362" width="672" height="676" key="search.everywhere.popup" timestamp="1591793766680">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="936" y="362" width="672" height="676" key="search.everywhere.popup/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591793766680" />
   </component>
   <component name="masterDetails">
     <states>
