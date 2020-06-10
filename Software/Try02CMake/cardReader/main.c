@@ -7,10 +7,10 @@
  * \brief      This file contains the definition of
  *             the main.c class.
  * \file       main.c
- * \date       2020-01-01
+ * \date       2020-06-08
  * \author     Jedzia.
  *
- * modified    2020-05-27, Jedzia
+ * modified    2020-06-08, Jedzia
  */
 /*---------------------------------------------------------*/
 //#include "api.h"
