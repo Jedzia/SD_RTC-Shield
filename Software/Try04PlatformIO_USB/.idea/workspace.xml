@@ -26,10 +26,43 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints.h" afterDir="false" />
+    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="try05">
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBAudio/USBAudio.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBAudio/USBAudio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBAudio/USBAudio_Types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDescriptor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice_Types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints_KL25Z.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints_LPC11U.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints_LPC17_LPC23.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL_KL25Z.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL_LPC11U.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBHAL_LPC17.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBHID.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBHID.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBHID_Types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBKeyboard.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBKeyboard.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouse.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouse.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouseKeyboard.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBHID/USBMouseKeyboard.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMIDI/MIDIMessage.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMIDI/USBMIDI.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMIDI/USBMIDI.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMSD/USBMSD.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBMSD/USBMSD.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/CircBuffer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBCDC.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBCDC.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBSerial.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBSerial/USBSerial.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBMSD_SD/USBMSD_SD.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBMSD_SD/USBMSD_SD.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
@@ -204,8 +237,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1591791121492" duration="7672000" />
+      <workItem from="1591791121492" duration="8071000" />
     </task>
+    <task id="LOCAL-00001" summary="works for lpc1768">
+      <created>1591800525101</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591800525101</updated>
+    </task>
+    <task id="LOCAL-00002" summary="try05">
+      <created>1591800537245</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591800537245</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,11 +267,16 @@
       <collection />
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="works for lpc1768" />
+    <MESSAGE value="try05" />
+    <option name="LAST_COMMIT_MESSAGE" value="try05" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="399" y="10" width="1360" height="1143" key="CommitChangelistDialog2" timestamp="1591798261822">
+    <state x="269" y="10" width="2084" height="1358" key="CommitChangelistDialog2" timestamp="1591800536782">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="399" y="10" width="1360" height="1143" key="CommitChangelistDialog2/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591798261822" />
+    <state x="269" y="10" width="2084" height="1358" key="CommitChangelistDialog2/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591800536782" />
     <state x="330" y="102" width="1242" height="885" key="find.popup" timestamp="1591793758115">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -232,6 +285,17 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="936" y="362" width="672" height="676" key="search.everywhere.popup/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591793766680" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.cpp</url>
+          <line>17</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>
