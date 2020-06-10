@@ -27,12 +27,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Try04PlatformIO_USB.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/OpenOCD_PLATFORMIO_BUILD.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/OpenOCD_PLATFORMIO_BUILD.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBDevice.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/USBDevice/USBDevice/USBEndpoints.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
@@ -207,7 +204,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
-      <workItem from="1591791121492" duration="5350000" />
+      <workItem from="1591791121492" duration="7672000" />
     </task>
     <servers />
   </component>
@@ -223,6 +220,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="399" y="10" width="1360" height="1143" key="CommitChangelistDialog2" timestamp="1591798261822">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="399" y="10" width="1360" height="1143" key="CommitChangelistDialog2/0.0.2560.1440/-1680.69.1680.1050@0.0.2560.1440" timestamp="1591798261822" />
     <state x="330" y="102" width="1242" height="885" key="find.popup" timestamp="1591793758115">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>

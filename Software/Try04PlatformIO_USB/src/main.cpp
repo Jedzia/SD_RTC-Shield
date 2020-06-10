@@ -15,194 +15,34 @@
 /*---------------------------------------------------------*/
 #include "mbed.h"
 //
+#include "USBMSD_SD.h"
 //#include "DS1307.h"
 //#include "FATFileSystem.h"
 //#include "SDBlockDevice.h"
 
-#include "USBSDFileSystem.h"
+//#include "USBSDFileSystem.h"
 
 
 /*RTC*/
 #define I2C1_SDA PB_9
 #define I2C1_SCL PB_8
 
- 
-USBSDFileSystem sd("sd", p11, p12, p13, p14); // the pinout on the mbed testbed board // mosi, miso, sclk, cs
- 
- 
-void mylog (int i)
-{
-    FILE *fp = fopen("/sd/mydir/sdtest.txt", "a");
-    if(fp == NULL) {
-        printf("Could not open file for write\n");
-    } else
-    {
-      fprintf(fp, "[%d]Hello fun SD Card World!\n", i);
-      printf("appending: '[%d]Hello fun SD Card World!'\n", i);
-      fclose(fp); 
-    }
-}
- 
 
-inline void wait_msec(unsigned int ms);
+// socket. The PINS are:
+//     MOSI (Master Out Slave In)
+//     MISO (Master In Slave Out)
+//     SCLK (Serial Clock)
+//     CS (Chip Select)
+//SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
+//SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
+//USBMSD_SD sd(PA_7, PA_6, PA_5, PB_6);
 
-/** Entry function
- *  The application starts here.
- *  @return This function never returns.
- */
+// LPC
+USBMSD_SD sd(p5, p6, p7, p8);
+
+
 int main() {
-    DigitalOut myLed(LED1);
-    Serial usart2(PA_2, PA_3);
-	
-	sd.usbMode (1); // allow fopen/fprintf when connected with USB-drive.
-    printf("Hello World!\n\n");   
-    
-    printf("now a USB drive should appear on your PC\n");
-    wait (60);
-       
-    printf("create directory and append to log file\n");
-    mkdir("/sd/mydir", 0777);
-    mylog (0);    
- 
-    printf("Entering loop of 1 min cycle time\n");
- 
-    int i = 1;
-    while(1) {
-        myled = 0;
-        wait(5);        
-        //sd.disconnect ();
-        mylog (i++);
-        //sd.connect ();
-        myled = 1;
-        wait(55);
-    }
-    return 0;
-	
-	
-//   int count = 42;
-//
-//   usart2.baud(115200);
-//   printf("Up and running.\n");
-//
-//   /*init RTC, get time and date for filename*/
-//   I2C i2c1(I2C1_SDA, I2C1_SCL);
-//   i2c1.frequency(100000);
-//
-//   RtcDs1307 rtc(i2c1);
-//
-//   if(!rtc.isRunning()) {
-//       usart2.printf("RTC 1 is NOT running!");
-//       // following line sets the RTC to the date & time this sketch was compiled
-//       // rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-//       // This line sets the RTC with an explicit date & time, for example to set
-//       // January 21, 2014 at 3am you would call:
-//       // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
-//   }
-//
-//   DateTime dt = rtc.now();                     // check clock value
-//   if(dt.year() > 2090 || dt.year() < 2014) {
-//       usart2.printf("Setting up time\n");
-//       DateTime compiled(__DATE__, __TIME__);      // to set RT clock initially
-//       compiled = DateTime(compiled.unixtime() + 10);
-//       rtc.adjust(compiled);
-//       //DateTime dt = rtc.now();                // check again
-//   }
-//
-//   //set_time(0);                        // set active clock
-//
-//   if(!rtc.isRunning()) {
-//       usart2.printf("RTC 2 is NOT running!");
-//       // following line sets the RTC to the date & time this sketch was compiled
-//       // rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-//       // This line sets the RTC with an explicit date & time, for example to set
-//       // January 21, 2014 at 3am you would call:
-//       // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
-//   }
-//
-//   // Instantiate the SDBlockDevice by specifying the SPI pins connected to the SDCard
-//   // socket. The PINS are:
-//   //     MOSI (Master Out Slave In)
-//   //     MISO (Master In Slave Out)
-//   //     SCLK (Serial Clock)
-//   //     CS (Chip Select)
-//   //SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI, MBED_CONF_SD_SPI_MISO, MBED_CONF_SD_SPI_CLK, MBED_CONF_SD_SPI_CS);
-//   SDBlockDevice sd(PA_7, PA_6, PA_5, PB_6);
-//   sd.debug(true);
-//   FATFileSystem fs("fs");
-//
-//   if(0 != sd.init()) {
-//       printf("SD Init failed \n");
-//       //return -1;
-//   }
-//   else {
-//       printf("sd size: %llu\n", sd.size());
-//       printf("sd read size: %llu\n", sd.get_read_size());
-//       printf("sd program size: %llu\n", sd.get_program_size());
-//       printf("sd erase size: %llu\n", sd.get_erase_size());
-//   }
-//
-//   // Set the frequency
-//   if(0 != sd.frequency(5000000)) {
-//       printf("Error setting frequency \n");
-//   }
-//
-//   int err = fs.mount(&sd);
-//   if(err) {
-//           printf("%s\n", "Fail :(");
-//   }
-//   else {
-//       // Display the root directory
-//       printf("Opening the root directory... ");
-//       fflush(stdout);
-//       DIR* d = opendir("/fs/");
-//       printf("%s\n", (!d ? "Fail :(" : "OK"));
-//       if(!d) {
-//           error("error: %s (%d)\n", strerror(errno), -errno);
-//       }
-//
-//       printf("root directory:\n");
-//
-//       while(true) {
-//           struct dirent* e = readdir(d);
-//           if(!e) {
-//               break;
-//           }
-//
-//           printf("    %s\n", e->d_name);
-//       }
-//       printf("Closing the root directory... ");
-//       fflush(stdout);
-//       err = closedir(d);
-//       printf("%s\n", (err < 0 ? "Fail :(" : "OK"));
-//       if(err < 0) {
-//           error("error: %s (%d)\n", strerror(errno), -errno);
-//       }
-//   }
-//
-//   // SD-Card Speed Test
-//
-//   // endless processing loop
-//   while(true) {
-//       myLed = 1;
-//       wait_msec(500);
-//       myLed = 0;
-//       wait_msec(500);
-//
-//       usart2.printf("Round %d\n", count);
-//       count++;
-//
-//       dt = rtc.now();
-//       usart2.printf("%u.%u.%02u_%02u.%02u.%02u", dt.month(), dt.day(), dt.year(), dt.hour(), dt.minute(),
-//               dt.second());
-//   }
-} // main
-
-/** Wait for milli-seconds
- *  The MCU waits for the specified amount of milliseconds.
- *  @param ms time in thousandth second to wait.
- */
-inline void wait_msec(const unsigned int ms) {
-    wait_us(ms * 1000);
+    while(1);
 }
 
 // main
