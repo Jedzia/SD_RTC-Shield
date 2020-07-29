@@ -2,22 +2,22 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Try04PlatformIO_USB" targetName="DEBUG" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_PROGRAM" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD" />
-      <config projectName="Try04PlatformIO_USB" targetName="Try04PlatformIO_USB" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOADFS" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_DEVICE_LIST" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_MONITOR" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_CLEAN" />
-      <config projectName="Try04PlatformIO_USB" targetName="Z_DUMMY_TARGET" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOAD" />
       <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPDATE_ALL" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD_VERBOSE" />
-      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_CLEAN" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_DEVICE_LIST" />
       <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_TEST" />
+      <config projectName="Try04PlatformIO_USB" targetName="Z_DUMMY_TARGET" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_MONITOR" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO" />
       <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD_DEBUG" />
+      <config projectName="Try04PlatformIO_USB" targetName="Try04PlatformIO_USB" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOADFS" />
+      <config projectName="Try04PlatformIO_USB" targetName="DEBUG" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_UPLOAD" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_REBUILD_PROJECT_INDEX" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_BUILD_VERBOSE" />
+      <config projectName="Try04PlatformIO_USB" targetName="PLATFORMIO_PROGRAM" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -26,9 +26,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="works for nucleo_f103rb">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ec922180-b3d3-40f1-af0b-2568113a9075" name="Default" comment="works for nucleo_f103rb" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -184,8 +182,8 @@
       <item itemvalue="CMake Application.PLATFORMIO_REBUILD_PROJECT_INDEX" />
       <item itemvalue="CMake Application.PLATFORMIO_TEST" />
       <item itemvalue="CMake Application.PLATFORMIO_UPDATE" />
-      <item itemvalue="CMake Application.PLATFORMIO_UPLOAD" />
       <item itemvalue="CMake Application.PLATFORMIO_UPLOADFS" />
+      <item itemvalue="CMake Application.PLATFORMIO_UPLOAD" />
       <item itemvalue="CMake Application.Z_DUMMY_TARGET" />
       <item itemvalue="OpenOCD Download &amp; Run.OpenOCD PLATFORMIO_BUILD" />
     </list>
@@ -201,6 +199,7 @@
       <option name="presentableId" value="Default" />
       <updated>1435919971910</updated>
       <workItem from="1591791121492" duration="10630000" />
+      <workItem from="1591952498086" duration="18000" />
     </task>
     <task id="LOCAL-00001" summary="works for lpc1768">
       <created>1591800525101</created>
